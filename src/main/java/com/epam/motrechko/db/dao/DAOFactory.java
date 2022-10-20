@@ -7,7 +7,6 @@ public abstract class DAOFactory {
         if(instance == null){
             Class<?> clazz = null;
             try {
-                var test = DAOFactory.daoFactoryFCN;
                 clazz = Class.forName(DAOFactory.daoFactoryFCN);
                 instance = (DAOFactory) clazz.getDeclaredConstructor().newInstance();
                 instance.setPooledConnection();

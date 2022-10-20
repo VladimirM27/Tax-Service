@@ -19,7 +19,6 @@ public class MySQLConnectionPool implements ConnectionPool {
     }
 
     public static MySQLConnectionPool getInstance(){
-        System.out.println("FGhmghfb");
         if(instance == null) instance = new MySQLConnectionPool();
         return instance;
     }

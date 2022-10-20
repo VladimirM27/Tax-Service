@@ -2,14 +2,14 @@ package com.epam.motrechko.db.mysql;
 
 import com.epam.motrechko.db.dao.UserDAO;
 import com.epam.motrechko.db.entity.User;
+import org.apache.commons.codec.binary.Hex;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+
 
 public class MySQLUserDAO implements UserDAO {
     @Override
@@ -54,12 +54,28 @@ public class MySQLUserDAO implements UserDAO {
     }
 
     @Override
-    public User getByLogin(String login) {
-        return null;
+    public User getByLogin(String login) throws MySQLException {
+        try (Connection connection = MySQLConnectionPool.getInstance().getConnection(true);
+             PreparedStatement statement = connection.prepareStatement(MySQLQuery.SELECT_USER_BY_LOGIN)){
+            statement.setString(1,login);
+            ResultSet set = statement.executeQuery();
+            set.next();
+            return mapUser(set);
+        } catch (SQLException e){
+            throw new MySQLException("Cannot get user", e);
+        }
     }
 
     @Override
     public String hashPassword(String password) {
-        return null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            digest.update((password + "dd").getBytes());
+            byte[] hash = digest.digest();
+            String value = Hex.encodeHexString(hash);
+            return value;
+        } catch (NoSuchAlgorithmException e){
+                throw new RuntimeException(e);
+        }
     }
 }

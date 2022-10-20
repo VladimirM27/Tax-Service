@@ -1,6 +1,6 @@
 package com.epam.motrechko.db.entity;
 
-import java.util.Objects;
+import java.util.*;
 
 public class User {
     private int id;
@@ -8,6 +8,8 @@ public class User {
     private String password;
     private String email;
     private String role;
+
+
 
     public void setId(int id) {
         this.id = id;
@@ -48,6 +50,16 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+
+    public void example(String s){
+        switch (s){
+            case "one" -> String.format("");
+            case "two" -> String.format("");
+        }
+    }
+
+
 
     @Override
     public String toString() {

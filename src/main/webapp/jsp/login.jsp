@@ -6,79 +6,48 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../styles/my-login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <title>Signin </title>
+    <!-- Custom styles for this template -->
+    <link href="../styles/signin.css" rel="stylesheet">
 </head>
+<body class="text-center">
 
-<body class="my-login-page">
-<section class="h-100">
-    <div class="container h-100">
-        <div class="row justify-content-md-center h-100">
-            <div class="card-wrapper">
-                <div class="brand">
-                    <img src="img/logo.jpg" alt="logo">
-                </div>
-                <div class="card fat">
-                    <div class="card-body">
-                        <h4 class="card-title">Login</h4>
-                        <form action="/Tax-service/controller" method="POST" class="my-login-validation" novalidate="">
-                            <input id="POST-command" type="hidden" name="command" value="Login" >
-                            <div class="form-group">
-                                <label for="login">E-Mail Address</label>
-                                <input id="login" type="login" class="form-control" name="login" value="" required autofocus>
-                                <div class="invalid-feedback">
-                                    Login is invalid
-                                </div>
-                            </div>
+<main class="form-signin w-100 m-auto">
+    <form  action="/Tax-service/controller" method="post">
+        <input id="POST-command" type="hidden" name="command" value="Login" >
 
-                            <div class="form-group">
-                                <label for="password">Password
-                                    <a href="forgot.html" class="float-right">
-                                        Forgot Password?
-                                    </a>
-                                </label>
-                                <input id="password" type="password" class="form-control" name="password" required data-eye>
-                                <div class="invalid-feedback">
-                                    Password is required
-                                </div>
-                            </div>
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-                            <div class="form-group">
-                                <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" name="remember" id="remember" class="custom-control-input">
-                                    <label for="remember" class="custom-control-label">Remember Me</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group m-0">
-                                <button type="submit" class="btn btn-primary btn-block">
-                                    Login
-                                </button>
-                            </div>
-                            <div class="mt-4 text-center">
-                                Don't have an account? <a href="register.html">Create One</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="footer">
-                     Tax Service
-                </div>
-            </div>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+            <label for="floatingInput">Email address</label>
         </div>
-    </div>
-</section>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            <label for="floatingPassword">Password</label>
+        </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="js/my-login.js"></script>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+    </form>
+</main>
+
+
 </body>
 </html>
 

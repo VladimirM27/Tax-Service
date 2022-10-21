@@ -31,4 +31,6 @@ public abstract class FrontCommand {
         RequestDispatcher dispatcher = servletContext.getRequestDispatcher(target);
         dispatcher.forward(request,response);
     }
+
+
 }

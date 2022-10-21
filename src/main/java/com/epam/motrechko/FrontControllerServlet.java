@@ -33,14 +33,7 @@ public class FrontControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FrontCommand command = getCommand(req);
         command.init(getServletContext(),req,resp);
-
-
-        logger.debug("degug");
-        logger.info("info");
-        logger.warn("warn");
-        logger.error("error");
-        logger.fatal("fatal");
-        logger.trace("trace");
+        logger.info("New POST request" + command.getClass().getName());
         command.process();
     }
 

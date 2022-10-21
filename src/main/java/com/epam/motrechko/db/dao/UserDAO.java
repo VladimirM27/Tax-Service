@@ -6,10 +6,10 @@ import com.epam.motrechko.db.mysql.MySQLException;
 import java.util.List;
 
 public interface UserDAO {
-    boolean create()  throws MySQLException;
+    boolean create(User user)  throws MySQLException;
     void update()  throws MySQLException;
     void delete()  throws MySQLException;
     List<User> getAllUsers() throws MySQLException;
-    User getByLogin(String login)  throws MySQLException;
+    User getByEmail(String login)  throws MySQLException;
     String hashPassword(String password);
 }

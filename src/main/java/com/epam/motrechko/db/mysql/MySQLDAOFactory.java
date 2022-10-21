@@ -3,6 +3,9 @@ package com.epam.motrechko.db.mysql;
 import com.epam.motrechko.db.dao.DAOFactory;
 import com.epam.motrechko.db.dao.UserDAO;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class MySQLDAOFactory extends DAOFactory {
 
     private UserDAO userDAO;
@@ -17,6 +20,18 @@ public class MySQLDAOFactory extends DAOFactory {
         return userDAO;
     }
 
+
+
+    public void rollback(Connection connection) {
+        if(connection != null) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
     @Override
     public void close(AutoCloseable resource) {
         try {

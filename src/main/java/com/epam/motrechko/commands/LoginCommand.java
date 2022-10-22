@@ -1,11 +1,12 @@
 package com.epam.motrechko.commands;
 
-import com.epam.motrechko.FrontControllerServlet;
+
 import com.epam.motrechko.db.dao.DAOFactory;
 import com.epam.motrechko.db.dao.UserDAO;
 import com.epam.motrechko.db.entity.User;
 import com.epam.motrechko.db.mysql.MySQLException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +24,14 @@ public class LoginCommand extends FrontCommand{
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
             User user = userDAO.getByEmail(login);
             if(user!= null && user.getPassword().equals(userDAO.hashPassword(password))){
-                // todo session set atribute
+                request.getSession().setAttribute("currentUser",user);
                 logger.info("Logged new user");
+                HttpSession HttpSession = request.getSession();
+                response.sendRedirect(request.getContextPath() + "/jsp/profile.jsp"  );
+                //forward("profile");
             }
         } catch (MySQLException e) {
-            logger.error("user login error:" + e);
+            logger.error("user login error:" , e);
         }
     }
 }

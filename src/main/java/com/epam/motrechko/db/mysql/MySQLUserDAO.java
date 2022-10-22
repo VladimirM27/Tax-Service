@@ -89,11 +89,13 @@ public class MySQLUserDAO implements UserDAO {
 
     private User mapUser(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setEntity(rs.getString("login"));
+        user.setId(rs.getInt("idUsers"));
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
+        user.setEntity(rs.getString("entity"));
         user.setRole(rs.getString("role"));
-        user.setId(rs.getInt("idUsers"));
+        user.setFirstName(rs.getString("firstName"));
+        user.setLastName(rs.getString("lastName"));
         return user;
     }
 

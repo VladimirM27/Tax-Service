@@ -47,6 +47,11 @@ public class MySQLUserDAO implements UserDAO {
             statement.setString(++i,user.getRole());
             statement.setString(++i,user.getFirstName());
             statement.setString(++i,user.getLastName());
+            statement.setString(++i,user.getCompany());
+            statement.setInt(++i,user.getTIN());
+            statement.setString(++i,user.getCity());
+            statement.setString(++i,user.getStreet());
+            statement.setString(++i,user.getNumberOfBuilding());
             int c = statement.executeUpdate();
             if(c> 0){
                 try(ResultSet set = statement.getGeneratedKeys()){
@@ -96,6 +101,10 @@ public class MySQLUserDAO implements UserDAO {
         user.setRole(rs.getString("role"));
         user.setFirstName(rs.getString("firstName"));
         user.setLastName(rs.getString("lastName"));
+        user.setCompany(rs.getString("company"));
+        user.setTIN(rs.getInt("TIN"));
+        user.setCity(rs.getString("City"));
+        user.setStreet(rs.getString("NumberOfBuilding"));
         return user;
     }
 

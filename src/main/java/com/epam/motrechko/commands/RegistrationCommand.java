@@ -22,6 +22,9 @@ public class RegistrationCommand extends FrontCommand{
         try {
             User user = getNewUserFromRequest(request);
             userDAO.create(user);
+            logger.info("A new user is registered");
+            request.getSession().setAttribute("currentUser",user);
+            response.sendRedirect(request.getContextPath() + "/jsp/profile.jsp"  );
         }catch (MySQLException e) {
             logger.warn("Cannot register new user: " , e);
             throw new ServletException(e);
@@ -36,6 +39,11 @@ public class RegistrationCommand extends FrontCommand{
         String role = "user";
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
+        String company = request.getParameter("company");
+        int TIN = Integer.parseInt(request.getParameter("TIN"));
+        String city = request.getParameter("city");
+        String street = request.getParameter("street");
+        String numberOfBuilding = request.getParameter("numberOfBuilding");
         User user = new User();
         user.setEmail(email);
         user.setPassword(hashPassword);
@@ -43,6 +51,11 @@ public class RegistrationCommand extends FrontCommand{
         user.setRole(role);
         user.setFirstName(firstName);
         user.setLastName(lastName);
+        user.setCompany(company);
+        user.setTIN(TIN);
+        user.setCity(city);
+        user.setStreet(street);
+        user.setNumberOfBuilding(numberOfBuilding);
         return user;
     }
 }

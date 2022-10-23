@@ -33,7 +33,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
+                <a href="profile.jsp" class="nav-link active" aria-current="page">
                     <svg class="bi pe-none me-2" width="24" height="24"><use xlink:href="#home"/></svg>
                     Profile
                 </a>
@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="newReport.jsp" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="24" height="24"><use xlink:href="#plus"/></svg>
                     New report
                 </a>

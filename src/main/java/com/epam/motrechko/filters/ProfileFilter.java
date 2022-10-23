@@ -10,9 +10,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebFilter( urlPatterns = {"/jsp/login.jsp", "/jsp/registration.jsp"})
-public class AuthenticationFilter implements Filter {
-    private static final Logger logger = LogManager.getLogger(AuthenticationFilter.class);
+
+@WebFilter( urlPatterns = {"/jsp/profile.jsp","/jsp/newReport.jsp","/jsp/reports.jsp",})
+public class ProfileFilter implements Filter {
+    private static final Logger logger = LogManager.getLogger(ProfileFilter.class);
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -21,9 +22,11 @@ public class AuthenticationFilter implements Filter {
         boolean loggedIn = session != null && session.getAttribute("currentUser") != null;
 
         if(loggedIn){
-            response.sendRedirect(request.getContextPath() + "/jsp/profile.jsp");
+            filterChain.doFilter(request,response);
         } else {
-           filterChain.doFilter(request,response);
+            logger.debug("User must auth before using profile page");
+            response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
         }
+
     }
 }

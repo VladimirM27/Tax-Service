@@ -4,11 +4,57 @@ import java.util.*;
 
 public class User {
     private int id;
-    private String entity;
-    private String password;
     private String email;
+    private String password;
+    private String entity;
     private String role;
     private String firstName;
+    private String lastName;
+    private String company;
+    private int TIN;
+    private String city;
+    private String street;
+    private String numberOfBuilding;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEntity() {
+        return entity;
+    }
+
+    public void setEntity(String entity) {
+        this.entity = entity;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -26,61 +72,44 @@ public class User {
         this.lastName = lastName;
     }
 
-    private String lastName;
-
-
-    public void setId(int id) {
-        this.id = id;
+    public String getCompany() {
+        return company;
     }
 
-    public int getId() {
-        return id;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
-    public String getEntity() {
-        return entity;
+    public int getTIN() {
+        return TIN;
     }
 
-    public void setEntity(String entity) {
-        this.entity = entity;
+    public void setTIN(int TIN) {
+        this.TIN = TIN;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCity() {
+        return city;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getEmail() {
-        return email;
+    public String getStreet() {
+        return street;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public String getRole() {
-        return role;
+    public String getNumberOfBuilding() {
+        return numberOfBuilding;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + entity + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+    public void setNumberOfBuilding(String numberOfBuilding) {
+        this.numberOfBuilding = numberOfBuilding;
     }
 
     @Override
@@ -88,11 +117,29 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(entity, user.entity) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(role, user.role);
+        return id == user.id && TIN == user.TIN && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(entity, user.entity) && Objects.equals(role, user.role) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(company, user.company) && Objects.equals(city, user.city) && Objects.equals(street, user.street) && Objects.equals(numberOfBuilding, user.numberOfBuilding);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, entity, password, email, role);
+        return Objects.hash(id, email, password, entity, role, firstName, lastName, company, TIN, city, street, numberOfBuilding);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", entity='" + entity + '\'' +
+                ", role='" + role + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", company='" + company + '\'' +
+                ", TIN=" + TIN +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", numberOfBuilding='" + numberOfBuilding + '\'' +
+                '}';
     }
 }

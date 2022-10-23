@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -47,48 +47,81 @@
 
               </div>
 
-              <div class="row">
-                <div class="form-outline  mb-4">
-                  <input type="email" id="emailAddress" class="form-control form-control-lg" name="emailAddress"/>
-                  <label class="form-label" for="emailAddress">Email</label>
-                </div>
-              </div>
+
 
               <div class="row">
-                <div class="form-outline mb-4">
-                  <input type="password" id="firstPassword" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cg">Password</label>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input type="text" id="city" class="form-control form-control-lg" name="city" />
+                    <label class="form-label" for="firstName">City</label>
+                  </div>
                 </div>
 
-                <div class="form-outline mb-4">
-                  <input type="password" id="secondPasswod" class="form-control form-control-lg" name="secondPassword"/>
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                  <div class="invalid-feedback">
-                    Passwords do not match
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input type="text" id="street" class="form-control form-control-lg" name="street"/>
+                    <label class="form-label" for="street">Street</label>
                   </div>
                 </div>
               </div>
 
-
-
               <div class="row">
-                <div class="form-outline mb-4">
-                  <select class="form-select" name="entity">
-                    <option value="1" disabled>Choose entity</option>
-                    <option value="individual">individual</option>
-                    <option value="legal">legal</option>
-                  </select>
-                  <label class="form-label select-label">Choose entity</label>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input type="text" id="numberOfBuilding" class="form-control form-control-lg" name="numberOfBuilding" />
+                    <label class="form-label" for="firstName">Number Of Building</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input type="text" id="TIN" class="form-control form-control-lg" name="TIN"/>
+                    <label class="form-label" for="lastName">TIN</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-outline  mb-4">
+                    <input type="email" id="emailAddress" class="form-control form-control-lg" name="emailAddress"/>
+                    <label class="form-label" for="emailAddress">Email</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <input type="password" id="firstPassword" class="form-control form-control-lg" />
+                    <label class="form-label" for="firstPassword">Password</label>
+                  </div>
+
+                  <div class="col-md-6 mb-4">
+                    <input type="password" id="secondPassword" class="form-control form-control-lg" name="secondPassword"/>
+                    <label class="form-label" for="secondPassword">Repeat your password</label>
+                    <div class="invalid-feedback">
+                      Passwords do not match
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="form-outline mb-4">
+                    <select class="form-select" name="entity">
+                      <option value="1" disabled>Choose entity</option>
+                      <option value="individual">individual</option>
+                      <option value="legal">legal</option>
+                    </select>
+                    <label class="form-label select-label">Choose entity</label>
+                  </div>
+                </div>
+
+
+
+
+                <div class="mt-4 pt-2">
+                  <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
                 </div>
               </div>
-
-
-
-
-              <div class="mt-4 pt-2">
-                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
-              </div>
-
             </form>
           </div>
         </div>
@@ -99,3 +132,4 @@
 
 </body>
 </html>
+

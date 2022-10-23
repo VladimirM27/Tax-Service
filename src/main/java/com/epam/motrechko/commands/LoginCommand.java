@@ -26,9 +26,7 @@ public class LoginCommand extends FrontCommand{
             if(user!= null && user.getPassword().equals(userDAO.hashPassword(password))){
                 request.getSession().setAttribute("currentUser",user);
                 logger.info("Logged new user");
-                HttpSession HttpSession = request.getSession();
                 response.sendRedirect(request.getContextPath() + "/jsp/profile.jsp"  );
-                //forward("profile");
             }
         } catch (MySQLException e) {
             logger.error("user login error:" , e);

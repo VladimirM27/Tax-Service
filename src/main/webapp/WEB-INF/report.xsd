@@ -1,0 +1,40 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="report">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:positiveInteger" name="idUser"/>
+        <xs:element type="xs:positiveInteger" name="idType"/>
+        <xs:element type="xs:date" name="date"/>
+        <xs:element name="incomeSum">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+       			 <xs:minExclusive value="0"/>
+   			 </xs:restriction>
+			 </xs:simpleType>
+		</xs:element>
+        <xs:element  name="taxSum">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+       			 <xs:minExclusive value="0"/>
+   			 </xs:restriction>
+			 </xs:simpleType>
+		</xs:element>
+        <xs:element name="finy">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+       			 <xs:minExclusive value="0"/>
+   			 </xs:restriction>
+			 </xs:simpleType>
+		</xs:element>
+        <xs:element  name="penny">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+       			 <xs:minExclusive value="0"/>
+   			 </xs:restriction>
+			 </xs:simpleType>
+		</xs:element>
+        <xs:element type="xs:string" name="commentUser"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

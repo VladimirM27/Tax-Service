@@ -3,6 +3,7 @@ package com.epam.motrechko;
 import com.epam.motrechko.commands.FrontCommand;
 import com.epam.motrechko.commands.UnknownCommand;
 import jakarta.servlet.*;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 @WebServlet("/controller")
+@MultipartConfig
 public class FrontControllerServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(FrontControllerServlet.class);
@@ -21,10 +23,7 @@ public class FrontControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FrontCommand command = getCommand(req);
         command.init(getServletContext(),req,resp);
-//        if (logger.isTraceEnabled()) {
-//            logger.trace("GET request");
-//        }
-
+        logger.info(()-> "New GET request" + command.getClass().getName());
 
         command.process();
     }
@@ -33,7 +32,7 @@ public class FrontControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FrontCommand command = getCommand(req);
         command.init(getServletContext(),req,resp);
-        logger.info("New POST request" + command.getClass().getName());
+        logger.info(()-> "New POST request" + command.getClass().getName());
         command.process();
     }
 

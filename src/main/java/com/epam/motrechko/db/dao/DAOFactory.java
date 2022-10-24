@@ -33,6 +33,8 @@ public abstract class DAOFactory {
             throw new IllegalArgumentException("Cannot get ConnectionPool");
         }
     }
+
+    public abstract ReportDAO getReportDAO();
     public abstract UserDAO getUserDAO();
     public abstract void close(AutoCloseable resource);
 }

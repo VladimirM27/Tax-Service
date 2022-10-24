@@ -68,16 +68,21 @@
       <p class="card-text">The fastest and most convenient option for filing the tax. Quick and easy form, with all the fields so you don't miss anything.</p>
       <a href="#" class="btn btn-primary">Fill form</a>
     </div>
-    <div class="card-body mycard">
-      <h5 class="card-title">XML or JSON Format</h5>
-      <p class="card-text">Do you have a report in XML/JSON format? Great! Upload it to the form below and the system will automatically verify it and send the report for verification</p>
-      <p class="card-text">Large file input example</p>
-      <div >
-        <input class="form-control form-control-lg" id="formFileLg" type="file"  accept=".xml, .json">
-        <a href="#" class="btn btn-primary mt-4">Upload File</a>
-      </div>
+    <form  method="post" action="/Tax-service/controller" enctype="multipart/form-data">
 
-    </div>
+      <div class="card-body mycard">
+        <h5 class="card-title">XML or JSON Format</h5>
+        <p class="card-text">Do you have a report in XML/JSON format? Great! Upload it to the form below and the system will automatically verify it and send the report for verification</p>
+        <p class="card-text">Large file input example</p>
+        <div >
+          <input id="POST-command" type="hidden" name="command" value="File" >
+          <input class="form-control form-control-lg" id="formFileLg" type="file" name="file" accept=".xml, .json">
+
+          <button type="submit" class="btn btn-primary mt-4">Upload File</button>
+        </div>
+
+      </div>
+    </form>
 
 
   </div>

@@ -1,11 +1,15 @@
 package com.epam.motrechko.db.mysql;
 
 public final class MySQLQuery {
+    private MySQLQuery(){}
     public static final String SELECT_ALL_USERS = "SELECT * FROM users";
     public static final String SELECT_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
 
-    public static final String INSERT_INTO_USER = "INSERT INTO users(`email`,`password`,`entity`,`role`,`firstName`,`lastName`,`company`,`TIN`,`City`,`Street`,`NumberOfBuilding`)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String INSERT_INTO_USER = "INSERT INTO users(`email`,`password`,`entity`,`role`,`firstName`,`lastName`," +
+            "`company`,`TIN`,`City`,`Street`,`NumberOfBuilding`)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
+    public static final String INSERT_INTO_REPORTS = "INSERT INTO `tax`.`report`(`idUser`,`idType`,`status`,`date`,`profitSum`,`taxSum`,`fine`,`penny`,`commentUser`)" +
+            "VALUES(?,?,?,?,?,?,?,?,?)";
 
 }
 

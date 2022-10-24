@@ -14,8 +14,8 @@ import java.sql.SQLException;
 
 public class RegistrationCommand extends FrontCommand{
 
-    private final static Logger logger = LogManager.getLogger(RegistrationCommand.class);
-    private  UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+    private static final Logger logger = LogManager.getLogger(RegistrationCommand.class);
+    private final UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
     @Override
     public void process() throws ServletException, IOException {
 

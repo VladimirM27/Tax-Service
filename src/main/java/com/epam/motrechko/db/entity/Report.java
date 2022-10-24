@@ -1,5 +1,7 @@
 package com.epam.motrechko.db.entity;
 
+import com.epam.motrechko.enums.Status;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,8 +10,17 @@ public class Report {
     private int idUser;
     private int idInspector;
     private int idType;
-    private String status;
+    private Status status;
     private Date date;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     private double incomeSum;
     private double taxSum;
     private double fine;
@@ -49,13 +60,7 @@ public class Report {
         this.idType = idType;
     }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public Date getDate() {
         return date;
@@ -143,4 +148,7 @@ public class Report {
                 ", commentInspector='" + commentInspector + '\'' +
                 '}';
     }
+
+
+
 }

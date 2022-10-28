@@ -24,8 +24,12 @@ public class FrontControllerServlet extends HttpServlet {
         FrontCommand command = getCommand(req);
         command.init(getServletContext(),req,resp);
         logger.info(()-> "New GET request" + command.getClass().getName());
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(getJSPPath(command.process()));
+        dispatcher.forward(req, resp);
+    }
 
-        command.process();
+    private String getJSPPath(String target)  {
+        return String.format("/jsp/%s.jsp",target);
     }
 
     @Override
@@ -33,7 +37,8 @@ public class FrontControllerServlet extends HttpServlet {
         FrontCommand command = getCommand(req);
         command.init(getServletContext(),req,resp);
         logger.info(()-> "New POST request" + command.getClass().getName());
-        command.process();
+
+        resp.sendRedirect(req.getContextPath() + getJSPPath(command.process()));
     }
 
     private FrontCommand getCommand(HttpServletRequest request){

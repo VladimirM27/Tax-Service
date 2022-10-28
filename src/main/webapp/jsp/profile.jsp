@@ -39,7 +39,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="${pageContext.request.contextPath}/controller?command=Reports" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="24" height="24"><use xlink:href="#table"/></svg>
                     Reports
                 </a>
@@ -58,7 +58,7 @@
                 <strong><c:out value="${sessionScope.currentUser.firstName} ${sessionScope.currentUser.lastName} "/></strong>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/controller?command=Logout">Sign out</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=Logout">Sign out</a></li>
             </ul>
         </div>
     </div>

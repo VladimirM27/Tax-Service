@@ -13,6 +13,13 @@ public class Report {
     private Status status;
     private Date date;
 
+    private double incomeSum;
+
+    private double taxSum;
+    private double fine;
+    private double penny;
+    private java.lang.String commentUser;
+    private java.lang.String commentInspector;
     public Status getStatus() {
         return status;
     }
@@ -20,13 +27,6 @@ public class Report {
     public void setStatus(Status status) {
         this.status = status;
     }
-
-    private double incomeSum;
-    private double taxSum;
-    private double fine;
-    private double penny;
-    private String commentUser;
-    private String commentInspector;
 
     public int getIdReport() {
         return idReport;
@@ -102,19 +102,19 @@ public class Report {
         this.penny = penny;
     }
 
-    public String getCommentUser() {
+    public java.lang.String getCommentUser() {
         return commentUser;
     }
 
-    public void setCommentUser(String commentUser) {
+    public void setCommentUser(java.lang.String commentUser) {
         this.commentUser = commentUser;
     }
 
-    public String getCommentInspector() {
+    public java.lang.String getCommentInspector() {
         return commentInspector;
     }
 
-    public void setCommentInspector(String commentInspector) {
+    public void setCommentInspector(java.lang.String commentInspector) {
         this.commentInspector = commentInspector;
     }
 
@@ -132,7 +132,7 @@ public class Report {
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "Report{" +
                 "idReport=" + idReport +
                 ", idUser=" + idUser +

@@ -1,6 +1,5 @@
 package com.epam.motrechko.db.mysql;
 
-import com.epam.motrechko.commands.RegistrationCommand;
 import com.epam.motrechko.db.dao.UserDAO;
 import com.epam.motrechko.db.entity.User;
 import org.apache.commons.codec.binary.Hex;
@@ -17,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 
 public class MySQLUserDAO implements UserDAO {
-    private final static Logger logger = LogManager.getLogger(MySQLUserDAO.class);
+    private static final Logger logger = LogManager.getLogger(MySQLUserDAO.class);
     @Override
     public boolean create(User user) throws MySQLException {
         Connection connection = null;
@@ -28,7 +27,7 @@ public class MySQLUserDAO implements UserDAO {
             return true;
         } catch (SQLException | MySQLException e){
             MySQLManager.rollback(connection);
-            logger.warn("Cannot add new user"  + e);
+            logger.warn("Cannot add new user"  , e);
             throw new MySQLException("Cannot add new User",e);
         }
         finally {
@@ -48,7 +47,7 @@ public class MySQLUserDAO implements UserDAO {
             statement.setString(++i,user.getFirstName());
             statement.setString(++i,user.getLastName());
             statement.setString(++i,user.getCompany());
-            statement.setInt(++i,user.getTIN());
+            statement.setLong(++i,user.getTIN());
             statement.setString(++i,user.getCity());
             statement.setString(++i,user.getStreet());
             statement.setString(++i,user.getNumberOfBuilding());
@@ -64,16 +63,6 @@ public class MySQLUserDAO implements UserDAO {
         } catch (SQLException e){
             throw new MySQLException("Cannot insert new user" , e);
         }
-    }
-
-    @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void delete() {
-
     }
 
     @Override
@@ -102,7 +91,7 @@ public class MySQLUserDAO implements UserDAO {
         user.setFirstName(rs.getString("firstName"));
         user.setLastName(rs.getString("lastName"));
         user.setCompany(rs.getString("company"));
-        user.setTIN(rs.getInt("TIN"));
+        user.setTIN(rs.getLong("TIN"));
         user.setCity(rs.getString("City"));
         user.setStreet(rs.getString("NumberOfBuilding"));
         return user;
@@ -132,5 +121,15 @@ public class MySQLUserDAO implements UserDAO {
         } catch (NoSuchAlgorithmException e){
                 throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

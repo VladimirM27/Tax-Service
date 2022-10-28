@@ -1,5 +1,6 @@
 package com.epam.motrechko.db.mysql;
 
+import com.epam.motrechko.db.dao.AdminDAO;
 import com.epam.motrechko.db.dao.DAOFactory;
 import com.epam.motrechko.db.dao.ReportDAO;
 import com.epam.motrechko.db.dao.UserDAO;
@@ -11,6 +12,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
     private UserDAO userDAO;
     private ReportDAO reportDAO;
+    private AdminDAO adminDAO;
     @Override
     public void setPooledConnection() {
         connectionPool = MySQLConnectionPool.getInstance();
@@ -20,6 +22,12 @@ public class MySQLDAOFactory extends DAOFactory {
     public ReportDAO getReportDAO() {
         if (reportDAO == null) reportDAO = new MySQLReportDAO();
         return reportDAO;
+    }
+
+    @Override
+    public AdminDAO getAdminDAO() {
+        if (adminDAO == null) adminDAO = new MySQLAdminDAO();
+        return adminDAO;
     }
 
     @Override

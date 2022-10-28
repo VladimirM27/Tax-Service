@@ -11,7 +11,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String company;
-    private int TIN;
+    private long TIN;
     private String city;
     private String street;
     private String numberOfBuilding;
@@ -80,11 +80,11 @@ public class User {
         this.company = company;
     }
 
-    public int getTIN() {
+    public long getTIN() {
         return TIN;
     }
 
-    public void setTIN(int TIN) {
+    public void setTIN(long TIN) {
         this.TIN = TIN;
     }
 

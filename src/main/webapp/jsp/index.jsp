@@ -24,7 +24,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <link href="../styles/index.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/styles/index.css" rel="stylesheet">
 </head>
 <body id="page-top">
 <!-- Navigation-->
@@ -34,8 +34,8 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/jsp/registration.jsp">Sign Up</a></li>
-                <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/jsp/login.jsp">Log In</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/jsp/registration.jsp">Sign Up</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/jsp/login.jsp">Log In</a></li>
             </ul>
         </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="container px-5">
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6 order-lg-2">
-                <div class="p-5"><img class="img-fluid rounded-circle" src="../assets/img/01.jpg" alt="..." /></div>
+                <div class="p-5"><img class="img-fluid rounded-circle" src="${pageContext.request.contextPath}/assets/img/01.jpg" alt="..." /></div>
             </div>
             <div class="col-lg-6 order-lg-1">
                 <div class="p-5">
@@ -75,7 +75,7 @@
     <div class="container px-5">
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
-                <div class="p-5"><img class="img-fluid rounded-circle" src="../assets/img/02.jpg" alt="..." /></div>
+                <div class="p-5"><img class="img-fluid rounded-circle" src="${pageContext.request.contextPath}/assets/img/02.jpg" alt="..." /></div>
             </div>
             <div class="col-lg-6">
                 <div class="p-5">
@@ -91,7 +91,7 @@
     <div class="container px-5">
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6 order-lg-2">
-                <div class="p-5"><img class="img-fluid rounded-circle" src="../assets/img/03.jpg" alt="..." /></div>
+                <div class="p-5"><img class="img-fluid rounded-circle" src="${pageContext.request.contextPath}/assets/img/03.jpg" alt="..." /></div>
             </div>
             <div class="col-lg-6 order-lg-1">
                 <div class="p-5">
@@ -107,7 +107,6 @@
     <div class="container px-5"><p class="m-0 text-center text-white small"> Tax Service 2022</p></div>
 </footer>
 
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+
 </body>
 </html>

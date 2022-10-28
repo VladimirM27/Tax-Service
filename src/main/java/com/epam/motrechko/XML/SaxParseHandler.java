@@ -10,20 +10,19 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 public class SaxParseHandler extends DefaultHandler {
 
 
-    private static final String ID_USER = "idUser";
-    private static final String ID_TYPE = "idType";
+    private static final java.lang.String ID_USER = "idUser";
+    private static final java.lang.String ID_TYPE = "idType";
 
-    private static final String DATE = "date";
-    private static final String INCOME_SUM = "incomeSum";
-    private static final String TAX_SUM = "taxSum";
-    private static final String FINE = "fine";
-    private static final String PENNY = "penny";
-    private static final String USER_COMMENT = "commentUser";
+    private static final java.lang.String DATE = "date";
+    private static final java.lang.String INCOME_SUM = "incomeSum";
+    private static final java.lang.String TAX_SUM = "taxSum";
+    private static final java.lang.String FINE = "fine";
+    private static final java.lang.String PENNY = "penny";
+    private static final java.lang.String USER_COMMENT = "commentUser";
 
 
     
@@ -44,14 +43,14 @@ public class SaxParseHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(java.lang.String uri, java.lang.String localName, java.lang.String qName, Attributes attributes) throws SAXException {
         super.startElement(uri, localName, qName, attributes);
         currentValue.setLength(0);
 
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(java.lang.String uri, java.lang.String localName, java.lang.String qName) throws SAXException {
         super.endElement(uri, localName, qName);
         switch (qName){
             case ID_USER:

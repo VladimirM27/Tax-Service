@@ -23,13 +23,9 @@ public abstract class FrontCommand {
         this.response = servletResponse;
     }
 
-    public abstract void process() throws ServletException, IOException;
+    public abstract String process() throws ServletException, IOException;
 
-    protected void forward(String target) throws ServletException, IOException {
-        target = String.format("/jsp/%s.jsp",target);
-        RequestDispatcher dispatcher = servletContext.getRequestDispatcher(target);
-        dispatcher.forward(request,response);
-    }
+
 
 
 }

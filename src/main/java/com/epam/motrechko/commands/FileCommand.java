@@ -1,5 +1,6 @@
 package com.epam.motrechko.commands;
 
+import com.epam.motrechko.FrontConstant;
 import com.epam.motrechko.JSON.JSONController;
 import com.epam.motrechko.XML.SAXController;
 import com.epam.motrechko.db.dao.DAOFactory;
@@ -7,6 +8,7 @@ import com.epam.motrechko.db.dao.ReportDAO;
 import com.epam.motrechko.db.dao.UserDAO;
 import com.epam.motrechko.db.entity.Report;
 import com.epam.motrechko.db.mysql.MySQLException;
+import com.google.gson.Gson;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -15,7 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 
 
 @MultipartConfig
@@ -26,33 +30,36 @@ public class FileCommand extends FrontCommand{
     private static final String JSON_FORMAT = "json";
 
     @Override
-    public void process() throws ServletException, IOException {
+    public String process() throws ServletException, IOException {
 
         if(validateFileFormat(request)){
             String uploadPath = saveFile(request,servletContext);
+            Report report = null;
             if(getFileType().equals(XML_FORMAT)){
                 if(SAXController.validateXMLSchema(servletContext,uploadPath)){
                     SAXController saxController = new SAXController(uploadPath);
-                    Report report = saxController.parse();
-                    ReportDAO reportDAO = DAOFactory.getInstance().getReportDAO();
-                    try {
-                        reportDAO.create(report);
-                    } catch (MySQLException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    response.sendRedirect(request.getContextPath() + "/jsp/reports.jsp");
+                    report = saxController.parse();
                 }else {
                     request.getSession().setAttribute("errorXML","true");
                 }
             } else {
                 if(JSONController.validateJSONSchema(servletContext,uploadPath)){
-                    response.sendRedirect(request.getContextPath() + "/jsp/reports.jsp");
+                    report = JSONController.parseJSON(uploadPath);
                 }else {
                     request.getSession().setAttribute("errorJSON","true");
                 }
             }
+
+            try {
+                ReportDAO reportDAO = DAOFactory.getInstance().getReportDAO();
+                reportDAO.create(report);
+              //  response.sendRedirect(request.getContextPath() + "/jsp/reports.jsp");
+                return FrontConstant.REPORTS_USER;
+            } catch (MySQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return FrontConstant.ERROR;
     }
 
 

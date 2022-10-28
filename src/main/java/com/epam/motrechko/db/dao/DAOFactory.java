@@ -35,6 +35,7 @@ public abstract class DAOFactory {
     }
 
     public abstract ReportDAO getReportDAO();
+    public abstract AdminDAO getAdminDAO();
     public abstract UserDAO getUserDAO();
     public abstract void close(AutoCloseable resource);
 }

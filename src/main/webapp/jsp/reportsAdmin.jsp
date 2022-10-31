@@ -82,7 +82,7 @@
                   <th><c:out value="${item.lastName}"/></th>
                   <c:choose>
                     <c:when test="${item.status == 'SUBMITTED' }">
-                      <td><a class="btn btn-primary"  href="${pageContext.request.contextPath}/controller?command=UnverifiedReports&idUser=${item.idUser}">Check the report</a></td>
+                      <td><a class="btn btn-primary"  href="${pageContext.request.contextPath}/controller?command=UnverifiedReports&idUser=${item.idReport}">Check the report</a></td>
                     </c:when>
                     <c:otherwise>
                       <td><button class="btn btn-primary" type="button">View details</button></td>

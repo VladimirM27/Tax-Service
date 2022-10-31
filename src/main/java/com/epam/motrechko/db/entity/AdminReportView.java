@@ -6,20 +6,14 @@ import java.util.Date;
 
 public class AdminReportView {
     private int idReport;
-    private int idUser;
+
     private String type;
     private Status status;
     private Date date;
     private String firstName;
     private String lastName;
 
-    public int getIdUser() {
-        return idUser;
-    }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
 
     public AdminReportView() {
     }

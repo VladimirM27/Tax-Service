@@ -71,7 +71,7 @@ public class MySQLAdminDAO implements AdminDAO {
         try {
             AdminReportView adminReportView = new AdminReportView();
             adminReportView.setIdReport(rs.getInt("idReport"));
-            adminReportView.setIdUser(rs.getInt("idUsers"));
+
             adminReportView.setType(rs.getString("type"));
             adminReportView.setStatus(Status.valueOf(rs.getString("status")));
             adminReportView.setDate(rs.getDate("date"));

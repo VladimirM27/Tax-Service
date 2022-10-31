@@ -56,54 +56,54 @@
                                 <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">&nbsp;User first name: ${UnverifiedReportsView.firstName}</h2>
                             </div>
                             <div class="col">
-                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">&nbsp;User Last Name: ${UnverifiedReportsView.lastName}</h2>
+                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">   User Last Name: ${UnverifiedReportsView.lastName}</h2>
                             </div>
                             <div class="col">
-                                <p class="font-monospace fs-1 text-center d-xxl-flex">&nbsp;User email: <c:out value="${UnverifiedReportsView.email}"/></p>
+                                <p class="font-monospace fs-1 text-center d-xxl-flex">&nbsp;User email: ${UnverifiedReportsView.email}</p>
                             </div>
                             <div class="col">
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;User TIN: <c:out value="${UnverifiedReportsView.TIN}"/>0</h2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <hr>
-                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">&nbsp;City: <c:out value="${UnverifiedReportsView.city}"/></h2>
-                            </div>
-                            <div class="col">
-                                <hr>
-                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">Street: <c:out value="${UnverifiedReportsView.city}"/></h2>
-                            </div>
-                            <div class="col">
-                                <hr>
-                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">Number of Building: <c:out value="${UnverifiedReportsView.numberOfBuilding}"/></h2>
+                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;User TIN: ${UnverifiedReportsView.TIN}</h2>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <hr>
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Date of report : <c:out value="${UnverifiedReportsView.date}"/></h2>
+                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">&nbsp;City: ${UnverifiedReportsView.city}</h2>
+                            </div>
+                            <div class="col">
+                                <hr>
+                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">Street: ${UnverifiedReportsView.street}</h2>
+                            </div>
+                            <div class="col">
+                                <hr>
+                                <h2 class="font-monospace text-capitalize fs-1 fw-normal text-center d-xxl-flex">Number of Building: ${UnverifiedReportsView.numberOfBuilding}</h2>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <hr>
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Profit Sum: <c:out value="${UnverifiedReportsView.profitSum}"/></h2>
+                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Date of report : ${UnverifiedReportsView.date}</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Profit Sum: ${UnverifiedReportsView.profitSum}</h2>
                                 <hr>
                             </div>
                             <div class="col">
                                 <hr>
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Tax sum: <c:out value="${UnverifiedReportsView.taxSum}"/></h2>
+                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Tax sum: ${UnverifiedReportsView.taxSum}</h2>
                                 <hr>
                             </div>
                             <div class="col">
                                 <hr>
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Fine: <c:out value="${UnverifiedReportsView.fine}"/></h2>
+                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Fine: ${UnverifiedReportsView.fine}</h2>
                                 <hr>
                             </div>
                             <div class="col">
                                 <hr>
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;penny: <c:out value="${UnverifiedReportsView.penny}"/></h2>
+                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;penny: ${UnverifiedReportsView.penny}</h2>
                                 <hr>
                             </div>
                         </div>
@@ -112,17 +112,32 @@
                                 <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Inspector comments:&nbsp;</h2>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col"><textarea class="form-control"></textarea></div>
+                            <div class="col"><textarea class="form-control" name="inspectorComment"></textarea></div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <hr>
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;User comment: <c:out value="${UnverifiedReportsView.userComment}"/><br></h2>
+                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;User comment: ${UnverifiedReportsView.userComment} <br></h2>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-xxl-6 offset-xxl-0"><button class="btn btn-primary" type="button">Accept Report</button></div>
-                                    <div class="col"><button class="btn btn-primary" type="button">Submit for editing</button></div>
+                                    <div class="col">
+                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input id="POST-command" type="hidden" name="command" value="AcceptReport" >
+                                    <input id="accepted" type="hidden" name="accepted" value="true" >
+                                    <input id="idReport" type="hidden" name="idUser" value="${param.idUser}" >
+                                    <div class="col-xxl-6 offset-xxl-0"><button class="btn btn-primary" type="submit" >Accept Report</button></div>
+                                    </form>
+                                    </div>
+                                    <div class="col">
+                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                        <input id="POST-command" type="hidden" name="command" value="AcceptReport" >
+                                        <input id="accepted" type="hidden" name="accepted" value="false" >
+                                        <input id="idReport" type="hidden" name="idUser" value="${param.idUser}" >
+                                        <div class="col"><button class="btn btn-primary" type="submit">Submit for editing</button></div>
+                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

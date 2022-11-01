@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -107,15 +108,9 @@
                                 <hr>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Inspector comments:&nbsp;</h2>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col"><textarea class="form-control" name="inspectorComment"></textarea></div>
-                        </div>
+
+
                         <div class="row">
                             <div class="col">
                                 <hr>
@@ -123,21 +118,30 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col">
-                                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                                    <input id="POST-command" type="hidden" name="command" value="AcceptReport" >
-                                    <input id="accepted" type="hidden" name="accepted" value="true" >
-                                    <input id="idReport" type="hidden" name="idUser" value="${param.idUser}" >
-                                    <div class="col-xxl-6 offset-xxl-0"><button class="btn btn-primary" type="submit" >Accept Report</button></div>
-                                    </form>
+                                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                                            <input id="POST-command" type="hidden" name="command" value="AcceptReport" >
+                                            <input id="idReport" type="hidden" name="idReport" value="${param.idReport}" >
+                                            <div class="col">
+                                                <h2 class="font-monospace fs-1 fw-normal text-center d-xxl-flex">&nbsp;Inspector comments:&nbsp;</h2>
+                                            </div>
+                                            <div class="col">
+                                                <textarea class="form-control" name="inspectorComment"></textarea>
+                                            </div>
+
+
                                     </div>
-                                    <div class="col">
-                                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                                        <input id="POST-command" type="hidden" name="command" value="AcceptReport" >
-                                        <input id="accepted" type="hidden" name="accepted" value="false" >
-                                        <input id="idReport" type="hidden" name="idUser" value="${param.idUser}" >
-                                        <div class="col"><button class="btn btn-primary" type="submit">Submit for editing</button></div>
-                                    </form>
+                                    <div class="row">
+                                        <div class="col mt-4" align="center">
+                                            <button value="true" name="accepted" class="btn btn-primary" type="submit" >Accept Report</button>
+                                        </div>
+
+                                        <div class="col mt-4">
+                                            <button value="false" name="accepted" class="btn btn-primary" type="submit">Submit for editing</button>
+                                        </div>
+
+                                        </form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -145,12 +149,13 @@
                 </div>
             </div>
         </div>
-        <footer class="bg-white sticky-footer">
-            <div class="container my-auto">
-                <div class="text-center my-auto copyright"></div>
-            </div>
-        </footer>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <footer class="bg-white sticky-footer">
+        <div class="container my-auto">
+            <div class="text-center my-auto copyright"></div>
+        </div>
+    </footer>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/bs-init.js"></script>

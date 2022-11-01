@@ -6,20 +6,20 @@ import com.epam.motrechko.db.dao.DAOFactory;
 import com.epam.motrechko.db.entity.UnverifiedReportsView;
 import com.epam.motrechko.db.entity.User;
 import com.epam.motrechko.db.mysql.MySQLException;
+import com.epam.motrechko.enums.Target;
 import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 
 public class UnverifiedReportsCommand extends FrontCommand{
     @Override
-    public String process() throws ServletException, IOException {
+    public CommandResponse process() throws ServletException, IOException {
         try {
             AdminDAO adminDAO = DAOFactory.getInstance().getAdminDAO();
-            User user = (User) request.getSession(false).getAttribute("currentUser");
-            int idUser = Integer.parseInt(request.getParameter("idUser"));
-            UnverifiedReportsView unverifiedReportsView = adminDAO.getUnverifiedReports(idUser);
+            int idReport = Integer.parseInt(request.getParameter("idReport"));
+            UnverifiedReportsView unverifiedReportsView = adminDAO.getUnverifiedReports(idReport);
             request.getSession(false).setAttribute("UnverifiedReportsView", unverifiedReportsView);
-            return FrontConstant.REPORT_VERIFICATION;
+            return new CommandResponse(Target.JSP,FrontConstant.REPORT_VERIFICATION);
         } catch (MySQLException e) {
             throw new RuntimeException(e);
         }

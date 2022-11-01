@@ -12,11 +12,11 @@ import java.util.List;
 
 public class MySQLAdminDAO implements AdminDAO {
     @Override
-    public List<AdminReportView> getAllUnverifiedReports() throws MySQLException {
+    public List<AdminReportView> getAllUnverifiedReports(int inspectorId) throws MySQLException {
         try(Connection connection = MySQLConnectionPool.getInstance().getConnection(true);
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery(MySQLQuery.SELECT_ALL_UNVERIFIED_REPORTS)){
-
+        PreparedStatement st = connection.prepareStatement(MySQLQuery.SELECT_ALL_UNVERIFIED_REPORTS);){
+            st.setInt(1,inspectorId);
+            ResultSet rs = st.executeQuery();
             List<AdminReportView> reportViews = new ArrayList<>();
             while (rs.next()){
                 AdminReportView reportView = mapReportView(rs);

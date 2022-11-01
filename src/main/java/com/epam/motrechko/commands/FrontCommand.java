@@ -1,6 +1,5 @@
 package com.epam.motrechko.commands;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +22,7 @@ public abstract class FrontCommand {
         this.response = servletResponse;
     }
 
-    public abstract String process() throws ServletException, IOException;
+    public abstract CommandResponse process() throws ServletException, IOException;
 
 
 

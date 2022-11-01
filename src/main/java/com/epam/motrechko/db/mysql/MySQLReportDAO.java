@@ -39,8 +39,8 @@ public class MySQLReportDAO implements ReportDAO {
             return true;
         } catch (SQLException | MySQLException e){
             MySQLManager.rollback(connection);
-            logger.warn("Cannot create new report"  , e);
-            throw new MySQLException("Cannot create new report",e);
+            logger.warn("Cannot create new report", e);
+            throw new MySQLException("Cannot create new report", e);
         }
         finally {
             MySQLManager.close(connection);
@@ -94,13 +94,12 @@ public class MySQLReportDAO implements ReportDAO {
     }
 
     @Override
-    public boolean update(Report report) throws MySQLException {
+    public void update(Report report) throws MySQLException {
         Connection connection = null;
         try {
             connection = MySQLConnectionPool.getInstance().getConnection(false);
             updateReportInfo(connection,report);
             connection.commit();
-            return true;
         } catch (SQLException e) {
             MySQLManager.rollback(connection);
             throw new MySQLException("cannot update report info",e);
@@ -109,8 +108,41 @@ public class MySQLReportDAO implements ReportDAO {
         }
     }
 
+    @Override
+    public void updateUser(Report report) throws MySQLException {
+        Connection connection = null;
+        try {
+            connection = MySQLConnectionPool.getInstance().getConnection(false);
+            updateReportInfoUser(connection,report);
+            connection.commit();
+        } catch (SQLException e) {
+            MySQLManager.rollback(connection);
+            throw new MySQLException("cannot update report info", e);
+        } finally {
+            MySQLManager.close(connection);
+        }
+    }
+
+    private void updateReportInfoUser(Connection connection, Report report)throws MySQLException {
+        try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_REPORT_USER)){
+            int i = 0;
+            statement.setInt(++i,report.getIdType());
+            statement.setString(++i, String.valueOf(report.getStatus()));
+            statement.setDate(++i,  new java.sql.Date(report.getDate().getTime()));
+            statement.setDouble(++i,report.getIncomeSum());
+            statement.setDouble(++i,report.getTaxSum());
+            statement.setDouble(++i,report.getFine());
+            statement.setDouble(++i,report.getPenny());
+            statement.setString(++i,report.getCommentUser());
+            statement.setInt(++i,report.getIdReport());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new MySQLException("cannot execute update statement",e);
+        }
+    }
+
     private void updateReportInfo(Connection connection, Report report) throws MySQLException {
-        try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_REPORT)){
+        try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_REPORT_INSPECTOR)){
             int i = 0;
             statement.setString(++i, String.valueOf(report.getStatus()));
             statement.setString(++i, report.getCommentInspector());

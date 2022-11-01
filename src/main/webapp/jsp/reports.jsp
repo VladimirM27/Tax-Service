@@ -8,126 +8,127 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-  <title>Profile</title>
-  <link href="styles/newReport.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-  <script src="scripts/script.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Table - Brand</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Articles-Cards-images.css">
 </head>
 
-
-
-<body>
-
-
-<main class="d-flex flex-nowrap">
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; position: fixed; height: 100%;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#Briefcase-fill"/></svg>
-      <span class="fs-4">Tax Service</span>
+<body id="page-top">
+<div id="wrapper">
+  <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+      <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-suitcase" style="font-size: 36px;"></i></div>
+      <div class="sidebar-brand-text mx-3"><span>Tax service</span></div>
     </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="${pageContext.request.contextPath}/jsp/profile.jsp" class="nav-link text-white" aria-current="page">
-          <svg class="bi pe-none me-2" width="24" height="24"><use xlink:href="#home"/></svg>
-          Profile
-        </a>
-      </li>
-      <li>
-        <a href="${pageContext.request.contextPath}/controller?command=Reports" class="nav-link active">
-          <svg class="bi pe-none me-2" width="24" height="24"><use xlink:href="#table"/></svg>
-          Reports
-        </a>
-      </li>
-      <li>
-        <a href="${pageContext.request.contextPath}/jsp/newReport.jsp" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="24" height="24"><use xlink:href="#plus"/></svg>
-          New report
-        </a>
-      </li>
-    </ul>
-    <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong><c:out value="${sessionScope.currentUser.firstName} ${sessionScope.currentUser.lastName} "/></strong>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=Logout">Sign out</a></li>
+      <header></header>
+      <ul class="navbar-nav text-light" id="accordionSidebar">
+        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/jsp/profile.jsp"><i class="fas fa-user" style="font-size: 30px;"></i><span style="margin-left: 20px;">Profile</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/controller?command=Reports"><i class="fas fa-table" style="font-size: 30px;"></i><span style="margin-left: 20px;"><strong>Reports</strong></span></a></li>
+        <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/jsp/newReport.jsp"><i class="far fa-plus-square" style="font-size: 30px;"></i><span style="margin-left: 20px;"><strong>New Report</strong></span></a></li>
+        <li class="nav-item"><a class="nav-link"href="${pageContext.request.contextPath}/controller?command=Logout"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" fill="none" style="font-size: 30px;">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M3 3C2.44772 3 2 3.44772 2 4V16C2 16.5523 2.44772 17 3 17C3.55228 17 4 16.5523 4 16V4C4 3.44772 3.55228 3 3 3ZM13.2929 12.2929C12.9024 12.6834 12.9024 13.3166 13.2929 13.7071C13.6834 14.0976 14.3166 14.0976 14.7071 13.7071L17.7071 10.7071C17.8946 10.5196 18 10.2652 18 10C18 9.73478 17.8946 9.48043 17.7071 9.29289L14.7071 6.29289C14.3166 5.90237 13.6834 5.90237 13.2929 6.29289C12.9024 6.68342 12.9024 7.31658 13.2929 7.70711L14.5858 9L7 9C6.44771 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H14.5858L13.2929 12.2929Z" fill="currentColor"></path>
+        </svg><span style="margin-left: 20px;"><strong>Logout</strong></span></a></li>
       </ul>
+      <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
     </div>
-  </div>
-  <div class="container text-center">
-    <table id="example" class="table table-striped" style="width:100%">
-      <thead>
-      <tr>
-        <th>numberOfReport</th>
-        <th>Inspector Name</th>
-        <th>Type of Report</th>
-        <th>Status</th>
-        <th>Date</th>
-        <th>Details</th>
-      </tr>
-      </thead>
-      <tbody>
-      <c:forEach items="${reportViewList}" var="item">
-        <tr>
-          <th><c:out value="${item.idReport}"/></th>
-          <th><c:out value="${item.inspectorName == null ? '-' : item.inspectorName}"/></th>
-          <th><c:out value="${item.inspectorLastname == null ? '-' : item.inspectorLastname}"/></th>
-          <th><c:out value="${item.type}"/></th>
-          <th><c:out value="${item.status}"/></th>
-          <th><c:out value="${item.date}"/></th>
-        </tr>
-      </c:forEach>
+  </nav>
+  <div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+      <div class="container-fluid">
+        <h3 class="text-dark mb-4">Reports</h3>
+        <div class="card shadow">
+          <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Report Info</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 text-nowrap">
+                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"></div>
+              </div>
+              <div class="col-md-6">
+                <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+              </div>
+            </div>
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+              <table class="table my-0" id="dataTable">
+                <thead>
+                <tr>
+                  <th>numberOfReport</th>
+                  <th>Inspector Name</th>
+                  <th>Type of Report</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${reportViewList}" var="item">
+                  <tr>
+                    <th><c:out value="${item.idReport}"/></th>
+                    <th><c:out value="${item.inspectorName == null ? '-' : item.inspectorName}"/></th>
+                    <th><c:out value="${item.inspectorLastname == null ? '-' : item.inspectorLastname}"/></th>
+                    <th><c:out value="${item.status}"/></th>
+                    <th><c:out value="${item.date}"/></th>
+                    <th><c:out value="${item.type}"/></th>
+                    <c:choose>
+                      <c:when test="${item.status == 'NOT_ACCEPTED'}">
+                        <td><a class="btn btn-primary"  href="${pageContext.request.contextPath}/controller?command=FillReport&idReport=${item.idReport}">Edit report</a></td>
+                      </c:when>
 
-      </tbody>
-      <tfoot>
-      <tr>
-        <th>numberOfReport</th>
-        <th>Inspector Name</th>
-        <th>Type of Report</th>
-        <th>Status</th>
-        <th>Date</th>
-        <th>Details</th>
-      </tr>
-      </tfoot>
-    </table>
+                    </c:choose>
 
-  </div>
-</main>
+                  </tr>
+                </c:forEach>
 
-
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>numberOfReport</th>
+                  <th>Inspector Name</th>
+                  <th>Type of Report</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Details</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                  <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="bg-white sticky-footer">
+      <div class="container my-auto">
+        <div class="text-center my-auto copyright"></div>
+      </div>
+    </footer>
+  </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bs-init.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/theme.js"></script>
 </body>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-
-  <symbol id="home" viewBox="0 0 16 16">
-    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
-  </symbol>
-
-  <symbol id="table" viewBox="0 0 16 16">
-    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
-  </symbol>
-  <symbol id="Briefcase-fill" viewBox="0 0 16 16">
-
-    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
-    <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
-  </symbol>
-  <symbol id="plus" viewBox="0 0 16 16">
-
-    <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
-    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
-  </symbol>
-</svg>
 </html>

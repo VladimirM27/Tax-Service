@@ -5,6 +5,7 @@ import com.epam.motrechko.db.dao.DAOFactory;
 import com.epam.motrechko.db.dao.UserDAO;
 import com.epam.motrechko.db.entity.User;
 import com.epam.motrechko.db.mysql.MySQLException;
+import com.epam.motrechko.enums.Target;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -18,17 +19,19 @@ public class RegistrationCommand extends FrontCommand{
     private static final Logger logger = LogManager.getLogger(RegistrationCommand.class);
     private final UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
     @Override
-    public String process() throws ServletException, IOException {
+    public CommandResponse process() throws ServletException, IOException {
 
         try {
             User user = getNewUserFromRequest(request);
             userDAO.create(user);
             logger.info("A new user is registered");
             request.getSession().setAttribute("currentUser",user);
-            return FrontConstant.PROFILE_USER;
+            return new CommandResponse(Target.JSP,FrontConstant.PROFILE_USER);
+
         }catch (MySQLException e) {
             logger.warn("Cannot register new user: " , e);
-            return FrontConstant.ERROR;
+            return new CommandResponse(Target.JSP,FrontConstant.ERROR);
+
         }
     }
 

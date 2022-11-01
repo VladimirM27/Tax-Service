@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface ReportDAO {
     boolean create(Report report)  throws MySQLException;
-    boolean update(Report report)  throws MySQLException;
+    void update(Report report)  throws MySQLException;
+    void updateUser(Report report)  throws MySQLException;
     void delete()  throws MySQLException;
     Report getReportById(int reportID)throws MySQLException;
     List<ReportView> getUserReports(int userId) throws MySQLException;

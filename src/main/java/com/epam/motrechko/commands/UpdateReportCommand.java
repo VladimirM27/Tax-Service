@@ -15,33 +15,33 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FormReportCommand extends FrontCommand{
+public class UpdateReportCommand extends FrontCommand{
     @Override
     public CommandResponse process() throws ServletException, IOException {
         try {
-            Report report = mapReport();
             ReportDAO reportDAO = DAOFactory.getInstance().getReportDAO();
-            reportDAO.create(report);
-            return new CommandResponse(Target.COMMAND,"Reports");
+            Report report = mapReport();
+            reportDAO.updateUser(report);
         } catch (MySQLException e) {
-            return new CommandResponse(Target.JSP,FrontConstant.ERROR);
+            return new CommandResponse(Target.JSP, FrontConstant.ERROR);
         }
+        return new CommandResponse(Target.JSP, FrontConstant.REPORTS_USER);
     }
 
     private Report mapReport(){
         try {
-            int userId = Integer.parseInt(request.getParameter("userId"));
             int typeOfReport = Integer.parseInt(request.getParameter("TypeOfReport"));
-            java.lang.String data = request.getParameter("date");
+            String data = request.getParameter("date");
             Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(data);
             Timestamp timestamp = getTimestamp(date1);
             double incomeAmount = Double.parseDouble(request.getParameter("incomeAmount"));
             double taxAmount = Double.parseDouble(request.getParameter("taxAmount"));
             double fine = Double.parseDouble(request.getParameter("fine"));
             double penny = Double.parseDouble(request.getParameter("penny"));
-            java.lang.String userComment = request.getParameter("userComment");
+            String userComment = request.getParameter("userComment");
+            int idReport = Integer.parseInt(request.getParameter("idReport"));
             Report report = new Report();
-            report.setIdUser(userId);
+            report.setIdReport(idReport);
             report.setIdType(typeOfReport);
             report.setStatus(Status.SUBMITTED);
             report.setDate(timestamp);

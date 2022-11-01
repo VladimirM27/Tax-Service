@@ -8,6 +8,7 @@ import com.epam.motrechko.db.dao.ReportDAO;
 import com.epam.motrechko.db.dao.UserDAO;
 import com.epam.motrechko.db.entity.Report;
 import com.epam.motrechko.db.mysql.MySQLException;
+import com.epam.motrechko.enums.Target;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -30,7 +31,7 @@ public class FileCommand extends FrontCommand{
     private static final String JSON_FORMAT = "json";
 
     @Override
-    public String process() throws ServletException, IOException {
+    public CommandResponse process() throws ServletException, IOException {
 
         if(validateFileFormat(request)){
             String uploadPath = saveFile(request,servletContext);
@@ -53,13 +54,14 @@ public class FileCommand extends FrontCommand{
             try {
                 ReportDAO reportDAO = DAOFactory.getInstance().getReportDAO();
                 reportDAO.create(report);
-              //  response.sendRedirect(request.getContextPath() + "/jsp/reports.jsp");
-                return FrontConstant.REPORTS_USER;
+                return new CommandResponse(Target.JSP,FrontConstant.REPORTS_USER);
+
             } catch (MySQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        return FrontConstant.ERROR;
+        return new CommandResponse(Target.JSP,FrontConstant.ERROR);
+
     }
 
 

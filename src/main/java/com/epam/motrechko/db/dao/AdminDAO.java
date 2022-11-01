@@ -8,6 +8,6 @@ import com.epam.motrechko.db.mysql.MySQLException;
 import java.util.List;
 
 public interface AdminDAO {
-    List<AdminReportView> getAllUnverifiedReports() throws MySQLException;
+    List<AdminReportView> getAllUnverifiedReports(int inspectorId) throws MySQLException;
     UnverifiedReportsView getUnverifiedReports(int idUser) throws MySQLException;
 }

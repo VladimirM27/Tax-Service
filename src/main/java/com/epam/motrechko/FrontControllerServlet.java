@@ -1,7 +1,9 @@
 package com.epam.motrechko;
 
+import com.epam.motrechko.commands.CommandResponse;
 import com.epam.motrechko.commands.FrontCommand;
 import com.epam.motrechko.commands.UnknownCommand;
+import com.epam.motrechko.enums.Target;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,12 +26,10 @@ public class FrontControllerServlet extends HttpServlet {
         FrontCommand command = getCommand(req);
         command.init(getServletContext(),req,resp);
         logger.info(()-> "New GET request" + command.getClass().getName());
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(getJSPPath(command.process()));
+        CommandResponse response = command.process();
+        String path = getPath(response.getPath(),response.getTarget());
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(path);
         dispatcher.forward(req, resp);
-    }
-
-    private String getJSPPath(String target)  {
-        return String.format("/jsp/%s.jsp",target);
     }
 
     @Override
@@ -37,16 +37,32 @@ public class FrontControllerServlet extends HttpServlet {
         FrontCommand command = getCommand(req);
         command.init(getServletContext(),req,resp);
         logger.info(()-> "New POST request" + command.getClass().getName());
+        CommandResponse response = command.process();
+        String path = getPath(response.getPath(),response.getTarget());
+        resp.sendRedirect(req.getContextPath() + path);
+    }
 
-        resp.sendRedirect(req.getContextPath() + getJSPPath(command.process()));
+    private String getPath(String path, Target target) {
+        if(target == Target.COMMAND)
+            return getCommandPath(path);
+        else if(target == Target.JSP)
+            return getJSPPath(path);
+        else return getJSPPath(FrontConstant.ERROR);
+    }
+
+    private String getJSPPath(String target)  {
+        return String.format("/jsp/%s.jsp",target);
+    }
+    private String getCommandPath(String target)  {
+        return String.format("/controller?command=%s",target);
     }
 
     private FrontCommand getCommand(HttpServletRequest request){
         try {
-            Class type = Class.forName(String.format(
+            Class<?> type = Class.forName(String.format(
                     "com.epam.motrechko.commands.%sCommand",
                     request.getParameter("command")));
-            return (FrontCommand) type
+            return type
                     .asSubclass(FrontCommand.class)
                     .newInstance();
         } catch (Exception e){

@@ -1,4 +1,4 @@
-package com.motrechko.taxservice.dao.mysql;
+package com.motrechko.taxservice.dao.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;

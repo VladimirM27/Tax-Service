@@ -1,4 +1,4 @@
-package com.motrechko.taxservice.dao.mysql;
+package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.AdminDAO;
 import com.motrechko.taxservice.model.AdminReportView;
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLAdminDAO implements AdminDAO {
+public class JdbcAdminDAO implements AdminDAO {
     @Override
     public List<AdminReportView> getAllUnverifiedReports(int inspectorId) throws MySQLException {
         try(Connection connection = MySQLConnectionPool.getInstance().getConnection(true);

@@ -1,4 +1,4 @@
-package com.motrechko.taxservice.dao.mysql;
+package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.model.Report;
@@ -11,8 +11,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLReportDAO implements ReportDAO {
-    private static final Logger logger = LogManager.getLogger(MySQLReportDAO.class);
+public class JdbcReportDAO implements ReportDAO {
+    private static final Logger logger = LogManager.getLogger(JdbcReportDAO.class);
     public List<ReportView> getUserReports(int userId) throws MySQLException {
         try(Connection connection = MySQLConnectionPool.getInstance().getConnection(true);
             PreparedStatement st = connection.prepareStatement(MySQLQuery.SELECT_REPORTS_BY_USER);){

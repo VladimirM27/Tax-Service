@@ -4,7 +4,7 @@ import com.motrechko.taxservice.FrontConstant;
 import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.model.Report;
-import com.motrechko.taxservice.dao.mysql.MySQLException;
+import com.motrechko.taxservice.dao.impl.MySQLException;
 import com.motrechko.taxservice.enums.Target;
 import jakarta.servlet.ServletException;
 

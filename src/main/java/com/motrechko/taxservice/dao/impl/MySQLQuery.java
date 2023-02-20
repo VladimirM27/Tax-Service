@@ -1,8 +1,18 @@
-package com.motrechko.taxservice.dao.mysql;
+package com.motrechko.taxservice.dao.impl;
 
 public final class MySQLQuery {
     private MySQLQuery(){}
+
+    public static final String UPDATE_USER_BY_EMAIL = "UPDATE `taxService`.`users` SET `idUsers` = <{idUsers: }>, " +
+            "`email` = ?, `password` = ?, " +
+            "`entity` = ?, `role` = ?, `" +
+            "firstName` = ?, `lastName` = ?, " +
+            "`company` = ?, `TIN` = ?, `City` = ?, " +
+            "`Street` = ?, `NumberOfBuilding` = ?" +
+            " WHERE `idUsers` = ?";
     public static final String SELECT_ALL_USERS = "SELECT * FROM users";
+
+    public static final String DELETE_USER= "DELETE FROM users WHERE id = ?";
     public static final String SELECT_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
 
     public static final String INSERT_INTO_USER = "INSERT INTO users(`email`,`password`,`entity`,`role`,`firstName`,`lastName`," +

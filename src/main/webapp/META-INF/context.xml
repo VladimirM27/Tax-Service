@@ -5,9 +5,9 @@
               auth="Container"
               type="javax.sql.DataSource"
               username="root"
-              password="_BData_27"
+              password="12345678"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/tax?autoReconnect=true"
+              url="jdbc:mysql://localhost:3306/taxService?autoReconnect=true"
               validationQuery="select 1"
               maxTotal="15"
               maxIdle="4"/>

@@ -1,4 +1,4 @@
-<%@ page import="com.epam.motrechko.db.entity.User" %><%--
+<%@ page import="com.motrechko.taxservice.model.User" %><%--
   Created by IntelliJ IDEA.
   User: vovam
   Date: 22.10.2022

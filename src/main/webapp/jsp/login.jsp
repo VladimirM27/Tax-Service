@@ -21,11 +21,9 @@
     <link href="../styles/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
-
 <main class="form-signin w-100 m-auto">
-    <form  action="/Tax-service/controller" method="post">
+    <form  action="${pageContext.request.contextPath}/controller" method="post">
         <input id="POST-command" type="hidden" name="command" value="Login" >
-
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">

@@ -5,12 +5,12 @@ import com.motrechko.taxservice.dao.impl.JdbcReportDAO;
 import com.motrechko.taxservice.dao.impl.JdbcUserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.sql.SQLException;
+
 
 /**
  A factory for obtaining DAO instances for different entities.
  */
-public class DAOFactory {
+public  class DAOFactory implements IDAOFactory{
     private static final Logger logger = LogManager.getLogger(DAOFactory.class);
     private static DAOFactory instance;
     /**
@@ -22,9 +22,8 @@ public class DAOFactory {
      Returns the singleton instance of the DAOFactory class.
      If an instance has not been created yet, creates a new one.
      @return the singleton instance of DAOFactory
-     @throws SQLException if a database access error occurs
      */
-    public static synchronized DAOFactory getInstance() throws SQLException {
+    public static synchronized DAOFactory getInstance()  {
         if (instance == null) {
             instance = new DAOFactory();
         }

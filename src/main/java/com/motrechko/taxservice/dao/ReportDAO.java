@@ -25,11 +25,11 @@ public interface ReportDAO {
      */
     void update(Report report) throws MySQLException;
     /**
-     Updates the user associated with an existing report in the database.
+     Updates the user  report associated with an existing report in the database.
      @param report the report to be updated
      @throws MySQLException if a SQL exception occurs during the update process
      */
-    void updateUser(Report report) throws MySQLException;
+    void updateUserReport(Report report) throws MySQLException;
     /**
      Deletes a report from the database.
      @throws MySQLException if a SQL exception occurs during the deletion process

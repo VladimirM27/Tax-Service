@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * A factory for obtaining database connections from a connection pool.
  */
-public class ConnectionFactory {
+public class ConnectionFactory  {
     private static final Logger logger = LogManager.getLogger(ConnectionFactory.class);
     // Initialize the pool configuration using the database properties.
     private final static PoolConfig poolConfig = new PoolConfig(new DatabaseConfig());

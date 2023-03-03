@@ -27,7 +27,7 @@ public class FrontControllerServlet extends HttpServlet {
         command.init(getServletContext(),req,resp);
         logger.info(()-> "New GET request" + command.getClass().getName());
         CommandResponse response = command.process();
-        String path = getPath(response.getPath(),response.getTarget());
+        String path = getPath(response.path(),response.target());
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(path);
         dispatcher.forward(req, resp);
     }
@@ -38,7 +38,7 @@ public class FrontControllerServlet extends HttpServlet {
         command.init(getServletContext(),req,resp);
         logger.info(()-> "New POST request" + command.getClass().getName());
         CommandResponse response = command.process();
-        String path = getPath(response.getPath(),response.getTarget());
+        String path = getPath(response.path(),response.target());
         resp.sendRedirect(req.getContextPath() + path);
     }
 

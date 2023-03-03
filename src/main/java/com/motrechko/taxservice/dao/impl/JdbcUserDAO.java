@@ -3,10 +3,6 @@ package com.motrechko.taxservice.dao.impl;
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.UserDAO;
 import com.motrechko.taxservice.model.User;
-import org.apache.commons.codec.binary.Hex;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +52,7 @@ public class JdbcUserDAO implements UserDAO {
      */
     private void addUser(Connection connection, User user) throws MySQLException {
         try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.INSERT_INTO_USER,Statement.RETURN_GENERATED_KEYS)){
-            int c = mapPreparedStatement(user, statement,false);;
+            int c = executeUserPreparedStatement(user, statement,false);
             if(c> 0){
                 try(ResultSet set = statement.getGeneratedKeys()){
                     if(set.next()){
@@ -73,14 +69,14 @@ public class JdbcUserDAO implements UserDAO {
 
 
     /**
-     Maps a User object to a PreparedStatement object for updating or adding the user in the database.
+     Maps and executes a User object to a PreparedStatement object for updating or adding the user in the database.
      @param user The User object containing the updated information.
      @param statement The PreparedStatement object to be mapped to the User object.
-     @param update Is the statement an update
+     @param isUpdate Is the statement an update
      @return The number of rows updated in the database.
      @throws SQLException If an error occurs while executing the SQL query.
      */
-    private int mapPreparedStatement(User user, PreparedStatement statement, boolean update) throws SQLException {
+    private int executeUserPreparedStatement(User user, PreparedStatement statement, boolean isUpdate) throws SQLException {
         int i = 0;
         statement.setString(++i,user.getEmail());
         statement.setString(++i,user.getPassword());
@@ -93,7 +89,7 @@ public class JdbcUserDAO implements UserDAO {
         statement.setString(++i,user.getCity());
         statement.setString(++i,user.getStreet());
         statement.setString(++i,user.getNumberOfBuilding());
-        if(update)
+        if(isUpdate)
             statement.setInt(++i,user.getId());
         return statement.executeUpdate();
     }
@@ -165,23 +161,6 @@ public class JdbcUserDAO implements UserDAO {
     }
 
     /**
-     * method hashes a given password using SHA-512 algorithm.
-     * @param password the password to be hashed
-     * @return hashes password
-     */
-    @Override
-    public String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-512");
-            digest.update((password + "dd").getBytes());
-            byte[] hash = digest.digest();
-            return Hex.encodeHexString(hash);
-        } catch (NoSuchAlgorithmException e){
-                throw new RuntimeException(e);
-        }
-    }
-
-    /**
      Updates an existing user in the database.
      @param user the user to update
      @throws MySQLException if an error occurs while interacting with the database
@@ -191,15 +170,15 @@ public class JdbcUserDAO implements UserDAO {
         Connection connection = null;
         try {
             connection = ConnectionFactory.getConnection(false);
-
+            updateUser(user,connection);
             connection.commit();
             logger.info("User with email " + user.getEmail() + " was successfully updated");
         } catch (SQLException e) {
             ConnectionFactory.rollback(connection);
             logger.warn("Failed to update user with email: " + user.getEmail(), e);
             throw new MySQLException("Failed to update user", e);
-        }finally {
-
+        } finally {
+                ConnectionFactory.close(connection);
         }
     }
 
@@ -209,9 +188,9 @@ public class JdbcUserDAO implements UserDAO {
      @param connection The Connection object used to connect to the database.
      @throws MySQLException If an error occurs while executing the SQL query.
      */
-    private void updateUser(User user, Connection connection) throws MySQLException {
+    public void updateUser(User user, Connection connection) throws MySQLException {
         try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_USER_BY_EMAIL,Statement.RETURN_GENERATED_KEYS)){
-            mapPreparedStatement(user, statement,true);
+            executeUserPreparedStatement(user, statement,true);
         } catch (SQLException e){
             logger.warn("Failed to update user with email: " + user.getEmail(), e);
             throw new MySQLException("Cannot update user with email: " + user.getEmail() , e);
@@ -228,14 +207,19 @@ public class JdbcUserDAO implements UserDAO {
      */
     @Override
     public void delete(int id) throws MySQLException {
-        try (Connection connection = ConnectionFactory.getConnection(true);
-            PreparedStatement statement = connection.prepareStatement(MySQLQuery.DELETE_USER)) {
+        Connection connection = null;
+        try {
+            connection = ConnectionFactory.getConnection(false);
+            PreparedStatement statement = connection.prepareStatement(MySQLQuery.DELETE_USER);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             logger.info("Deleted {} row(s) from the users table", rowsDeleted);
         } catch (SQLException e) {
+            ConnectionFactory.rollback(connection);
             logger.warn("failed to delete a user with ID: " + id, e);
             throw new MySQLException("Error deleting user from the database", e);
+        } finally {
+            ConnectionFactory.close(connection);
         }
     }
 }

@@ -213,6 +213,7 @@ public class JdbcUserDAO implements UserDAO {
             PreparedStatement statement = connection.prepareStatement(MySQLQuery.DELETE_USER);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
+            connection.commit();
             logger.info("Deleted {} row(s) from the users table", rowsDeleted);
         } catch (SQLException e) {
             ConnectionFactory.rollback(connection);

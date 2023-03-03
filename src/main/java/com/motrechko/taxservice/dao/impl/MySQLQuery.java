@@ -1,6 +1,8 @@
 package com.motrechko.taxservice.dao.impl;
 
 public final class MySQLQuery {
+    public static final String DELETE_REPORT = "DELETE FROM report WHERE id = ?";
+
     private MySQLQuery(){}
     //todo Divide into different classes
     public static final String UPDATE_USER_BY_EMAIL = "UPDATE `taxService`.`users` SET `idUsers` = <{idUsers: }>, " +

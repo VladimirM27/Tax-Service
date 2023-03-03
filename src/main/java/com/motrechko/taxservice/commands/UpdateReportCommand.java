@@ -21,7 +21,7 @@ public class UpdateReportCommand extends FrontCommand{
         try {
             ReportDAO reportDAO = DAOFactory.getInstance().getReportDAO();
             Report report = mapReport();
-            reportDAO.updateUserReport(report);
+            reportDAO.updateReport(report);
         } catch (MySQLException e) {
             return new CommandResponse(Target.JSP, FrontConstant.ERROR);
         }

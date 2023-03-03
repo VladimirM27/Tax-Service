@@ -27,7 +27,7 @@ public class AcceptReportCommand extends FrontCommand{
             report.setStatus(accepted ? Status.ACCEPTED : Status.NOT_ACCEPTED);
             report.setIdInspector(user.getId());
             report.setCommentInspector(inspectorComment);
-            reportDAO.update(report);
+            reportDAO.updateInspectorInfoInReport(report);
             return new CommandResponse(Target.JSP,FrontConstant.REPORTS_ADMIN);
         } catch (MySQLException e) {
             throw new RuntimeException(e);

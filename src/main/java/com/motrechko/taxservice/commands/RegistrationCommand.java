@@ -6,6 +6,7 @@ import com.motrechko.taxservice.dao.UserDAO;
 import com.motrechko.taxservice.model.User;
 import com.motrechko.taxservice.dao.impl.MySQLException;
 import com.motrechko.taxservice.enums.Target;
+import com.motrechko.taxservice.utils.PasswordUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +38,7 @@ public class RegistrationCommand extends FrontCommand{
     private User getNewUserFromRequest(ServletRequest request){
         String email = request.getParameter("emailAddress");
         String password = request.getParameter("secondPassword");
-        String hashPassword = userDAO.hashPassword(password);
+        String hashPassword = PasswordUtils.hashPassword(password);
         String entity = request.getParameter("entity");
         String role = "user";
         String firstName = request.getParameter("firstName");

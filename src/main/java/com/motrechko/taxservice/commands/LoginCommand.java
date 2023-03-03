@@ -7,11 +7,13 @@ import com.motrechko.taxservice.dao.UserDAO;
 import com.motrechko.taxservice.model.User;
 import com.motrechko.taxservice.dao.impl.MySQLException;
 import com.motrechko.taxservice.enums.Target;
+import com.motrechko.taxservice.utils.PasswordUtils;
 import jakarta.servlet.ServletException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginCommand extends FrontCommand{
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -24,7 +26,7 @@ public class LoginCommand extends FrontCommand{
         try {
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
             User user = userDAO.getByEmail(login);
-            if(user!= null && user.getPassword().equals(userDAO.hashPassword(password))){
+            if(user!= null && user.getPassword().equals(PasswordUtils.hashPassword(password))){
                 request.getSession().setAttribute("currentUser",user);
                 if(user.getRole().equals("user")){
                     logger.info("Logged new user");

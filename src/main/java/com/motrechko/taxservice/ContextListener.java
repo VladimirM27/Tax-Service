@@ -12,13 +12,5 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext ctx = sce.getServletContext();
 
-
-        //Obtain a DB-pool
-        DAOFactory.setDaoFactoryFCN("com.motrechko.taxservice.dao.mysql.MySQLDAOFactory");
-        try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

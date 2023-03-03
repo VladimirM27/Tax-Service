@@ -2,7 +2,7 @@ package com.motrechko.taxservice.dao.impl;
 
 public final class MySQLQuery {
     private MySQLQuery(){}
-
+    //todo Divide into different classes
     public static final String UPDATE_USER_BY_EMAIL = "UPDATE `taxService`.`users` SET `idUsers` = <{idUsers: }>, " +
             "`email` = ?, `password` = ?, " +
             "`entity` = ?, `role` = ?, `" +

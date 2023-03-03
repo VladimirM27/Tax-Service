@@ -39,11 +39,5 @@ public interface UserDAO {
      @throws MySQLException if an error occurs while accessing the database
      */
     User getByEmail(String email) throws MySQLException;
-    /**
-     Hashes a password using a secure one-way hashing algorithm.
-     @param password the password to be hashed
-     @return a String representing the hashed password
-     */
-    String hashPassword(String password);
 
 }

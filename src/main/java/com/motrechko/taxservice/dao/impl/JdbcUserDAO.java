@@ -152,7 +152,7 @@ public class JdbcUserDAO implements UserDAO {
             statement.setString(1,email);
             ResultSet set = statement.executeQuery();
             set.next();
-            logger.info("a user with the email address " + email + "was found ");
+            logger.info("a user with the email address " + email + " was found ");
             return mapUser(set);
         } catch (SQLException e){
             logger.warn("Failed to get a user with email: " + email, e);

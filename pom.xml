@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.epam.motrechko</groupId>
-  <artifactId>Tax-service</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <groupId>com.motrechko.taxservice</groupId>
+  <artifactId>taxservice</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Tax-service Maven Webapp</name>
+  <url>http://maven.apache.org</url>
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
-  <name>Tax-service Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
 
+
+  <dependencies>
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
@@ -20,12 +20,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
 
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
     <dependency>
@@ -91,24 +85,42 @@
       <version>2.9.0</version>
     </dependency>
 
-      <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter</artifactId>
-          <version>RELEASE</version>
-          <scope>test</scope>
-      </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>4.8.0</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.7.0</version>
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>3.5.13</version>
+      <scope>test</scope>
+    </dependency>
 
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>2.23.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+
   <build>
     <finalName>Tax-service</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>1.0.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
   </build>
 </project>

@@ -1,15 +1,15 @@
 package com.motrechko.taxservice.config;
 
+import org.junit.jupiter.api.*;
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-
+@ExtendWith(MockitoExtension.class)
 public class PoolConfigTest {
     /**
      A mock DatabaseConfig object used for testing.
@@ -19,24 +19,24 @@ public class PoolConfigTest {
     /**
      The PoolConfig object being tested.
      */
+    @InjectMocks
     private PoolConfig poolConfig;
     /**
      Sets up the test environment before each test by creating a mock DatabaseConfig object and initializing the PoolConfig object with it.
      */
     @BeforeEach
     public void setUp()  {
-        MockitoAnnotations.openMocks(this);
-        when(mockDbConfig.getUrl()).thenReturn("jdbc:mysql://localhost:3306/mydb");
-        when(mockDbConfig.getDriver()).thenReturn("com.mysql.jdbc.Driver");
-        when(mockDbConfig.getUsername()).thenReturn("root");
-        when(mockDbConfig.getPassword()).thenReturn("password");
+        when(this.mockDbConfig.getUrl()).thenReturn("jdbc:mysql://localhost:3306/mydb");
+        when(this.mockDbConfig.getDriver()).thenReturn("com.mysql.jdbc.Driver");
+        when(this.mockDbConfig.getUsername()).thenReturn("root");
+        when(this.mockDbConfig.getPassword()).thenReturn("password");
         poolConfig = new PoolConfig(mockDbConfig);
     }
     /**
      Tests the getDataSource() method of the PoolConfig class by asserting that the returned BasicDataSource object has the expected properties.
      */
     @Test
-    public void testGetDataSource() {
+    public void test_DataSourceConfig() {
         BasicDataSource dataSource = poolConfig.getDataSource();
         assertEquals("jdbc:mysql://localhost:3306/mydb", dataSource.getUrl());
         assertEquals("com.mysql.jdbc.Driver", dataSource.getDriverClassName());

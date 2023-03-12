@@ -39,7 +39,7 @@ public class ConnectionFactoryTest {
         ConnectionFactory.rollback(connection);
 
         // Verify that the rollback method was called on the connection
-        verify(connection).rollback();
+        verify(connection, times(1)).rollback();
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ConnectionFactoryTest {
         ConnectionFactory.close(connection);
 
         // Verify that the close method was called on the connection
-        verify(connection).close();
+        verify(connection, times(1)).close();
     }
 
 

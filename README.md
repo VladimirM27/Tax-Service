@@ -50,6 +50,6 @@ The Tax Service application provides a simple and convenient way for authorized 
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/VolodymyrM27/Tax-service/blob/master/LICENSE)
 
 

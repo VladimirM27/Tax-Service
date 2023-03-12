@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class PoolConfigTest {
+class PoolConfigTest {
     /**
      A mock DatabaseConfig object used for testing.
      */
@@ -36,7 +36,7 @@ public class PoolConfigTest {
      Tests the getDataSource() method of the PoolConfig class by asserting that the returned BasicDataSource object has the expected properties.
      */
     @Test
-    public void test_DataSourceConfig() {
+    void test_DataSourceConfig() {
         BasicDataSource dataSource = poolConfig.getDataSource();
         assertEquals("jdbc:mysql://localhost:3306/mydb", dataSource.getUrl());
         assertEquals("com.mysql.jdbc.Driver", dataSource.getDriverClassName());

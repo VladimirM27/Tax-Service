@@ -13,9 +13,11 @@ import org.apache.logging.log4j.Logger;
  * A factory for obtaining database connections from a connection pool.
  */
 public class ConnectionFactory  {
+
+    private ConnectionFactory(){ throw new AssertionError("This class should not be instantiated.");}
     private static final Logger logger = LogManager.getLogger(ConnectionFactory.class);
     // Initialize the pool configuration using the database properties.
-    private final static PoolConfig poolConfig = new PoolConfig(new DatabaseConfig());
+    private static final PoolConfig poolConfig = new PoolConfig(new DatabaseConfig());
 
     /**
      * Obtains a database connection from the connection pool with auto-commit status set.

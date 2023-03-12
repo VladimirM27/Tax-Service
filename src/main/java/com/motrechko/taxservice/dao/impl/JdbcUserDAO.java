@@ -6,6 +6,8 @@ import com.motrechko.taxservice.model.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.motrechko.taxservice.utils.StatementUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,16 +28,17 @@ public class JdbcUserDAO implements UserDAO {
      */
     @Override
     public boolean create(User user) throws MySQLException {
+        if(user == null){throw new MySQLException("Cannot add new User");}
         Connection connection = null;
         try {
             connection = ConnectionFactory.getConnection(false);
             addUser(connection,user);
             connection.commit();
-            logger.info("User was created successfully with email: " + user.getEmail());
+            logger.info("User was created successfully with email: {}", user.getEmail());
             return true;
         } catch (SQLException | MySQLException e){
             ConnectionFactory.rollback(connection);
-            logger.warn("Failed to insert new user with email: " + user.getEmail(), e);
+            logger.warn("Failed to insert new user with email: {}" , user.getEmail(), e);
             throw new MySQLException("Cannot add new User",e);
         }
         finally {
@@ -51,6 +54,7 @@ public class JdbcUserDAO implements UserDAO {
      * @throws MySQLException if an error occurs while interacting with the database
      */
     private void addUser(Connection connection, User user) throws MySQLException {
+
         try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.INSERT_INTO_USER,Statement.RETURN_GENERATED_KEYS)){
             int c = executeUserPreparedStatement(user, statement,false);
             if(c> 0){
@@ -62,7 +66,7 @@ public class JdbcUserDAO implements UserDAO {
 
             }
         } catch (SQLException e){
-            logger.warn("Failed to insert new user with email: " + user.getEmail(), e);
+            logger.warn("Failed to insert new user with email: {}" , user.getEmail(), e);
             throw new MySQLException("Cannot insert new user" , e);
         }
     }
@@ -102,8 +106,8 @@ public class JdbcUserDAO implements UserDAO {
      */
     @Override
     public List<User> getAllUsers() throws MySQLException {
-        try(Connection connection = ConnectionFactory.getConnection(true)){
-            Statement st = connection.createStatement();
+        try(Connection connection = ConnectionFactory.getConnection(true);
+            Statement st = connection.createStatement()){
             ResultSet rs = st.executeQuery(MySQLQuery.SELECT_ALL_USERS);
             List<User> users = new ArrayList<>();
             while (rs.next()){
@@ -135,7 +139,8 @@ public class JdbcUserDAO implements UserDAO {
         user.setCompany(rs.getString("company"));
         user.setTIN(rs.getLong("TIN"));
         user.setCity(rs.getString("City"));
-        user.setStreet(rs.getString("NumberOfBuilding"));
+        user.setStreet(rs.getString("Street"));
+        user.setNumberOfBuilding(rs.getString("NumberOfBuilding"));
         return user;
     }
 
@@ -152,10 +157,10 @@ public class JdbcUserDAO implements UserDAO {
             statement.setString(1,email);
             ResultSet set = statement.executeQuery();
             set.next();
-            logger.info("a user with the email address " + email + " was found ");
+            logger.info("a user with the email address {} was found ", email);
             return mapUser(set);
         } catch (SQLException e){
-            logger.warn("Failed to get a user with email: " + email, e);
+            logger.warn("Failed to get a user with email: {}" , email, e);
             throw new MySQLException("Cannot get user", e);
         }
     }
@@ -172,10 +177,10 @@ public class JdbcUserDAO implements UserDAO {
             connection = ConnectionFactory.getConnection(false);
             updateUser(user,connection);
             connection.commit();
-            logger.info("User with email " + user.getEmail() + " was successfully updated");
+            logger.info("User with email {} was successfully updated",user.getEmail());
         } catch (SQLException e) {
             ConnectionFactory.rollback(connection);
-            logger.warn("Failed to update user with email: " + user.getEmail(), e);
+            logger.warn("Failed to update user with email: {}" , user.getEmail(), e);
             throw new MySQLException("Failed to update user", e);
         } finally {
                 ConnectionFactory.close(connection);
@@ -192,10 +197,10 @@ public class JdbcUserDAO implements UserDAO {
         try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_USER_BY_EMAIL,Statement.RETURN_GENERATED_KEYS)){
             executeUserPreparedStatement(user, statement,true);
         } catch (SQLException e){
-            logger.warn("Failed to update user with email: " + user.getEmail(), e);
+            logger.warn("Failed to update user with email: {}" , user.getEmail(), e);
             throw new MySQLException("Cannot update user with email: " + user.getEmail() , e);
         }
-        logger.info("User with email " + user.getEmail() + " was successfully updated in the database.");
+        logger.info("User with email {} was successfully updated in the database.", user.getEmail());
     }
 
 
@@ -208,19 +213,24 @@ public class JdbcUserDAO implements UserDAO {
     @Override
     public void delete(int id) throws MySQLException {
         Connection connection = null;
+        PreparedStatement statement = null;
         try {
             connection = ConnectionFactory.getConnection(false);
-            PreparedStatement statement = connection.prepareStatement(MySQLQuery.DELETE_USER);
+            statement = connection.prepareStatement(MySQLQuery.DELETE_USER);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             connection.commit();
             logger.info("Deleted {} row(s) from the users table", rowsDeleted);
         } catch (SQLException e) {
             ConnectionFactory.rollback(connection);
-            logger.warn("failed to delete a user with ID: " + id, e);
+            logger.warn("failed to delete a user with ID: {}", id, e);
             throw new MySQLException("Error deleting user from the database", e);
         } finally {
+            if (statement != null) {
+                StatementUtils.close(statement);
+            }
             ConnectionFactory.close(connection);
+
         }
     }
 }

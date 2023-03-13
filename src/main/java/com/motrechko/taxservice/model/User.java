@@ -6,15 +6,15 @@ public class User {
     private int id;
     private String email;
     private String password;
-    private String entity;
-    private String role;
+    private int entity;
     private String firstName;
     private String lastName;
-    private String company;
     private long TIN;
     private String city;
     private String street;
     private String numberOfBuilding;
+
+    private List<Company> companies;
 
     public int getId() {
         return id;
@@ -40,20 +40,12 @@ public class User {
         this.password = password;
     }
 
-    public String getEntity() {
+    public int getEntity() {
         return entity;
     }
 
-    public void setEntity(String entity) {
+    public void setEntity(int entity) {
         this.entity = entity;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getFirstName() {
@@ -70,14 +62,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
     }
 
     public long getTIN() {
@@ -117,12 +101,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && TIN == user.TIN && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(entity, user.entity) && Objects.equals(role, user.role) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(company, user.company) && Objects.equals(city, user.city) && Objects.equals(street, user.street) && Objects.equals(numberOfBuilding, user.numberOfBuilding);
+        return id == user.id && entity == user.entity && TIN == user.TIN && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(city, user.city) && Objects.equals(street, user.street) && Objects.equals(numberOfBuilding, user.numberOfBuilding) && Objects.equals(companies, user.companies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, entity, role, firstName, lastName, company, TIN, city, street, numberOfBuilding);
+        return Objects.hash(id, email, password, entity, firstName, lastName, TIN, city, street, numberOfBuilding, companies);
     }
 
     @Override
@@ -131,15 +115,14 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", entity='" + entity + '\'' +
-                ", role='" + role + '\'' +
+                ", entity=" + entity +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", company='" + company + '\'' +
                 ", TIN=" + TIN +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", numberOfBuilding='" + numberOfBuilding + '\'' +
+                ", companies=" + companies +
                 '}';
     }
 }

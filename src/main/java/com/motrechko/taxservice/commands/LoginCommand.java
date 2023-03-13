@@ -23,23 +23,23 @@ public class LoginCommand extends FrontCommand{
         String password = request.getParameter("password");
 
 
-        try {
-            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-            User user = userDAO.getByEmail(login);
-            if(user!= null && user.getPassword().equals(PasswordUtils.hashPassword(password))){
-                request.getSession().setAttribute("currentUser",user);
-                if(user.getRole().equals("user")){
-                    logger.info("Logged new user");
-                    return new CommandResponse(Target.JSP,FrontConstant.PROFILE_USER);
-
-                }else if(user.getRole().equals("inspector")){
-                    logger.info("Logged new inspector");
-                    return new CommandResponse(Target.JSP,FrontConstant.REPORTS_ADMIN);
-                }
-            }
-        } catch (MySQLException e) {
-            logger.error("user login error:" , e);
-        }
-        return new CommandResponse(Target.JSP,FrontConstant.ERROR);
+//        try {
+////            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+////            User user = userDAO.getByEmail(login);
+////            if(user!= null && user.getPassword().equals(PasswordUtils.hashPassword(password))){
+////                request.getSession().setAttribute("currentUser",user);
+////                if(user.getRole().equals("user")){
+////                    logger.info("Logged new user");
+////                    return new CommandResponse(Target.JSP,FrontConstant.PROFILE_USER);
+////
+////                }else if(user.getRole().equals("inspector")){
+////                    logger.info("Logged new inspector");
+////                    return new CommandResponse(Target.JSP,FrontConstant.REPORTS_ADMIN);
+////                }
+//            }
+//        } catch (MySQLException e) {
+//            logger.error("user login error:" , e);
+//        }
+       return new CommandResponse(Target.JSP,FrontConstant.ERROR);
     }
 }

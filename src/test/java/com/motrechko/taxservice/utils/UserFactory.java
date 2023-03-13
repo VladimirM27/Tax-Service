@@ -13,10 +13,8 @@ public class UserFactory {
         user.setEmail(generateRandomEmail());
         user.setPassword(generateRandomPassword());
         user.setEntity(generateRandomEntity());
-        user.setRole(generateRandomRole());
         user.setFirstName(generateRandomFirstName());
         user.setLastName(generateRandomLastName());
-        user.setCompany(generateRandomCompany());
         user.setTIN(generateRandomTIN());
         user.setCity(generateRandomCity());
         user.setStreet(generateRandomStreet());
@@ -25,15 +23,15 @@ public class UserFactory {
     }
 
     private static String generateRandomEmail() {
-        return "user" + random.nextInt(1000) + "@example.com";
+        return "user" + random.nextInt(100000) + "@example.com";
     }
 
     private static String generateRandomPassword() {
         return "password" + random.nextInt(1000);
     }
 
-    private static String generateRandomEntity() {
-        return random.nextBoolean() ? "Individual" : "Company";
+    private static int generateRandomEntity() {
+        return random.nextInt(1,2);
     }
 
     private static String generateRandomRole() {

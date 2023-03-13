@@ -2,6 +2,8 @@ package com.motrechko.taxservice.model;
 
 import com.motrechko.taxservice.enums.Status;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -18,8 +20,17 @@ public class Report {
     private double taxSum;
     private double fine;
     private double penny;
-    private java.lang.String commentUser;
-    private java.lang.String commentInspector;
+    private String commentUser;
+    private String commentInspector;
+
+
+    public void setUtilDate(java.util.Date utilDate) {
+        this.date = new Date(utilDate.getTime());
+    }
+
+    public java.util.Date getUtilDate() {
+        return new java.util.Date(date.getTime());
+    }
     public Status getStatus() {
         return status;
     }

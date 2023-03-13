@@ -51,11 +51,11 @@ public class RegistrationCommand extends FrontCommand{
         User user = new User();
         user.setEmail(email);
         user.setPassword(hashPassword);
-        user.setEntity(entity);
-        user.setRole(role);
+       // user.setEntity(entity);
+     //   user.setRole(role);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setCompany(company);
+     //   user.setCompany(company);
         user.setTIN(TIN);
         user.setCity(city);
         user.setStreet(street);

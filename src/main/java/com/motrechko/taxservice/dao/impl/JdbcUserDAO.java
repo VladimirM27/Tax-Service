@@ -2,6 +2,7 @@ package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.UserDAO;
+import com.motrechko.taxservice.dao.queries.UserQueries;
 import com.motrechko.taxservice.model.User;
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class JdbcUserDAO implements UserDAO {
      */
     private void addUser(Connection connection, User user) throws MySQLException {
 
-        try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.INSERT_INTO_USER,Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement statement = connection.prepareStatement(UserQueries.INSERT_USER,Statement.RETURN_GENERATED_KEYS)){
             int c = executeUserPreparedStatement(user, statement,false);
             if(c> 0){
                 try(ResultSet set = statement.getGeneratedKeys()){
@@ -84,11 +85,9 @@ public class JdbcUserDAO implements UserDAO {
         int i = 0;
         statement.setString(++i,user.getEmail());
         statement.setString(++i,user.getPassword());
-        statement.setString(++i,user.getEntity());
-        statement.setString(++i,user.getRole());
+        statement.setInt(++i,user.getEntity());
         statement.setString(++i,user.getFirstName());
         statement.setString(++i,user.getLastName());
-        statement.setString(++i,user.getCompany());
         statement.setLong(++i,user.getTIN());
         statement.setString(++i,user.getCity());
         statement.setString(++i,user.getStreet());
@@ -108,7 +107,7 @@ public class JdbcUserDAO implements UserDAO {
     public List<User> getAllUsers() throws MySQLException {
         try(Connection connection = ConnectionFactory.getConnection(true);
             Statement st = connection.createStatement()){
-            ResultSet rs = st.executeQuery(MySQLQuery.SELECT_ALL_USERS);
+            ResultSet rs = st.executeQuery(UserQueries.GET_ALL_USERS);
             List<User> users = new ArrayList<>();
             while (rs.next()){
                 User user = mapUser(rs);
@@ -129,18 +128,16 @@ public class JdbcUserDAO implements UserDAO {
      */
     private User mapUser(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setId(rs.getInt("idUsers"));
+        user.setId(rs.getInt("idUser"));
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
-        user.setEntity(rs.getString("entity"));
-        user.setRole(rs.getString("role"));
-        user.setFirstName(rs.getString("firstName"));
-        user.setLastName(rs.getString("lastName"));
-        user.setCompany(rs.getString("company"));
+        user.setEntity(rs.getInt("entity"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
         user.setTIN(rs.getLong("TIN"));
-        user.setCity(rs.getString("City"));
-        user.setStreet(rs.getString("Street"));
-        user.setNumberOfBuilding(rs.getString("NumberOfBuilding"));
+        user.setCity(rs.getString("city"));
+        user.setStreet(rs.getString("street"));
+        user.setNumberOfBuilding(rs.getString("number_of_building"));
         return user;
     }
 
@@ -153,7 +150,7 @@ public class JdbcUserDAO implements UserDAO {
     @Override
     public User getByEmail(String email) throws MySQLException {
         try (Connection connection = ConnectionFactory.getConnection(true);
-            PreparedStatement statement = connection.prepareStatement(MySQLQuery.SELECT_USER_BY_EMAIL)){
+            PreparedStatement statement = connection.prepareStatement(UserQueries.GET_USER_BY_EMAIL)){
             statement.setString(1,email);
             ResultSet set = statement.executeQuery();
             set.next();
@@ -194,7 +191,7 @@ public class JdbcUserDAO implements UserDAO {
      @throws MySQLException If an error occurs while executing the SQL query.
      */
     public void updateUser(User user, Connection connection) throws MySQLException {
-        try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_USER_BY_EMAIL,Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement statement = connection.prepareStatement(UserQueries.UPDATE_USER,Statement.RETURN_GENERATED_KEYS)){
             executeUserPreparedStatement(user, statement,true);
         } catch (SQLException e){
             logger.warn("Failed to update user with email: {}" , user.getEmail(), e);
@@ -216,7 +213,7 @@ public class JdbcUserDAO implements UserDAO {
         PreparedStatement statement = null;
         try {
             connection = ConnectionFactory.getConnection(false);
-            statement = connection.prepareStatement(MySQLQuery.DELETE_USER);
+            statement = connection.prepareStatement(UserQueries.DELETE_BY_ID);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             connection.commit();

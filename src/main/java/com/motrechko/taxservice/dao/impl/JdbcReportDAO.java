@@ -271,7 +271,8 @@ public class JdbcReportDAO implements ReportDAO {
             report.setIdInspector(set.getInt("idInspector"));
             report.setIdType(set.getInt("idType"));
             report.setStatus(Status.valueOf(set.getString("status")));
-            report.setDate(set.getDate("date"));
+        //    report.setDate(set.getDate("date"));
+            report.setUtilDate(new java.util.Date(set.getDate("date").getTime()));
             report.setIncomeSum(set.getDouble("profitSum"));
             report.setTaxSum(set.getDouble("taxSum"));
             report.setFine(set.getDouble("fine"));

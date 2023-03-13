@@ -29,7 +29,6 @@ class JdbcUserDAOTest {
         assertNotNull(createdUser);
         assertEquals(createdUser.getFirstName(), user.getFirstName());
         assertEquals(createdUser.getLastName(), user.getLastName());
-        assertEquals(createdUser.getRole(), user.getRole());
         assertEquals(createdUser.getPassword(), user.getPassword());
         assertEquals(createdUser.getEmail(), user.getEmail());
         assertEquals(createdUser.getTIN(), user.getTIN());
@@ -102,10 +101,8 @@ class JdbcUserDAOTest {
         User updatedUser = userDAO.getByEmail(newEmail);
         assertNotNull(updatedUser);
         assertEquals(user.getId(), updatedUser.getId());
-        assertEquals(user.getCompany(), updatedUser.getCompany());
         assertEquals(updatedUser.getFirstName(), user.getFirstName());
         assertEquals(updatedUser.getLastName(), user.getLastName());
-        assertEquals(updatedUser.getRole(), user.getRole());
         assertEquals(updatedUser.getPassword(), user.getPassword());
         assertEquals(updatedUser.getEmail(), user.getEmail());
         assertEquals(updatedUser.getTIN(), user.getTIN());

@@ -1,4 +1,4 @@
-package com.motrechko.taxservice.dao.impl;
+package com.motrechko.taxservice.dao.exception;
 
 /**
  Custom exception class for handling SQLExceptions in the Tax Service application.

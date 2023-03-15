@@ -2,18 +2,12 @@ package com.motrechko.taxservice.commands;
 
 
 import com.motrechko.taxservice.FrontConstant;
-import com.motrechko.taxservice.dao.DAOFactory;
-import com.motrechko.taxservice.dao.UserDAO;
-import com.motrechko.taxservice.model.User;
-import com.motrechko.taxservice.dao.impl.MySQLException;
 import com.motrechko.taxservice.enums.Target;
-import com.motrechko.taxservice.utils.PasswordUtils;
 import jakarta.servlet.ServletException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class LoginCommand extends FrontCommand{
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);

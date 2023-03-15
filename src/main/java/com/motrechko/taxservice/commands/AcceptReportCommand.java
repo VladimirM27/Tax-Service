@@ -5,7 +5,7 @@ import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.model.Report;
 import com.motrechko.taxservice.model.User;
-import com.motrechko.taxservice.dao.impl.MySQLException;
+import com.motrechko.taxservice.dao.exception.MySQLException;
 import com.motrechko.taxservice.enums.Status;
 import com.motrechko.taxservice.enums.Target;
 import jakarta.servlet.ServletException;
@@ -27,7 +27,7 @@ public class AcceptReportCommand extends FrontCommand{
             report.setStatus(accepted ? Status.ACCEPTED : Status.NOT_ACCEPTED);
             report.setIdInspector(user.getId());
             report.setCommentInspector(inspectorComment);
-            reportDAO.updateInspectorInfoInReport(report);
+          //  reportDAO.setInspectorInReport(report);
             return new CommandResponse(Target.JSP,FrontConstant.REPORTS_ADMIN);
         } catch (MySQLException e) {
             throw new RuntimeException(e);

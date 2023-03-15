@@ -1,9 +1,8 @@
 package com.motrechko.taxservice.dao;
 
-import com.motrechko.taxservice.dao.impl.MySQLException;
+import com.motrechko.taxservice.dao.exception.MySQLException;
 import com.motrechko.taxservice.model.User;
 import com.motrechko.taxservice.utils.UserFactory;
-import org.apache.commons.lang3.builder.ToStringExclude;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;

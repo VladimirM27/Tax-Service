@@ -13,7 +13,7 @@ public interface IDAOFactory {
      Returns a new instance of AdminDAO.
      @return a new instance of AdminDAO.
      */
-    AdminDAO getAdminDAO();
+    InspectorDAO getInspectorDAO();
     /**
      Returns a new instance of ReportDAO.
      @return a new instance of ReportDAO.

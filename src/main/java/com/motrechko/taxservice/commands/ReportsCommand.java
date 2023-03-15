@@ -5,7 +5,7 @@ import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.model.ReportView;
 import com.motrechko.taxservice.model.User;
-import com.motrechko.taxservice.dao.impl.MySQLException;
+import com.motrechko.taxservice.dao.exception.MySQLException;
 import com.motrechko.taxservice.enums.Target;
 import jakarta.servlet.ServletException;
 
@@ -18,12 +18,12 @@ public class ReportsCommand extends FrontCommand{
         try {
             ReportDAO reportDAO = DAOFactory.getInstance().getReportDAO();
             User user = (User) request.getSession(false).getAttribute("currentUser");
-            List<ReportView> reportViewList = reportDAO.getUserReports(user.getId());
-            request.getSession().setAttribute("reportViewList",reportViewList);
+          //  List<ReportView> reportViewList = reportDAO.getUserReports(user.getId());
+          //  request.getSession().setAttribute("reportViewList",reportViewList);
             return new CommandResponse(Target.JSP,FrontConstant.REPORTS_USER);
 
-        } catch (MySQLException e) {
-           //todo logger
+        } catch (Exception e) {
+           //todo MYSQLEXP
             return new CommandResponse(Target.JSP,FrontConstant.ERROR);
 
         }

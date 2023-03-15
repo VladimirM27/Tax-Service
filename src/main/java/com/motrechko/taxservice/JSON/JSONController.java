@@ -38,7 +38,7 @@ public class JSONController {
         Report report = gson.fromJson(reader,Report.class);
         Date oldDate = report.getDate();
         Timestamp timestamp2 = getTimestamp(oldDate);
-        report.setDate(timestamp2);
+      //  report.setDate(timestamp2);
         report.setStatus(Status.SUBMITTED);
         return report;
     }

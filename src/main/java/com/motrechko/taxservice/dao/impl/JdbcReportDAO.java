@@ -2,9 +2,13 @@ package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
+import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.dao.queries.ReportQueries;
+import com.motrechko.taxservice.model.AdminReportView;
 import com.motrechko.taxservice.model.Report;
 import com.motrechko.taxservice.model.ReportView;
 import com.motrechko.taxservice.enums.Status;
+import com.motrechko.taxservice.model.UnverifiedReportsView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,7 +57,7 @@ public class JdbcReportDAO implements ReportDAO {
      * @throws MySQLException if there is a problem updating the report
      */
     @Override
-    public void updateInspectorInfoInReport(Report report) throws MySQLException {
+    public void setInspectorInReport(Report report, int inspectorID) throws MySQLException {
         Connection connection = null;
         try {
             connection = ConnectionFactory.getConnection(false);
@@ -69,6 +73,16 @@ public class JdbcReportDAO implements ReportDAO {
         }
     }
 
+    @Override
+    public List<AdminReportView> getAllUnverifiedReports(int inspectorId) throws MySQLException {
+        return null;
+    }
+
+    @Override
+    public UnverifiedReportsView getUnverifiedReports(int idUser) throws MySQLException {
+        return null;
+    }
+
     /**
      * Updates the report information for a user.
      *
@@ -76,7 +90,7 @@ public class JdbcReportDAO implements ReportDAO {
      * @throws MySQLException if there is a problem updating the report
      */
     @Override
-    public void updateReport(Report report) throws MySQLException {
+    public void update(Report report) throws MySQLException {
         Connection connection = null;
         try {
             connection = ConnectionFactory.getConnection(false);
@@ -140,6 +154,11 @@ public class JdbcReportDAO implements ReportDAO {
         }
     }
 
+    @Override
+    public List<Report> getReportsByInspector(int idInspector) throws MySQLException {
+        return null;
+    }
+
     /**
      * Retrieves a list of report views for the specified user from the database.
      *
@@ -148,7 +167,7 @@ public class JdbcReportDAO implements ReportDAO {
      * @throws MySQLException if there was an error retrieving the reports from the database
      */
     @Override
-    public List<ReportView> getUserReports(int userId) throws MySQLException {
+    public List<Report> getReportsByUser(int userId) throws MySQLException {
         try(Connection connection = ConnectionFactory.getConnection(true);
             PreparedStatement st = connection.prepareStatement(MySQLQuery.SELECT_REPORTS_BY_USER)){
             st.setInt(1,userId);
@@ -158,7 +177,8 @@ public class JdbcReportDAO implements ReportDAO {
                 ReportView reportView = mapReportView(rs);
                 reportViews.add(reportView);
             }
-            return reportViews;
+            //return reportViews;
+            return null;
         }catch (SQLException e){
             logger.error("Cannot select user reports from user with id : {}",userId, e);
             throw new MySQLException("cannot select user reports" , e);
@@ -176,7 +196,7 @@ public class JdbcReportDAO implements ReportDAO {
      * @throws MySQLException if an error occurs while interacting with the database
      */
     private void addReport(Connection connection, Report report) throws MySQLException {
-        try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.INSERT_INTO_REPORTS, Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement statement = connection.prepareStatement(ReportQueries.INSERT_REPORT, Statement.RETURN_GENERATED_KEYS)){
             int c = executeReportPreparedStatement(report, statement, false);
             if(c> 0){
                 try(ResultSet set = statement.getGeneratedKeys()){

@@ -35,12 +35,12 @@ public class DAOFactoryTest {
     }
 
     @Test
-    public void testGetAdminDAO(){
+    public void testGetInspectorDAO(){
         DAOFactory factory = DAOFactory.getInstance();
-        AdminDAO adminDAO = factory.getAdminDAO();
+        InspectorDAO inspectorDAO = factory.getInspectorDAO();
 
         // Verify that the returned AdminDAO is not null
-        assertNotNull(adminDAO);
+        assertNotNull(inspectorDAO);
     }
 
 

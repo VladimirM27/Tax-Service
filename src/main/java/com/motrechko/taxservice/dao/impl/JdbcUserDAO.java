@@ -2,6 +2,7 @@ package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.UserDAO;
+import com.motrechko.taxservice.dao.exception.MySQLException;
 import com.motrechko.taxservice.dao.queries.UserQueries;
 import com.motrechko.taxservice.model.User;
 import java.sql.*;

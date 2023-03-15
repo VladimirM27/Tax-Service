@@ -27,7 +27,7 @@ public final class MySQLQuery {
     public static final String INSERT_INTO_USER = "INSERT INTO users(`email`,`password`,`entity`,`role`,`firstName`,`lastName`," +
             "`company`,`TIN`,`City`,`Street`,`NumberOfBuilding`)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
-    public static final String INSERT_INTO_REPORTS = "INSERT INTO `tax`.`report`(`idUser`,`idType`,`status`,`date`,`profitSum`,`taxSum`,`fine`,`penny`,`commentUser`)" +
+    public static final String INSERT_INTO_REPORTS = "INSERT INTO report(`idUser`,`idType`,`status`,`date`,`profitSum`,`taxSum`,`fine`,`penny`,`commentUser`)" +
             "VALUES(?,?,?,?,?,?,?,?,?)";
 
     public static final String SELECT_REPORTS_BY_USER = "SELECT idReport,tax.users.firstName AS \"inspector name\",tax.users.lastName AS \"inspector lastname\",tax.reporttype.type,status,date \n" +

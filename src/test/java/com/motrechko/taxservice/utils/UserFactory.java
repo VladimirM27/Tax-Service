@@ -34,9 +34,6 @@ public class UserFactory {
         return random.nextInt(1,2);
     }
 
-    private static String generateRandomRole() {
-        return random.nextBoolean() ? "user" : "inspector";
-    }
 
     private static String generateRandomFirstName() {
         String[] firstNames = {"John", "Jane", "Bob", "Alice", "Tom", "Emily"};
@@ -48,10 +45,6 @@ public class UserFactory {
         return lastNames[random.nextInt(lastNames.length)];
     }
 
-    private static String generateRandomCompany() {
-        String[] companies = {"Google", "Microsoft", "Apple", "Amazon", "Facebook", "Oracle"};
-        return companies[random.nextInt(companies.length)];
-    }
 
     private static long generateRandomTIN() {
         return  random.nextInt(900000000);

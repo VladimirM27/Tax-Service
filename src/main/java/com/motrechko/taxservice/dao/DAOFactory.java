@@ -2,6 +2,7 @@ package com.motrechko.taxservice.dao;
 
 import com.motrechko.taxservice.dao.impl.JdbcInspectorDAO;
 import com.motrechko.taxservice.dao.impl.JdbcReportDAO;
+import com.motrechko.taxservice.dao.impl.JdbcStatusDAO;
 import com.motrechko.taxservice.dao.impl.JdbcUserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +45,11 @@ public  class DAOFactory implements IDAOFactory{
     public ReportDAO getReportDAO() {
         logger.debug("Getting ReportDAO instance");
         return new JdbcReportDAO();
+    }
+
+    @Override
+    public StatusDAO getStatusDAO() {
+        return new JdbcStatusDAO();
     }
 
     public InspectorDAO getInspectorDAO() {

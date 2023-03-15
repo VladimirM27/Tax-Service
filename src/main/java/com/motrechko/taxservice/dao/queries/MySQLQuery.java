@@ -1,4 +1,4 @@
-package com.motrechko.taxservice.dao.impl;
+package com.motrechko.taxservice.dao.queries;
 
 public final class MySQLQuery {
     public static final String DELETE_REPORT = "DELETE FROM report WHERE id = ?";

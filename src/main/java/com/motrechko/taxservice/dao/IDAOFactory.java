@@ -19,4 +19,5 @@ public interface IDAOFactory {
      @return a new instance of ReportDAO.
      */
     ReportDAO getReportDAO();
+    StatusDAO getStatusDAO();
 }

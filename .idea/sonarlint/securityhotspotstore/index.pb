@@ -21,8 +21,6 @@ Q.idea/sonarlint/securityhotspotstore/2/6/2629021671ca7cc4b2f4363ec66b01f5159856
 LICENSE,0/3/0398ccd0f49298b10a3d76a47800d2ebecd49859
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-h
-8src/main/java/com/motrechko/taxservice/enums/Status.java,4/e/4e2fc062a52c69dd71d3f088215f24bebac02f90
 p
 @src/main/java/com/motrechko/taxservice/utils/StatementUtils.java,0/3/03787aa114707fbd6a044b4f0e0510907034d196
 o
@@ -31,8 +29,6 @@ k
 ;src/main/java/com/motrechko/taxservice/utils/TimeUtils.java,b/d/bd410b49bd499d8446bf456e1c0be62fb983ee0c
 l
 <src/main/java/com/motrechko/taxservice/model/ReportView.java,2/3/23e03c167195844e52e25533f867bf8d308dfaa3
-h
-8src/main/java/com/motrechko/taxservice/model/Report.java,e/c/ec1e36c3e1086b8c9b9f19719c931786fd952b3b
 7
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 i

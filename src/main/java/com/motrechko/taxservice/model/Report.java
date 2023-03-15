@@ -1,9 +1,5 @@
 package com.motrechko.taxservice.model;
 
-import com.motrechko.taxservice.enums.Status;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 

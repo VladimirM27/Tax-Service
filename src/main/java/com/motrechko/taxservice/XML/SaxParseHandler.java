@@ -1,7 +1,6 @@
 package com.motrechko.taxservice.XML;
 
 import com.motrechko.taxservice.model.Report;
-import com.motrechko.taxservice.enums.Status;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -39,7 +38,7 @@ public class SaxParseHandler extends DefaultHandler {
     @Override
     public void endDocument() throws SAXException {
         super.endDocument();
-        report.setStatus(Status.SUBMITTED);
+      //  report.setStatus(Status.SUBMITTED);
     }
 
     @Override

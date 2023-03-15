@@ -5,7 +5,6 @@ import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.model.Report;
 import com.motrechko.taxservice.dao.exception.MySQLException;
-import com.motrechko.taxservice.enums.Status;
 import com.motrechko.taxservice.enums.Target;
 import jakarta.servlet.ServletException;
 
@@ -43,7 +42,7 @@ public class UpdateReportCommand extends FrontCommand{
             Report report = new Report();
             report.setIdReport(idReport);
             report.setIdType(typeOfReport);
-            report.setStatus(Status.SUBMITTED);
+         //   report.setStatus(Status.SUBMITTED);
             report.setDate(timestamp);
             report.setIncomeSum(incomeAmount);
             report.setTaxSum(taxAmount);

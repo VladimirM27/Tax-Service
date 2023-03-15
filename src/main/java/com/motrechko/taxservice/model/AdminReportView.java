@@ -1,7 +1,5 @@
 package com.motrechko.taxservice.model;
 
-import com.motrechko.taxservice.enums.Status;
-
 import java.util.Date;
 
 public class AdminReportView {

@@ -1,7 +1,7 @@
 package com.motrechko.taxservice.utils;
 
-import com.motrechko.taxservice.enums.Status;
 import com.motrechko.taxservice.model.Report;
+import com.motrechko.taxservice.model.Status;
 
 import java.text.ParseException;
 import java.util.Date;

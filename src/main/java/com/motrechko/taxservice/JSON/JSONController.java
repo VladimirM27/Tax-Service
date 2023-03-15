@@ -1,7 +1,6 @@
 package com.motrechko.taxservice.JSON;
 
 import com.motrechko.taxservice.model.Report;
-import com.motrechko.taxservice.enums.Status;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -39,7 +38,7 @@ public class JSONController {
         Date oldDate = report.getDate();
         Timestamp timestamp2 = getTimestamp(oldDate);
       //  report.setDate(timestamp2);
-        report.setStatus(Status.SUBMITTED);
+       // report.setStatus(Status.SUBMITTED);
         return report;
     }
 

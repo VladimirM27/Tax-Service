@@ -1,18 +1,18 @@
 package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
+import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.dao.exception.MySQLException;
-import com.motrechko.taxservice.dao.queries.MySQLQuery;
 import com.motrechko.taxservice.dao.queries.ReportQueries;
-import com.motrechko.taxservice.model.AdminReportView;
-import com.motrechko.taxservice.model.Report;
-import com.motrechko.taxservice.model.ReportView;
-import com.motrechko.taxservice.model.UnverifiedReportsView;
+import com.motrechko.taxservice.model.*;
+import com.motrechko.taxservice.utils.StatementUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,28 +50,6 @@ public class JdbcReportDAO implements ReportDAO {
         }
     }
 
-    /**
-     * Updates the inspector information in the report, namely update inspector id, report comment and check status
-     *
-     * @param report the report to update
-     * @throws MySQLException if there is a problem updating the report
-     */
-    @Override
-    public void setInspectorInReport(Report report, int inspectorID) throws MySQLException {
-        Connection connection = null;
-        try {
-            connection = ConnectionFactory.getConnection(false);
-            updateReportInfo(connection,report);
-            logger.info("Report inspector information updated: " + report);
-            connection.commit();
-        } catch (SQLException e) {
-            ConnectionFactory.rollback(connection);
-            logger.warn("failed to update inspector info in the report with ID: " + report.getIdReport(), e);
-            throw new MySQLException("cannot update inspector info in report with id: " + report.getIdReport() ,e);
-        } finally {
-            ConnectionFactory.close(connection);
-        }
-    }
 
     @Override
     public List<AdminReportView> getAllUnverifiedReports(int inspectorId) throws MySQLException {
@@ -94,13 +72,13 @@ public class JdbcReportDAO implements ReportDAO {
         Connection connection = null;
         try {
             connection = ConnectionFactory.getConnection(false);
-            PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_REPORT_USER);
+            PreparedStatement statement = connection.prepareStatement(ReportQueries.UPDATE_REPORT);
             executeReportPreparedStatement(report, statement, true);
-            logger.info("Report updated with id: " + report.getIdReport());
+            logger.info("Report updated with id: {}" , report.getIdReport());
             connection.commit();
         } catch (SQLException e) {
             ConnectionFactory.rollback(connection);
-            logger.warn("failed to update report with ID: " + report.getIdReport(), e);
+            logger.warn("failed to update report with ID: {}" , report.getIdReport(), e);
             throw new MySQLException("cannot update report info", e);
         } finally {
             ConnectionFactory.close(connection);
@@ -117,18 +95,20 @@ public class JdbcReportDAO implements ReportDAO {
     @Override
     public void delete(int id) throws MySQLException {
         Connection connection = null;
+        PreparedStatement statement = null;
         try {
             connection = ConnectionFactory.getConnection(false);
-            PreparedStatement statement = connection.prepareStatement(MySQLQuery.DELETE_REPORT);
+            statement = connection.prepareStatement(ReportQueries.DELETE_REPORT);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             logger.info("Deleted {} row(s) from the reports table", rowsDeleted);
             connection.commit();
         } catch (SQLException e) {
             ConnectionFactory.rollback(connection);
-            logger.warn("failed to delete a report with ID: " + id, e);
+            logger.warn("failed to delete a report with ID: {}" , id, e);
             throw new MySQLException("Error deleting report from the database", e);
         } finally {
+            StatementUtils.close(statement);
             ConnectionFactory.close(connection);
         }
     }
@@ -143,7 +123,7 @@ public class JdbcReportDAO implements ReportDAO {
     @Override
     public Report getReportById(int reportID) throws MySQLException {
         try (Connection connection = ConnectionFactory.getConnection(true);
-             PreparedStatement statement = connection.prepareStatement(MySQLQuery.SELECT_REPORT_BY_ID)){
+             PreparedStatement statement = connection.prepareStatement(ReportQueries.SELECT_REPORT_BY_ID)){
             statement.setInt(1,reportID);
             ResultSet set = statement.executeQuery();
             set.next();
@@ -167,9 +147,9 @@ public class JdbcReportDAO implements ReportDAO {
      * @throws MySQLException if there was an error retrieving the reports from the database
      */
     @Override
-    public List<Report> getReportsByUser(int userId) throws MySQLException {
+    public List<ReportView> getReportViewByUserId(int userId) throws MySQLException {
         try(Connection connection = ConnectionFactory.getConnection(true);
-            PreparedStatement st = connection.prepareStatement(MySQLQuery.SELECT_REPORTS_BY_USER)){
+            PreparedStatement st = connection.prepareStatement(ReportQueries.SELECT_REPORTVIEW_BY_USER)){
             st.setInt(1,userId);
             ResultSet rs = st.executeQuery();
             List<ReportView> reportViews = new ArrayList<>();
@@ -177,8 +157,7 @@ public class JdbcReportDAO implements ReportDAO {
                 ReportView reportView = mapReportView(rs);
                 reportViews.add(reportView);
             }
-            //return reportViews;
-            return null;
+            return reportViews;
         }catch (SQLException e){
             logger.error("Cannot select user reports from user with id : {}",userId, e);
             throw new MySQLException("cannot select user reports" , e);
@@ -222,13 +201,13 @@ public class JdbcReportDAO implements ReportDAO {
         try {
             ReportView reportView = new ReportView();
             reportView.setIdReport(rs.getInt("idReport"));
-            reportView.setInspectorName(rs.getString("inspector name"));
-            reportView.setInspectorLastname(rs.getString("inspector lastname"));
-            reportView.setType(rs.getString("type"));
-            reportView.setStatus(rs.getString("status"));
+            reportView.setInspectorName(rs.getString("inspectorName"));
+            reportView.setInspectorLastname(rs.getString("inspectorLastName"));
+            reportView.setType(DAOFactory.getInstance().getReportTypeDAO().getReportTypeByName("type"));
+            reportView.setStatus(Status.valueOf(rs.getString("status")));
             reportView.setDate(rs.getDate("date"));
             return reportView;
-        } catch (SQLException e) {
+        } catch (SQLException | MySQLException e) {
             logger.warn("Cannot map ResultSet to ReportView");
             return null;
         }
@@ -244,65 +223,49 @@ public class JdbcReportDAO implements ReportDAO {
     private int executeReportPreparedStatement(Report report, PreparedStatement statement, boolean isUpdate) throws SQLException {
         int i = 0;
         statement.setInt(++i,report.getIdUser());
-        statement.setInt(++i,report.getIdType());
+        statement.setInt(++i, report.getIdInspector());
+        statement.setInt(++i,report.getReportType().getReportTypeId());
         statement.setString(++i, String.valueOf(report.getStatus()));
-        statement.setDate(++i,  new Date(report.getDate().getTime()));
-        statement.setDouble(++i,report.getIncomeSum());
-        statement.setDouble(++i,report.getTaxSum());
-        statement.setDouble(++i,report.getFine());
-        statement.setDouble(++i,report.getPenny());
+        statement.setDate(++i, Date.valueOf(report.getUtilDate()));
+        statement.setDouble(++i,report.getTotalIncome());
+        statement.setDouble(++i,report.getTotalDeductions());
+        statement.setDouble(++i,report.getTaxableIncome());
+        statement.setDouble(++i,report.getTotalTaxOwned());
+        statement.setDouble(++i,report.getTotalPaid());
         statement.setString(++i,report.getCommentUser());
+        statement.setString(++i,report.getCommentInspector());
         if(isUpdate)
             statement.setInt(++i,report.getIdReport());
         return statement.executeUpdate();
     }
 
     /**
-     *  Updates Info about Inspector in a report in a database
-     * @param connection the connection to use to interact with the database
-     * @param report  a report in which the data about the inspector will be changed
-     * @throws MySQLException If an error occurs while executing the SQL query.
-     */
-    private void updateReportInfo(Connection connection, Report report) throws MySQLException {
-        try (PreparedStatement statement = connection.prepareStatement(MySQLQuery.UPDATE_REPORT_INSPECTOR)){
-            int i = 0;
-            statement.setString(++i, String.valueOf(report.getStatus()));
-            statement.setString(++i, report.getCommentInspector());
-            statement.setInt(++i, report.getIdInspector());
-            statement.setInt(++i, report.getIdReport());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            logger.warn("cannot execute update statement in report with id: {}", report.getIdReport());
-            throw new MySQLException("cannot execute update statement",e);
-        }
-    }
-
-
-    /**
      *  Mapped ResultSet object to Report class object
      * @param set the ResultSet containing the data to be mapped
      * @return the Report object containing the mapped data
      */
-    private Report mapReport(ResultSet set) {
+    private Report mapReport(ResultSet set) throws MySQLException {
         try {
             Report report = new Report();
             report.setIdReport(set.getInt("idReport"));
             report.setIdUser(set.getInt("idUser"));
             report.setIdInspector(set.getInt("idInspector"));
-            report.setIdType(set.getInt("idType"));
-         //   report.setStatus(Status.valueOf(set.getString("status")));
-        //    report.setDate(set.getDate("date"));
-            report.setUtilDate(new java.util.Date(set.getDate("date").getTime()));
-            report.setIncomeSum(set.getDouble("profitSum"));
-            report.setTaxSum(set.getDouble("taxSum"));
-            report.setFine(set.getDouble("fine"));
-            report.setPenny(set.getDouble("penny"));
+            int idType = set.getInt("idType");
+            ReportType reportType = DAOFactory.getInstance().getReportTypeDAO().getReportTypeById(idType);
+            report.setReportType(reportType);
+            report.setStatus(Status.valueOf(set.getString("status")));
+            report.setUtilDate(LocalDate.parse(set.getString("created")));
+            report.setTotalIncome(set.getDouble("total_income"));
+            report.setTotalDeductions(set.getDouble("total_deductions"));
+            report.setTaxableIncome(set.getDouble("taxable_income"));
+            report.setTotalTaxOwned(set.getDouble("total_tax_owned"));
+            report.setTotalPaid(set.getDouble("total_paid"));
             report.setCommentUser(set.getString("commentUser"));
             report.setCommentInspector(set.getString("commentInspector"));
             return report;
         } catch (SQLException e) {
             logger.warn("Cannot map report from ResultSet to Report object");
-            throw new RuntimeException(e);
+            throw new MySQLException("Error during report mapping");
         }
     }
 }

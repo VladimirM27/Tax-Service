@@ -41,13 +41,13 @@ public class UpdateReportCommand extends FrontCommand{
             int idReport = Integer.parseInt(request.getParameter("idReport"));
             Report report = new Report();
             report.setIdReport(idReport);
-            report.setIdType(typeOfReport);
+            //report.setReportType(typeOfReport);
          //   report.setStatus(Status.SUBMITTED);
-            report.setDate(timestamp);
-            report.setIncomeSum(incomeAmount);
-            report.setTaxSum(taxAmount);
-            report.setFine(fine);
-            report.setPenny(penny);
+          //  report.setCreated(timestamp);
+            report.setTotalIncome(incomeAmount);
+            report.setTotalDeductions(taxAmount);
+            report.setTaxableIncome(fine);
+            report.setTotalTaxOwned(penny);
             report.setCommentUser(userComment);
             return report;
         } catch (ParseException e) {

@@ -20,4 +20,7 @@ public interface IDAOFactory {
      */
     ReportDAO getReportDAO();
     StatusDAO getStatusDAO();
+
+
+    ReportTypeDAO getReportTypeDAO();
 }

@@ -1,11 +1,17 @@
 package com.motrechko.taxservice.utils;
 
+import com.motrechko.taxservice.dao.DAOFactory;
+import com.motrechko.taxservice.dao.ReportTypeDAO;
+import com.motrechko.taxservice.dao.exception.MySQLException;
 import com.motrechko.taxservice.model.Report;
+import com.motrechko.taxservice.model.ReportType;
 import com.motrechko.taxservice.model.Status;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
+
 
 public class ReportFactory {
     private static final int MAX_ID = 1000;
@@ -18,16 +24,16 @@ public class ReportFactory {
     };
     private static final Random random = new Random();
 
-    public static Report createRandomReport() throws ParseException {
+    public static Report createRandomReport() throws ParseException, MySQLException {
         Report report = new Report();
         report.setIdReport(random.nextInt(MAX_ID));
-        report.setIdType(random.nextInt(6));
+        report.setReportType(getRandomReportType());
         report.setStatus(Status.values()[random.nextInt(Status.values().length)]);
-        report.setDate(new Date());
-        report.setIncomeSum(random.nextDouble() * MAX_SUM);
-        report.setTaxSum(random.nextDouble() * MAX_SUM);
-        report.setFine(random.nextDouble() * MAX_FINE);
-        report.setPenny(random.nextDouble() * MAX_PENNY);
+        report.setUtilDate(LocalDate.now());
+        report.setTotalIncome(random.nextDouble() * MAX_SUM);
+        report.setTotalDeductions(random.nextDouble() * MAX_SUM);
+        report.setTaxableIncome(random.nextDouble() * MAX_FINE);
+        report.setTotalTaxOwned(random.nextDouble() * MAX_PENNY);
         report.setCommentUser(getRandomComment());
         report.setCommentInspector(getRandomComment());
         return report;
@@ -35,6 +41,10 @@ public class ReportFactory {
 
     private static String getRandomComment() {
         return COMMENTS[random.nextInt(COMMENTS.length)];
+    }
+    private static ReportType getRandomReportType() throws MySQLException {
+        ReportTypeDAO reportTypeDAO= DAOFactory.getInstance().getReportTypeDAO();
+        return reportTypeDAO.getReportTypeById(random.nextInt(1,10));
     }
 }
 

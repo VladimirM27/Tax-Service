@@ -56,22 +56,22 @@ public class SaxParseHandler extends DefaultHandler {
                 report.setIdUser(Integer.parseInt(currentValue.toString()));
                 break;
             case ID_TYPE:
-                report.setIdType(Integer.parseInt(currentValue.toString()));
+                //report.setReportType(Integer.parseInt(currentValue.toString()));
                 break;
             case DATE:
                 setDate();
                 break;
             case INCOME_SUM:
-                report.setIncomeSum(Double.parseDouble(currentValue.toString()));
+                report.setTotalIncome(Double.parseDouble(currentValue.toString()));
                 break;
             case TAX_SUM:
-                report.setTaxSum(Double.parseDouble(currentValue.toString()));
+                report.setTotalDeductions(Double.parseDouble(currentValue.toString()));
                 break;
             case FINE:
-                report.setFine(Double.parseDouble(currentValue.toString()));
+                report.setTaxableIncome(Double.parseDouble(currentValue.toString()));
                 break;
             case PENNY:
-                report.setPenny(Double.parseDouble(currentValue.toString()));
+                report.setTotalTaxOwned(Double.parseDouble(currentValue.toString()));
                 break;
             case USER_COMMENT:
                 report.setCommentUser(currentValue.toString());
@@ -89,7 +89,7 @@ public class SaxParseHandler extends DefaultHandler {
         try {
             Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(currentValue.toString());
             Timestamp timestamp = getTimestamp(date1);
-            report.setDate(timestamp);
+            //report.setCreated(timestamp);
         } catch (ParseException e) {
             throw new SAXException("cannot set date", e);
         }

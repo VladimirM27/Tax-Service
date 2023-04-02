@@ -3,6 +3,7 @@ package com.motrechko.taxservice.dao;
 import com.motrechko.taxservice.model.AdminReportView;
 import com.motrechko.taxservice.model.Report;
 import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.model.ReportView;
 import com.motrechko.taxservice.model.UnverifiedReportsView;
 
 import java.util.List;
@@ -42,25 +43,17 @@ public interface ReportDAO {
      */
     List<Report> getReportsByInspector(int idInspector) throws  MySQLException;
     /**
-     Retrieves a list of reports belonging to a specific user from the database.
+     Retrieves a list of reports view belonging to a specific user from the database.
      @param userId the ID of the user whose reports are to be retrieved
-     @return a list of reports belonging to the specified user
+     @return a list of reports view belonging to the specified user
      @throws MySQLException if a SQL exception occurs during the retrieval process
      */
-    List<Report> getReportsByUser(int userId) throws MySQLException;
+    List<ReportView> getReportViewByUserId(int userId) throws MySQLException;
     /**
      Deletes a report from the database.
      @throws MySQLException if a SQL exception occurs during the deletion process
      */
     void delete(int idReport) throws MySQLException;
-
-    /**
-     * Sets the inspector in a specific report
-     * @param report report in which the inspector will be set
-     * @param inspectorID ID of the inspector, which should be set in the report
-     * @throws MySQLException if a SQL exception occurs during the deletion process
-     */
-    void setInspectorInReport(Report report, int inspectorID) throws MySQLException;
 
     /**
      Retrieves all unverified reports for a given inspector.

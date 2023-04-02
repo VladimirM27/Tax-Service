@@ -35,8 +35,8 @@ public class JSONController {
         Gson gson = new Gson();
         Reader reader = new FileReader(uploadPath);
         Report report = gson.fromJson(reader,Report.class);
-        Date oldDate = report.getDate();
-        Timestamp timestamp2 = getTimestamp(oldDate);
+        //Date oldDate = report.getCreated();
+       // Timestamp timestamp2 = getTimestamp(oldDate);
       //  report.setDate(timestamp2);
        // report.setStatus(Status.SUBMITTED);
         return report;

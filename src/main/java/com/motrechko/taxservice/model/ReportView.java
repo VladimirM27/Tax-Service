@@ -8,8 +8,8 @@ public class ReportView {
     private int idReport;
     private String inspectorName;
     private String inspectorLastname;
-    private String type;
-    private String status;
+    private ReportType type;
+    private Status status;
     private Date date;
 
     public int getIdReport() {
@@ -24,31 +24,31 @@ public class ReportView {
         return inspectorName;
     }
 
-    public void setInspectorName(java.lang.String inspectorName) {
+    public void setInspectorName(String inspectorName) {
         this.inspectorName = inspectorName;
     }
 
-    public java.lang.String getInspectorLastname() {
+    public String getInspectorLastname() {
         return inspectorLastname;
     }
 
-    public void setInspectorLastname(java.lang.String inspectorLastname) {
+    public void setInspectorLastname(String inspectorLastname) {
         this.inspectorLastname = inspectorLastname;
     }
 
-    public java.lang.String getType() {
+    public ReportType getType() {
         return type;
     }
 
-    public void setType(java.lang.String type) {
+    public void setType(ReportType type) {
         this.type = type;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

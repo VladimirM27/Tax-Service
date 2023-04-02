@@ -1,7 +1,7 @@
 package com.motrechko.taxservice.dao.queries;
 
 public final class MySQLQuery {
-    public static final String DELETE_REPORT = "DELETE FROM report WHERE id = ?";
+
 
     private MySQLQuery(){}
     //todo Divide into different classes
@@ -43,7 +43,7 @@ public final class MySQLQuery {
             "WHERE tax.report.idReport = ?";
 
     public static final String UPDATE_REPORT_INSPECTOR = "UPDATE `tax`.`report` SET `status` = ?, `commentInspector` = ?,`idInspector` = ?  WHERE `idReport` = ?;";
-    public static final String SELECT_REPORT_BY_ID = "SELECT * FROM report WHERE idReport = ?";
+
 
     public static final String UPDATE_REPORT_USER ="UPDATE `tax`.`report` SET `idType` = ?,`status` = ?,`date` = ?" +
             ",`profitSum` = ?,`taxSum` = ?,`fine` = ?,`penny` = ?,`commentUser` = ?" +

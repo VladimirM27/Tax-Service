@@ -31,7 +31,7 @@ public class JdbcStatusDAO implements StatusDAO {
         } catch (SQLException e){
             ConnectionFactory.rollback(connection);
             logger.warn("Failed to insert new status with value: {}" , status.getValue(), e);
-            throw new MySQLException("Cannot add new User",e);
+            throw new MySQLException("Cannot add new status",e);
         }
         finally {
             if (preparedStatement != null) {

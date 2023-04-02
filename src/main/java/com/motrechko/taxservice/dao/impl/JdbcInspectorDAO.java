@@ -4,9 +4,7 @@ import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.InspectorDAO;
 import com.motrechko.taxservice.dao.exception.MySQLException;
 import com.motrechko.taxservice.dao.queries.InspectorQueries;
-import com.motrechko.taxservice.dao.queries.UserQueries;
 import com.motrechko.taxservice.model.Inspector;
-import com.motrechko.taxservice.model.User;
 import com.motrechko.taxservice.utils.StatementUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +27,7 @@ public class JdbcInspectorDAO implements InspectorDAO {
             } catch (SQLException | MySQLException e){
                 ConnectionFactory.rollback(connection);
                 logger.warn("Failed to insert new user with email: {}" , inspector.getEmail(), e);
-                throw new MySQLException("Cannot add new User",e);
+                throw new MySQLException("Cannot add new Inspector",e);
             }
             finally {
                 ConnectionFactory.close(connection);

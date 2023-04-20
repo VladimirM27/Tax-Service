@@ -9,6 +9,8 @@ public class Company {
     private String city;
     private String street;
     private String numberOfBuilding;
+    private String name;
+    private String description;
 
     public int getId() {
         return id;
@@ -58,17 +60,33 @@ public class Company {
         this.numberOfBuilding = numberOfBuilding;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return id == company.id && countEmployee == company.countEmployee && Objects.equals(user, company.user) && Objects.equals(city, company.city) && Objects.equals(street, company.street) && Objects.equals(numberOfBuilding, company.numberOfBuilding);
+        return id == company.id && countEmployee == company.countEmployee && Objects.equals(user, company.user) && Objects.equals(city, company.city) && Objects.equals(street, company.street) && Objects.equals(numberOfBuilding, company.numberOfBuilding) && Objects.equals(name, company.name) && Objects.equals(description, company.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, countEmployee, city, street, numberOfBuilding);
+        return Objects.hash(id, user, countEmployee, city, street, numberOfBuilding, name, description);
     }
 
     @Override
@@ -80,6 +98,8 @@ public class Company {
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", numberOfBuilding='" + numberOfBuilding + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

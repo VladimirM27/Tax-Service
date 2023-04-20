@@ -24,7 +24,8 @@ class JdbcUserDAOTest {
     @Test
     void should_CorrectAddNewUser_When_CorrectInput() throws MySQLException {
         User user = UserFactory.createRandomUser();
-        assertTrue(userDAO.create(user));
+        Executable executable = () -> userDAO.create(user);
+        assertDoesNotThrow(executable);
         Optional<User> createdUser = userDAO.getByEmail(user.getEmail());
         assertTrue(createdUser.isPresent());
         assertEquals(createdUser.get().getFirstName(), user.getFirstName());
@@ -65,12 +66,12 @@ class JdbcUserDAOTest {
     @Test
     void should_CorrectDeleteUser_When_CorrectInput() throws MySQLException {
         User user = UserFactory.createRandomUser();
-        assertTrue(userDAO.create(user));
-        assertNotNull(userDAO.getByEmail(user.getEmail()));
+        Executable executable = () -> userDAO.create(user);
+        assertDoesNotThrow(executable);
+        assertTrue(userDAO.getByEmail(user.getEmail()).isPresent());
         int userId = user.getId();
         userDAO.delete(userId);
-        Executable executable = ()-> userDAO.getByEmail(user.getEmail());
-        assertThrows(MySQLException.class, executable );
+        assertFalse(userDAO.getByEmail(user.getEmail()).isPresent());
     }
 
     @Test
@@ -94,7 +95,8 @@ class JdbcUserDAOTest {
     @Test
     void should_CorrectUpdate_When_CorrectInput() throws MySQLException {
         User user = UserFactory.createRandomUser();
-        assertTrue(userDAO.create(user));
+        Executable executable = () -> userDAO.create(user);
+        assertDoesNotThrow(executable);
         String newEmail = "newTestemail@gmail.com";
         user.setEmail(newEmail);
         userDAO.update(user);
@@ -113,7 +115,8 @@ class JdbcUserDAOTest {
     @Test
     void should_DontCorrectUpdate_When_IncorrectInput() throws MySQLException {
         User user = UserFactory.createRandomUser();
-        assertTrue(userDAO.create(user));
+        Executable createUser = () -> userDAO.create(user);
+        assertDoesNotThrow(createUser);
         user.setEmail(null);
         Executable executable = () -> userDAO.update(user);
         assertThrows(MySQLException.class, executable);

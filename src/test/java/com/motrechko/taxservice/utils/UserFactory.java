@@ -27,7 +27,7 @@ public class UserFactory {
     }
 
     private static String generateRandomPassword() {
-        return "password" + random.nextInt(1000);
+        return PasswordUtils.hashPassword("password" + random.nextInt(1000));
     }
 
     private static int generateRandomEntity() {

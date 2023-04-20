@@ -26,19 +26,19 @@ public class JdbcUserDAO implements UserDAO {
      * Creates a new user in the database.
      *
      * @param user the user to create
-     * @return true if the user was created successfully, false otherwise
+     * @return User if the user was created successfully
      * @throws MySQLException if an error occurs while interacting with the database
      */
     @Override
-    public boolean create(User user) throws MySQLException {
+    public User create(User user) throws MySQLException {
         if(user == null){throw new MySQLException("Cannot add new User");}
         Connection connection = null;
         try {
             connection = ConnectionFactory.getConnection(false);
-            addUser(connection,user);
+            User userWithId = addUser(connection, user);
             connection.commit();
             logger.info("User was created successfully with email: {}", user.getEmail());
-            return true;
+            return userWithId;
         } catch (SQLException | MySQLException e){
             ConnectionFactory.rollback(connection);
             logger.warn("Failed to insert new user with email: {}" , user.getEmail(), e);
@@ -56,7 +56,7 @@ public class JdbcUserDAO implements UserDAO {
      * @param user       the user to add
      * @throws MySQLException if an error occurs while interacting with the database
      */
-    private void addUser(Connection connection, User user) throws MySQLException {
+    private User addUser(Connection connection, User user) throws MySQLException {
 
         try (PreparedStatement statement = connection.prepareStatement(UserQueries.INSERT_USER,Statement.RETURN_GENERATED_KEYS)){
             int c = executeUserPreparedStatement(user, statement,false);
@@ -68,6 +68,7 @@ public class JdbcUserDAO implements UserDAO {
                 }
 
             }
+            return user;
         } catch (SQLException e){
             logger.warn("Failed to insert new user with email: {}" , user.getEmail(), e);
             throw new MySQLException("Cannot insert new user" , e);
@@ -113,7 +114,7 @@ public class JdbcUserDAO implements UserDAO {
             List<User> users = new ArrayList<>();
             while (rs.next()){
                 Optional<User> user = mapUser(rs);
-                users.add(user.get());
+                user.ifPresent(users::add);
             }
             return users;
         }catch (SQLException e){
@@ -150,7 +151,7 @@ public class JdbcUserDAO implements UserDAO {
      * @ MySQLException if an error occurs while interacting with the database
      */
     @Override
-    public Optional<User> getByEmail(String email) throws MySQLException {
+    public Optional<User> getByEmail(String email)  {
         try (Connection connection = ConnectionFactory.getConnection(true);
             PreparedStatement statement = connection.prepareStatement(UserQueries.GET_USER_BY_EMAIL)){
             statement.setString(1,email);
@@ -160,6 +161,21 @@ public class JdbcUserDAO implements UserDAO {
             return mapUser(set);
         } catch (SQLException e){
             logger.warn("Failed to get a user with email: {}" , email, e);
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<User> getById(int idUser)  {
+        try (Connection connection = ConnectionFactory.getConnection(true);
+             PreparedStatement statement = connection.prepareStatement(UserQueries.GET_USER_BY_ID)){
+            statement.setInt(1,idUser);
+            ResultSet set = statement.executeQuery();
+            set.next();
+            logger.info("a user with the id  {} was found ", idUser);
+            return mapUser(set);
+        } catch (SQLException e){
+            logger.warn("Failed to get a user with id: {}" , idUser, e);
             return Optional.empty();
         }
     }

@@ -13,10 +13,10 @@ public interface UserDAO {
     /**
      Creates a new user record in the database.
      @param user the User object representing the user to be created
-     @return true if the user is successfully created, false otherwise
+     @return User if the user is successfully created
      @throws MySQLException if an error occurs while accessing the database
      */
-    boolean create(User user) throws MySQLException;
+    User create(User user) throws MySQLException;
     /**
      Updates an existing user record in the database.
      @throws MySQLException if an error occurs while accessing the database
@@ -41,5 +41,6 @@ public interface UserDAO {
      @throws MySQLException if an error occurs while accessing the database
      */
     Optional<User> getByEmail(String email) throws MySQLException;
+    Optional<User> getById(int idUser) throws MySQLException;
 
 }

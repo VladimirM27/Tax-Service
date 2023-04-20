@@ -8,13 +8,9 @@ W
 Q
 !src/main/webapp/styles/signin.css,6\3\637112cc590eee55cd83077566a4ad341d07b55b
 S
-#src/main/webapp/WEB-INF/schema.json,3\0\30f6a69529db665e7e2c4386f08f2271a5b5ce9d
-S
 #src/main/webapp/scripts/my-login.js,4\9\496987f1940731d138fe4d3c0f18a178c1a331bb
 T
 $src/main/webapp/styles/newReport.css,6\8\685228430f10fdc556784cde84dcc633ee76d209
-T
-$src/main/webapp/jsp/registration.jsp,a\2\a294e44ae025efeddbc862ddfec6f56add7de971
 d
 4src/main/webapp/assets/css/Articles-Cards-images.css,4\f\4f339f6fc2c29e8e497d2f1fef778422a3681fdc
 Q
@@ -45,8 +41,6 @@ n
 >src/test/java/com/motrechko/taxservice/dao/DAOFactoryTest.java,8/0/809cb936f6769552e79dc0ba947b6a9ef6b80c63
 r
 Bsrc/test/java/com/motrechko/taxservice/utils/InspectorFactory.java,5/6/566a41f664630ffba07cc4fe7549ecb18bed21fe
-m
-=src/test/java/com/motrechko/taxservice/utils/UserFactory.java,3/0/30fa6988cbc6e1f8b4c3c384d9bffb521aa8dc52
 h
 8src/main/java/com/motrechko/taxservice/enums/Target.java,c/d/cd69f57efc447b649218d66d4a1249f3747306b8
 u
@@ -55,8 +49,6 @@ w
 Gsrc/main/java/com/motrechko/taxservice/model/UnverifiedReportsView.java,b/6/b618779593b5052e1fa08b90fe8239d6de0d1724
 q
 Asrc/main/java/com/motrechko/taxservice/model/AdminReportView.java,2/4/2424f7b0dfffc4f2998fa2e943ec72a294993b6a
-i
-9src/main/java/com/motrechko/taxservice/model/Company.java,9/3/933949c814c6c95b403efbcb50280d89468adfa0
 i
 9src/main/java/com/motrechko/taxservice/FrontConstant.java,e/3/e3fb404d620e23487f644de568f535f4ac92765e
 l
@@ -67,12 +59,6 @@ k
 ;src/main/java/com/motrechko/taxservice/ContextListener.java,2/c/2c10fa186e13b47a339f685ed840a3174a4b942f
 o
 ?src/main/java/com/motrechko/taxservice/JSON/JSONController.java,e/d/ed3a65862827dc3222136249dcbc9772c01709c3
-x
-Hsrc/main/java/com/motrechko/taxservice/commands/AdminReportsCommand.java,7/b/7b1fc3c0a887ce691afcc5893d5736b01d13cb03
-s
-Csrc/main/java/com/motrechko/taxservice/commands/ReportsCommand.java,5/b/5b4e1a3f5f7895b6459fec2b7d91372bf03f6e08
-}
-Msrc/main/java/com/motrechko/taxservice/commands/UnverifiedReportsCommand.java,a/b/abb9d54334dcb0164869fedde77ba7b8a43518ee
 r
 Bsrc/main/java/com/motrechko/taxservice/dao/queries/MySQLQuery.java,7/e/7ed5ed67915baccb24e608d5fb34fa4a558f1103
 l
@@ -81,8 +67,6 @@ p
 @src/main/java/com/motrechko/taxservice/utils/StatementUtils.java,0/3/03787aa114707fbd6a044b4f0e0510907034d196
 u
 Esrc/main/java/com/motrechko/taxservice/dao/queries/ReportQueries.java,e/8/e843352668069ec14a84c0f59fcd1e695224c44e
-q
-Asrc/main/java/com/motrechko/taxservice/commands/FrontCommand.java,8/e/8e9408a1ff378b2e2cce9f2942f07cc7de5e52cf
 j
 :src/main/java/com/motrechko/taxservice/dao/DAOFactory.java,2/6/2629021671ca7cc4b2f4363ec66b01f515985649
 k

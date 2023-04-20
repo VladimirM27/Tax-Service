@@ -7,6 +7,7 @@ import com.motrechko.taxservice.utils.ReportFactory;
 import com.motrechko.taxservice.utils.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.text.ParseException;
 
@@ -26,7 +27,8 @@ public class JdbcReportDAOTest {
     void should_CorrectCreate_When_CorrectInput() throws MySQLException, ParseException {
         Report report = ReportFactory.createRandomReport();
         User user = UserFactory.createRandomUser();
-        assertTrue(userDAO.create(user));
+        Executable executable = () -> userDAO.create(user);
+        assertDoesNotThrow(executable);
         report.setIdUser(user.getId());
         assertTrue(reportDAO.create(report));
         Report createdReport = reportDAO.getReportById(report.getIdReport());

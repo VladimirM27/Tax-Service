@@ -1,12 +1,10 @@
 package com.motrechko.taxservice.commands;
 
 import com.motrechko.taxservice.FrontConstant;
-import com.motrechko.taxservice.dao.DAOFactory;
-import com.motrechko.taxservice.dao.UserDAO;
+import com.motrechko.taxservice.exception.UserException;
 import com.motrechko.taxservice.model.User;
-import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.enums.Target;
-import com.motrechko.taxservice.utils.PasswordUtils;
+import com.motrechko.taxservice.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -14,52 +12,50 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-public class RegistrationCommand extends FrontCommand{
 
+public class RegistrationCommand extends FrontCommand{
     private static final Logger logger = LogManager.getLogger(RegistrationCommand.class);
-    private final UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+    /**
+     Processes the user registration request and returns the appropriate CommandResponse.
+     @return the CommandResponse for the registration request.
+     @throws ServletException if an error occurs during request processing.
+     @throws IOException if an error occurs while writing the response.
+     */
     @Override
     public CommandResponse process() throws ServletException, IOException {
-
+        UserService userService = new UserService();
         try {
-            User user = getNewUserFromRequest(request);
-            userDAO.create(user);
-            logger.info("A new user is registered");
-            request.getSession().setAttribute("currentUser",user);
+            User user = parseUserFromRequest(request);
+            if (userService.getUserByEmail(user.getEmail()) != null) {
+                logger.warn("Cannot register new user: user with email address {}" , user.getEmail() + " already exists.");
+                return new CommandResponse(Target.JSP,FrontConstant.ERROR);
+            }
+            User userWithId = userService.create(user);
+            logger.info("A new user is registered: {}" , user.getEmail());
+            request.getSession().setAttribute("currentUser",userWithId);
             return new CommandResponse(Target.JSP,FrontConstant.PROFILE_USER);
-
-        }catch (MySQLException e) {
-            logger.warn("Cannot register new user: " , e);
+        } catch (UserException e) {
+            logger.warn("Cannot register new user: {}" , e.getMessage(), e);
             return new CommandResponse(Target.JSP,FrontConstant.ERROR);
-
         }
     }
-
-    private User getNewUserFromRequest(ServletRequest request){
-        String email = request.getParameter("emailAddress");
-        String password = request.getParameter("secondPassword");
-        String hashPassword = PasswordUtils.hashPassword(password);
-        String entity = request.getParameter("entity");
-        String role = "user";
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String company = request.getParameter("company");
-        long TIN = Long.parseLong(request.getParameter("TIN"));
-        String city = request.getParameter("city");
-        String street = request.getParameter("street");
-        String numberOfBuilding = request.getParameter("numberOfBuilding");
+    /**
+     Parses user registration information from the given request and returns a new User object.
+     @param request the ServletRequest containing user registration information.
+     @return a new User object representing the user's registration information.
+     @throws NumberFormatException if any of the numeric fields are not valid integers.
+     */
+    private User parseUserFromRequest(ServletRequest request){
         User user = new User();
-        user.setEmail(email);
-        user.setPassword(hashPassword);
-       // user.setEntity(entity);
-     //   user.setRole(role);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-     //   user.setCompany(company);
-        user.setTIN(TIN);
-        user.setCity(city);
-        user.setStreet(street);
-        user.setNumberOfBuilding(numberOfBuilding);
+        user.setEmail(request.getParameter("emailAddress"));
+        user.setPassword(request.getParameter("secondPassword"));
+        user.setEntity(Integer.parseInt(request.getParameter("entity")));
+        user.setFirstName(request.getParameter("firstName"));
+        user.setLastName(request.getParameter("lastName"));
+        user.setTIN(Long.parseLong(request.getParameter("TIN")));
+        user.setCity(request.getParameter("city"));
+        user.setStreet(request.getParameter("street"));
+        user.setNumberOfBuilding(request.getParameter("numberOfBuilding"));
         return user;
     }
 }

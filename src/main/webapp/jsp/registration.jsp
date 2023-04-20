@@ -27,7 +27,7 @@
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5">
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-            <form  action="/Tax-service/controller" method="post"  class ="needs-validation" onsubmit="submitForm" novalidate>
+            <form  action="${pageContext.request.contextPath}/controller" method="post"  class ="needs-validation" onsubmit="submitForm" novalidate>
               <input id="POST-command" type="hidden" name="command" value="Registration" >
 
               <div class="row">
@@ -108,8 +108,8 @@
                   <div class="form-outline mb-4">
                     <select class="form-select" name="entity">
                       <option value="1" disabled>Choose entity</option>
-                      <option value="individual">individual</option>
-                      <option value="legal">legal</option>
+                      <option value="1">individual</option>
+                      <option value="2">legal</option>
                     </select>
                     <label class="form-label select-label">Choose entity</label>
                   </div>

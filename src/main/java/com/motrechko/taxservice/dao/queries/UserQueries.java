@@ -24,5 +24,6 @@ public final class UserQueries {
     public static final String DELETE_BY_ID = "DELETE FROM `user` WHERE idUser = ?;";
     public static final String GET_ALL_USERS = "SELECT * FROM user";
     public static final String GET_USER_BY_EMAIL = "SELECT * FROM user WHERE email LIKE ?";
+    public static final String GET_USER_BY_ID = "SELECT * FROM user WHERE idUser = ?";
 
 }

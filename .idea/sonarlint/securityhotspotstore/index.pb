@@ -43,10 +43,6 @@ p
 @src/main/java/com/motrechko/taxservice/utils/StatementUtils.java,0/3/03787aa114707fbd6a044b4f0e0510907034d196
 l
 <src/main/java/com/motrechko/taxservice/model/ReportView.java,2/3/23e03c167195844e52e25533f867bf8d308dfaa3
-u
-Esrc/main/java/com/motrechko/taxservice/dao/queries/ReportQueries.java,e/8/e843352668069ec14a84c0f59fcd1e695224c44e
-j
-:src/main/java/com/motrechko/taxservice/dao/DAOFactory.java,2/6/2629021671ca7cc4b2f4363ec66b01f515985649
 k
 ;src/main/java/com/motrechko/taxservice/dao/IDAOFactory.java,8/4/8413401c7f9c582bb65ee105705a2654b144dcab
 y

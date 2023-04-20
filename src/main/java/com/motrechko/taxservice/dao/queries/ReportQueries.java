@@ -26,7 +26,7 @@ public final class ReportQueries {
             "FROM report " +
             "JOIN inspector ON inspector.idinspector = report.idInspector " +
             "JOIN report_type ON report_type.idreportType = report.idType " +
-            "JOIN status ON status.idstatus = report.idStatus where idUser = ?";
+            "JOIN status ON status.idstatus = report.status where idUser = ?";
 
     public static final String UPDATE_REPORT = "UPDATE `tax_service_2`.`report` " +
             "SET " +

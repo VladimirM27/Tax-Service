@@ -5,6 +5,7 @@ import com.motrechko.taxservice.exception.UserException;
 import com.motrechko.taxservice.model.User;
 import com.motrechko.taxservice.enums.Target;
 import com.motrechko.taxservice.service.UserService;
+import com.motrechko.taxservice.utils.PasswordUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -48,7 +49,8 @@ public class RegistrationCommand extends FrontCommand{
     private User parseUserFromRequest(ServletRequest request){
         User user = new User();
         user.setEmail(request.getParameter("emailAddress"));
-        user.setPassword(request.getParameter("secondPassword"));
+        String password = PasswordUtils.hashPassword(request.getParameter("secondPassword"));
+        user.setPassword(password);
         user.setEntity(Integer.parseInt(request.getParameter("entity")));
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));

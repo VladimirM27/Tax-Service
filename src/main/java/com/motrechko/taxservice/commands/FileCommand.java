@@ -6,7 +6,7 @@ import com.motrechko.taxservice.XML.SAXController;
 import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.model.Report;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.enums.Target;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;

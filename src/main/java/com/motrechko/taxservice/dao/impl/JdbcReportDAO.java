@@ -3,7 +3,7 @@ package com.motrechko.taxservice.dao.impl;
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportDAO;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.dao.queries.ReportQueries;
 import com.motrechko.taxservice.model.*;
 import com.motrechko.taxservice.utils.StatementUtils;
@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 

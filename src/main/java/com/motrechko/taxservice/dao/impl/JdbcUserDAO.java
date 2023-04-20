@@ -2,12 +2,13 @@ package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.UserDAO;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.dao.queries.UserQueries;
 import com.motrechko.taxservice.model.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.motrechko.taxservice.utils.StatementUtils;
 import org.apache.logging.log4j.LogManager;
@@ -111,8 +112,8 @@ public class JdbcUserDAO implements UserDAO {
             ResultSet rs = st.executeQuery(UserQueries.GET_ALL_USERS);
             List<User> users = new ArrayList<>();
             while (rs.next()){
-                User user = mapUser(rs);
-                users.add(user);
+                Optional<User> user = mapUser(rs);
+                users.add(user.get());
             }
             return users;
         }catch (SQLException e){
@@ -127,7 +128,7 @@ public class JdbcUserDAO implements UserDAO {
      * @return A matched User object.
      * @throws SQLException if an error occurs while interacting with the database
      */
-    private User mapUser(ResultSet rs) throws SQLException {
+    private Optional<User> mapUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("idUser"));
         user.setEmail(rs.getString("email"));
@@ -139,7 +140,7 @@ public class JdbcUserDAO implements UserDAO {
         user.setCity(rs.getString("city"));
         user.setStreet(rs.getString("street"));
         user.setNumberOfBuilding(rs.getString("number_of_building"));
-        return user;
+        return Optional.of(user);
     }
 
     /**
@@ -149,7 +150,7 @@ public class JdbcUserDAO implements UserDAO {
      * @ MySQLException if an error occurs while interacting with the database
      */
     @Override
-    public User getByEmail(String email) throws MySQLException {
+    public Optional<User> getByEmail(String email) throws MySQLException {
         try (Connection connection = ConnectionFactory.getConnection(true);
             PreparedStatement statement = connection.prepareStatement(UserQueries.GET_USER_BY_EMAIL)){
             statement.setString(1,email);
@@ -159,7 +160,7 @@ public class JdbcUserDAO implements UserDAO {
             return mapUser(set);
         } catch (SQLException e){
             logger.warn("Failed to get a user with email: {}" , email, e);
-            throw new MySQLException("Cannot get user", e);
+            return Optional.empty();
         }
     }
 

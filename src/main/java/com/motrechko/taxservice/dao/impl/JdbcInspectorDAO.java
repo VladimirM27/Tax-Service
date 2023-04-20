@@ -2,7 +2,7 @@ package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.InspectorDAO;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.dao.queries.InspectorQueries;
 import com.motrechko.taxservice.model.Inspector;
 import com.motrechko.taxservice.utils.StatementUtils;
@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.Optional;
 
 public class JdbcInspectorDAO implements InspectorDAO {
 
@@ -45,7 +46,7 @@ public class JdbcInspectorDAO implements InspectorDAO {
             if(c> 0){
                 try(ResultSet set = statement.getGeneratedKeys()){
                     if(set.next()){
-                        inspector.setIdInspector(set.getInt(1));
+                        inspector.setId(set.getInt(1));
                     }
                 }
 
@@ -57,7 +58,7 @@ public class JdbcInspectorDAO implements InspectorDAO {
     }
 
     @Override
-    public Inspector getByEmail(String email) throws MySQLException {
+    public Optional<Inspector> getByEmail(String email) throws MySQLException {
         try (Connection connection = ConnectionFactory.getConnection(true);
              PreparedStatement statement = connection.prepareStatement(InspectorQueries.GET_INSPECTOR_BY_EMAIL)){
             statement.setString(1,email);
@@ -67,7 +68,7 @@ public class JdbcInspectorDAO implements InspectorDAO {
             return mapInspector(set);
         } catch (SQLException e){
             logger.warn("Failed to get a user with email: {}" , email, e);
-            throw new MySQLException("Cannot get inspector by email", e);
+            return Optional.empty();
         }
     }
 
@@ -95,13 +96,13 @@ public class JdbcInspectorDAO implements InspectorDAO {
         }
     }
 
-    private Inspector mapInspector(ResultSet set) throws SQLException {
+    private Optional<Inspector> mapInspector(ResultSet set) throws SQLException {
         Inspector inspector = new Inspector();
         inspector.setEmail(set.getString("email"));
         inspector.setFirstName(set.getString("first_name"));
         inspector.setLastName(set.getString("last_name"));
         inspector.setPassword(set.getString("password"));
-        inspector.setIdInspector(set.getInt("idinspector"));
-        return inspector;
+        inspector.setId(set.getInt("idinspector"));
+        return Optional.of(inspector);
     }
 }

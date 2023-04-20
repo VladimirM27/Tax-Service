@@ -2,7 +2,7 @@ package com.motrechko.taxservice.dao;
 
 import com.motrechko.taxservice.model.AdminReportView;
 import com.motrechko.taxservice.model.Report;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.model.ReportView;
 import com.motrechko.taxservice.model.UnverifiedReportsView;
 

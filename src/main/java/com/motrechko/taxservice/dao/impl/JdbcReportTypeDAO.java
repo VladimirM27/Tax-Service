@@ -2,7 +2,7 @@ package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.ReportTypeDAO;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.dao.queries.ReportTypeQueries;
 import com.motrechko.taxservice.model.Entity;
 import com.motrechko.taxservice.model.ReportType;

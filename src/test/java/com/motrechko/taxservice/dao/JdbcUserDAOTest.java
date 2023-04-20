@@ -1,6 +1,6 @@
 package com.motrechko.taxservice.dao;
 
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.model.User;
 import com.motrechko.taxservice.utils.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,14 +25,14 @@ class JdbcUserDAOTest {
     void should_CorrectAddNewUser_When_CorrectInput() throws MySQLException {
         User user = UserFactory.createRandomUser();
         assertTrue(userDAO.create(user));
-        User createdUser = userDAO.getByEmail(user.getEmail());
-        assertNotNull(createdUser);
-        assertEquals(createdUser.getFirstName(), user.getFirstName());
-        assertEquals(createdUser.getLastName(), user.getLastName());
-        assertEquals(createdUser.getPassword(), user.getPassword());
-        assertEquals(createdUser.getEmail(), user.getEmail());
-        assertEquals(createdUser.getTIN(), user.getTIN());
-        assertEquals(createdUser.getCity(), user.getCity());
+        Optional<User> createdUser = userDAO.getByEmail(user.getEmail());
+        assertTrue(createdUser.isPresent());
+        assertEquals(createdUser.get().getFirstName(), user.getFirstName());
+        assertEquals(createdUser.get().getLastName(), user.getLastName());
+        assertEquals(createdUser.get().getPassword(), user.getPassword());
+        assertEquals(createdUser.get().getEmail(), user.getEmail());
+        assertEquals(createdUser.get().getTIN(), user.getTIN());
+        assertEquals(createdUser.get().getCity(), user.getCity());
         userDAO.delete(user.getId());
     }
 
@@ -42,7 +43,7 @@ class JdbcUserDAOTest {
     }
 
     @Test
-    void should_DontAddUser_When_OneParameter_IsNull() throws MySQLException {
+    void should_DontAddUser_When_OneParameter_IsNull()  {
         User user = UserFactory.createRandomUser();
         user.setEmail(null);
 
@@ -55,9 +56,9 @@ class JdbcUserDAOTest {
     void should_CorrectFindByEmail_When_CorrectInput() throws MySQLException {
         User user = UserFactory.createRandomUser();
         userDAO.create(user);
-        User findUser = userDAO.getByEmail(user.getEmail());
-        assertNotNull(findUser);
-        assertEquals(user.getEmail(), findUser.getEmail());
+        Optional<User> findUser = userDAO.getByEmail(user.getEmail());
+        assertTrue(findUser.isPresent());
+        assertEquals(user.getEmail(), findUser.get().getEmail());
         userDAO.delete(user.getId());
     }
 
@@ -97,15 +98,15 @@ class JdbcUserDAOTest {
         String newEmail = "newTestemail@gmail.com";
         user.setEmail(newEmail);
         userDAO.update(user);
-        User updatedUser = userDAO.getByEmail(newEmail);
-        assertNotNull(updatedUser);
-        assertEquals(user.getId(), updatedUser.getId());
-        assertEquals(updatedUser.getFirstName(), user.getFirstName());
-        assertEquals(updatedUser.getLastName(), user.getLastName());
-        assertEquals(updatedUser.getPassword(), user.getPassword());
-        assertEquals(updatedUser.getEmail(), user.getEmail());
-        assertEquals(updatedUser.getTIN(), user.getTIN());
-        assertEquals(updatedUser.getCity(), user.getCity());
+        Optional<User> updatedUser = userDAO.getByEmail(newEmail);
+        assertTrue(updatedUser.isPresent());
+        assertEquals(user.getId(), updatedUser.get().getId());
+        assertEquals(updatedUser.get().getFirstName(), user.getFirstName());
+        assertEquals(updatedUser.get().getLastName(), user.getLastName());
+        assertEquals(updatedUser.get().getPassword(), user.getPassword());
+        assertEquals(updatedUser.get().getEmail(), user.getEmail());
+        assertEquals(updatedUser.get().getTIN(), user.getTIN());
+        assertEquals(updatedUser.get().getCity(), user.getCity());
         userDAO.delete(user.getId());
     }
 

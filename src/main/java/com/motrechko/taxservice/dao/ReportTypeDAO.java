@@ -1,6 +1,6 @@
 package com.motrechko.taxservice.dao;
 
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.model.Entity;
 import com.motrechko.taxservice.model.ReportType;
 

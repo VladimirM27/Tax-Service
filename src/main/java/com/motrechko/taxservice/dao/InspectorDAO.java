@@ -1,7 +1,9 @@
 package com.motrechko.taxservice.dao;
 
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.model.Inspector;
+
+import java.util.Optional;
 
 /**
  The InspectorDAO interface provides methods for accessing and manipulating Inspector data in a data storage system.
@@ -16,9 +18,10 @@ public interface InspectorDAO {
     /**
      Retrieves an Inspector record by email from the data storage system.
      @param email the email of the Inspector to retrieve
-     @return the Inspector object if found, null otherwise
+     @return an {@link Optional} object containing a {@link Inspector} object representing the retrieved user if it exists,
+     otherwise an empty {@link Optional} object
      */
-    Inspector getByEmail(String email) throws MySQLException;
+    Optional<Inspector> getByEmail(String email) throws MySQLException;
 
     void delete (int id) throws MySQLException;
 }

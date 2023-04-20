@@ -1,9 +1,10 @@
 package com.motrechko.taxservice.dao;
 
 import com.motrechko.taxservice.model.User;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  Interface representing the data access object (DAO) for the User entity.
@@ -35,9 +36,10 @@ public interface UserDAO {
     /**
      Retrieves a user record from the database by email.
      @param email the email address of the user to retrieve
-     @return a User object representing the retrieved user, or null if the user is not found
+     @return an {@link Optional} object containing a {@link User} object representing the retrieved user if it exists,
+     otherwise an empty {@link Optional} object
      @throws MySQLException if an error occurs while accessing the database
      */
-    User getByEmail(String email) throws MySQLException;
+    Optional<User> getByEmail(String email) throws MySQLException;
 
 }

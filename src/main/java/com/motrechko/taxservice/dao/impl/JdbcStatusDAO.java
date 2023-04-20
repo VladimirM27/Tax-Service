@@ -2,7 +2,7 @@ package com.motrechko.taxservice.dao.impl;
 
 import com.motrechko.taxservice.dao.ConnectionFactory;
 import com.motrechko.taxservice.dao.StatusDAO;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.dao.queries.StatusQueries;
 import com.motrechko.taxservice.model.Status;
 import com.motrechko.taxservice.utils.StatementUtils;

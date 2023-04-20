@@ -2,14 +2,13 @@ package com.motrechko.taxservice.utils;
 
 import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.dao.ReportTypeDAO;
-import com.motrechko.taxservice.dao.exception.MySQLException;
+import com.motrechko.taxservice.exception.MySQLException;
 import com.motrechko.taxservice.model.Report;
 import com.motrechko.taxservice.model.ReportType;
 import com.motrechko.taxservice.model.Status;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Random;
 
 

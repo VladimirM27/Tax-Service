@@ -200,10 +200,10 @@ public class JdbcReportDAO implements ReportDAO {
         try {
             ReportView reportView = new ReportView();
             reportView.setIdReport(rs.getInt("idReport"));
-            reportView.setInspectorName(rs.getString("inspectorName"));
+            reportView.setInspectorName(rs.getString("inspectorFirstName"));
             reportView.setInspectorLastname(rs.getString("inspectorLastName"));
-            reportView.setType(DAOFactory.getInstance().getReportTypeDAO().getReportTypeByName("type"));
-            reportView.setStatus(Status.valueOf(rs.getString("status")));
+            reportView.setType(DAOFactory.getInstance().getReportTypeDAO().getReportTypeByName(rs.getString("type")));
+            reportView.setStatus(Status.valueOf(rs.getString("status").toUpperCase()));
             reportView.setDate(rs.getDate("date"));
             return reportView;
         } catch (SQLException | MySQLException e) {

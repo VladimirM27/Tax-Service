@@ -61,9 +61,9 @@
               <table class="table my-0" id="dataTable">
                 <thead>
                 <tr>
-                  <th>numberOfReport</th>
+                  <th>Key Number</th>
                   <th>Inspector Name</th>
-                  <th>Type of Report</th>
+                  <th>Inspector Lastname</th>
                   <th>Status</th>
                   <th>Date</th>
                   <th>Type</th>
@@ -78,9 +78,9 @@
                     <th><c:out value="${item.inspectorLastname == null ? '-' : item.inspectorLastname}"/></th>
                     <th><c:out value="${item.status}"/></th>
                     <th><c:out value="${item.date}"/></th>
-                    <th><c:out value="${item.type}"/></th>
+                    <th><c:out value="${item.type.getType()}"/></th>
                     <c:choose>
-                      <c:when test="${item.status == 'NOT_ACCEPTED'}">
+                      <c:when test="${item.status == 'REJECTED'}">
                         <td><a class="btn btn-primary"  href="${pageContext.request.contextPath}/controller?command=FillReport&idReport=${item.idReport}">Edit report</a></td>
                       </c:when>
 
@@ -92,11 +92,12 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>numberOfReport</th>
+                  <th>Key Number</th>
                   <th>Inspector Name</th>
-                  <th>Type of Report</th>
+                  <th>Inspector Lastname</th>
                   <th>Status</th>
                   <th>Date</th>
+                  <th>Type</th>
                   <th>Details</th>
                 </tr>
                 </tfoot>

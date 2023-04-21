@@ -21,12 +21,12 @@ public final class ReportQueries {
             "VALUES" +
             "(?,?,?,?,?,?,?,?,?,?,?,?);";
 
-    public static final String SELECT_REPORTVIEW_BY_USER = "SELECT report.idReport, inspector.first_name AS inspectorName, inspector.last_name AS inspectorLastName, " +
-            "report_type.type, status.status, report.created AS date " +
-            "FROM report " +
-            "JOIN inspector ON inspector.idinspector = report.idInspector " +
-            "JOIN report_type ON report_type.idreportType = report.idType " +
-            "JOIN status ON status.idstatus = report.status where idUser = ?";
+    public static final String SELECT_REPORTVIEW_BY_USER = "SELECT r.idReport, COALESCE(i.first_name, '') AS inspectorFirstName, COALESCE(i.last_name, '') AS inspectorLastName, rt.type, s.status, r.created AS date " +
+            "FROM report AS r " +
+            "LEFT JOIN inspector AS i ON i.idinspector = r.idInspector " +
+            "JOIN report_type AS rt ON rt.idreportType = r.idType " +
+            "JOIN status AS s ON s.status = r.status " +
+            "WHERE r.idUser = ?";
 
     public static final String UPDATE_REPORT = "UPDATE `tax_service_2`.`report` " +
             "SET " +

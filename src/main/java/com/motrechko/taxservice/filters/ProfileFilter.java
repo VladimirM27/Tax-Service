@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 
-@WebFilter( urlPatterns = {"/jsp/profile.jsp","/jsp/newReport.jsp","/jsp/reports.jsp","/jsp/raxForm.jsp"})
+@WebFilter( urlPatterns = {"/jsp/profile.jsp","/jsp/newReport.jsp","/jsp/reports.jsp","/jsp/taxForm.jsp"})
 public class ProfileFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(ProfileFilter.class);
     @Override

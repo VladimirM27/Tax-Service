@@ -1,8 +1,6 @@
 package com.motrechko.taxservice.commands;
 
 import com.motrechko.taxservice.FrontConstant;
-import com.motrechko.taxservice.dao.DAOFactory;
-import com.motrechko.taxservice.dao.ReportDAO;
 import com.motrechko.taxservice.exception.ReportException;
 import com.motrechko.taxservice.model.ReportView;
 import com.motrechko.taxservice.model.User;
@@ -38,6 +36,7 @@ public class ReportsCommand extends FrontCommand {
 
         } catch (ReportException e) {
             logger.error("An error occurred while retrieving user reports: {}", e.getMessage(), e);
+            request.getSession().setAttribute("errorMessage",e.getMessage());
             return new CommandResponse(Target.JSP, FrontConstant.ERROR);
         }
     }

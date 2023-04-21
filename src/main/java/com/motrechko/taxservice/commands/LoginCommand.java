@@ -2,7 +2,6 @@ package com.motrechko.taxservice.commands;
 
 
 import com.motrechko.taxservice.FrontConstant;
-import com.motrechko.taxservice.dao.DAOFactory;
 import com.motrechko.taxservice.enums.Target;
 import com.motrechko.taxservice.enums.UserType;
 import com.motrechko.taxservice.exception.AuthenticationException;

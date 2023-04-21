@@ -29,6 +29,7 @@ public class RegistrationCommand extends FrontCommand{
             User user = parseUserFromRequest(request);
             if (userService.getUserByEmail(user.getEmail()) != null) {
                 logger.warn("Cannot register new user: user with email address {}" , user.getEmail() + " already exists.");
+                request.getSession().setAttribute("errorMessage","User with email address "+  user.getEmail() + " already exists.");
                 return new CommandResponse(Target.JSP,FrontConstant.ERROR);
             }
             User userWithId = userService.create(user);
@@ -37,6 +38,7 @@ public class RegistrationCommand extends FrontCommand{
             return new CommandResponse(Target.JSP,FrontConstant.PROFILE_USER);
         } catch (UserException e) {
             logger.warn("Cannot register new user: {}" , e.getMessage(), e);
+            request.getSession().setAttribute("errorMessage",e.getMessage());
             return new CommandResponse(Target.JSP,FrontConstant.ERROR);
         }
     }

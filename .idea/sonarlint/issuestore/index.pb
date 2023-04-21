@@ -45,8 +45,6 @@ w
 Gsrc/main/java/com/motrechko/taxservice/model/UnverifiedReportsView.java,b/6/b618779593b5052e1fa08b90fe8239d6de0d1724
 q
 Asrc/main/java/com/motrechko/taxservice/model/AdminReportView.java,2/4/2424f7b0dfffc4f2998fa2e943ec72a294993b6a
-l
-<src/main/java/com/motrechko/taxservice/model/ReportType.java,9/1/91a82ad70595c791f93eff8a302afc48f93f8e11
 q
 Asrc/main/java/com/motrechko/taxservice/dao/ConnectionFactory.java,8/a/8a29b78d22ddfb1f455f5863f5a131be30458fd3
 k
@@ -55,8 +53,6 @@ o
 ?src/main/java/com/motrechko/taxservice/JSON/JSONController.java,e/d/ed3a65862827dc3222136249dcbc9772c01709c3
 r
 Bsrc/main/java/com/motrechko/taxservice/dao/queries/MySQLQuery.java,7/e/7ed5ed67915baccb24e608d5fb34fa4a558f1103
-l
-<src/main/java/com/motrechko/taxservice/model/ReportView.java,2/3/23e03c167195844e52e25533f867bf8d308dfaa3
 p
 @src/main/java/com/motrechko/taxservice/utils/StatementUtils.java,0/3/03787aa114707fbd6a044b4f0e0510907034d196
 k
@@ -71,7 +67,5 @@ l
 <src/main/java/com/motrechko/taxservice/XML/XMLException.java,e/b/eb7ff9a61a9a617d5a3d8f3b7f02931668273606
 h
 8src/main/java/com/motrechko/taxservice/model/Report.java,e/c/ec1e36c3e1086b8c9b9f19719c931786fd952b3b
-h
-8src/main/java/com/motrechko/taxservice/model/Status.java,b/3/b391889dadacdacc179cab2f9896d35e7736227b
 h
 8src/main/java/com/motrechko/taxservice/model/Entity.java,8/1/81d3f3d3c0b6f67caf391fc0136daa0e58182155

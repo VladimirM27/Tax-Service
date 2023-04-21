@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Error 404</title>
-    <link rel="stylesheet" href="../styles/error404.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/error404.css">
 
 </head>
 <body>

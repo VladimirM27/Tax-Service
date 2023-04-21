@@ -1,14 +1,10 @@
 
-O
-src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
 R
 "src/main/webapp/styles/account.css,b\9\b9ad4a732ef4e3df06070450800382bdceb85f12
 W
 'src/main/webapp/styles/registration.css,7\b\7b8806aef80cfe8fa0f16d0a431e728c14da998a
 Q
 !src/main/webapp/styles/signin.css,6\3\637112cc590eee55cd83077566a4ad341d07b55b
-S
-#src/main/webapp/scripts/my-login.js,4\9\496987f1940731d138fe4d3c0f18a178c1a331bb
 T
 $src/main/webapp/styles/newReport.css,6\8\685228430f10fdc556784cde84dcc633ee76d209
 d
@@ -49,8 +45,6 @@ w
 Gsrc/main/java/com/motrechko/taxservice/model/UnverifiedReportsView.java,b/6/b618779593b5052e1fa08b90fe8239d6de0d1724
 q
 Asrc/main/java/com/motrechko/taxservice/model/AdminReportView.java,2/4/2424f7b0dfffc4f2998fa2e943ec72a294993b6a
-i
-9src/main/java/com/motrechko/taxservice/FrontConstant.java,e/3/e3fb404d620e23487f644de568f535f4ac92765e
 l
 <src/main/java/com/motrechko/taxservice/model/ReportType.java,9/1/91a82ad70595c791f93eff8a302afc48f93f8e11
 q
@@ -77,8 +71,6 @@ l
 <src/main/java/com/motrechko/taxservice/XML/XMLException.java,e/b/eb7ff9a61a9a617d5a3d8f3b7f02931668273606
 h
 8src/main/java/com/motrechko/taxservice/model/Report.java,e/c/ec1e36c3e1086b8c9b9f19719c931786fd952b3b
-R
-"src/main/webapp/WEB-INF/report.xsd,c/0/c0c70017c4d03d4959adb40df852320d1d9a2b56
 h
 8src/main/java/com/motrechko/taxservice/model/Status.java,b/3/b391889dadacdacc179cab2f9896d35e7736227b
 h

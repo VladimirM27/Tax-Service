@@ -27,8 +27,6 @@ w
 Gsrc/main/java/com/motrechko/taxservice/model/UnverifiedReportsView.java,b/6/b618779593b5052e1fa08b90fe8239d6de0d1724
 q
 Asrc/main/java/com/motrechko/taxservice/model/AdminReportView.java,2/4/2424f7b0dfffc4f2998fa2e943ec72a294993b6a
-i
-9src/main/java/com/motrechko/taxservice/FrontConstant.java,e/3/e3fb404d620e23487f644de568f535f4ac92765e
 l
 <src/main/java/com/motrechko/taxservice/model/ReportType.java,9/1/91a82ad70595c791f93eff8a302afc48f93f8e11
 q
@@ -55,8 +53,6 @@ l
 <src/main/java/com/motrechko/taxservice/XML/XMLException.java,e/b/eb7ff9a61a9a617d5a3d8f3b7f02931668273606
 h
 8src/main/java/com/motrechko/taxservice/model/Report.java,e/c/ec1e36c3e1086b8c9b9f19719c931786fd952b3b
-R
-"src/main/webapp/WEB-INF/report.xsd,c/0/c0c70017c4d03d4959adb40df852320d1d9a2b56
 h
 8src/main/java/com/motrechko/taxservice/model/Entity.java,8/1/81d3f3d3c0b6f67caf391fc0136daa0e58182155
 h

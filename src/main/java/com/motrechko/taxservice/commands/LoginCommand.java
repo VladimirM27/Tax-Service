@@ -55,8 +55,9 @@ public class LoginCommand extends FrontCommand {
                     return new CommandResponse(Target.JSP, FrontConstant.REPORTS_ADMIN);
                 }
             }
-        } catch (AuthenticationException | UserException | InspectorException e) {
+        } catch (AuthenticationException | UserException | InspectorException | IllegalArgumentException e) {
             logger.error("An error occurred during user authentication: {}" , e.getMessage(), e);
+            request.getSession().setAttribute("errorMessage",e.getMessage());
             return new CommandResponse(Target.JSP, FrontConstant.ERROR);
         }
         logger.warn("User with email {} failed to log in.", email);

@@ -28,7 +28,7 @@ public class AuthService {
      * @return true if the email and password match a user or inspector in the database; false otherwise
      * @throws AuthenticationException if there is an error during authentication
      */
-    public boolean authenticate(String email, String password) throws AuthenticationException {
+    public boolean authenticate(String email, String password) throws AuthenticationException,IllegalArgumentException{
         if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
             throw new IllegalArgumentException("Email and password cannot be empty");
         }

@@ -1,8 +1,4 @@
 
-m
-=src/main/java/com/motrechko/taxservice/config/PoolConfig.java,d/c/dc502ef1b28cfc3ffdada9bf336d560a71df4532
-q
-Asrc/main/java/com/motrechko/taxservice/config/DatabaseConfig.java,d/f/df6351987ff209caa5e9831fc9b97da7ef819de4
 q
 Asrc/test/java/com/motrechko/taxservice/config/PoolConfigTest.java,8/e/8e9446c1602e0ac9f8283172e158e01821dd9db1
 u
@@ -11,10 +7,6 @@ Esrc/test/java/com/motrechko/taxservice/dao/ConnectionFactoryTest.java,2/0/204f
 LICENSE,0/3/0398ccd0f49298b10a3d76a47800d2ebecd49859
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-k
-;src/main/java/com/motrechko/taxservice/utils/TimeUtils.java,b/d/bd410b49bd499d8446bf456e1c0be62fb983ee0c
-7
-pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 n
 >src/test/java/com/motrechko/taxservice/dao/DAOFactoryTest.java,8/0/809cb936f6769552e79dc0ba947b6a9ef6b80c63
 r
@@ -27,27 +19,13 @@ w
 Gsrc/main/java/com/motrechko/taxservice/model/UnverifiedReportsView.java,b/6/b618779593b5052e1fa08b90fe8239d6de0d1724
 q
 Asrc/main/java/com/motrechko/taxservice/model/AdminReportView.java,2/4/2424f7b0dfffc4f2998fa2e943ec72a294993b6a
-q
-Asrc/main/java/com/motrechko/taxservice/dao/ConnectionFactory.java,8/a/8a29b78d22ddfb1f455f5863f5a131be30458fd3
 r
 Bsrc/main/java/com/motrechko/taxservice/dao/queries/MySQLQuery.java,7/e/7ed5ed67915baccb24e608d5fb34fa4a558f1103
 k
 ;src/main/java/com/motrechko/taxservice/ContextListener.java,2/c/2c10fa186e13b47a339f685ed840a3174a4b942f
-o
-?src/main/java/com/motrechko/taxservice/JSON/JSONController.java,e/d/ed3a65862827dc3222136249dcbc9772c01709c3
-p
-@src/main/java/com/motrechko/taxservice/utils/StatementUtils.java,0/3/03787aa114707fbd6a044b4f0e0510907034d196
 k
 ;src/main/java/com/motrechko/taxservice/dao/IDAOFactory.java,8/4/8413401c7f9c582bb65ee105705a2654b144dcab
 y
 Isrc/main/java/com/motrechko/taxservice/dao/queries/ReportTypeQueries.java,6/5/657ee665f819d0ee1d2e0bd914e63e3042212693
-m
-=src/main/java/com/motrechko/taxservice/XML/SAXController.java,3/0/304bb3d33f6729395019bf008faca26c43c99e64
-o
-?src/main/java/com/motrechko/taxservice/XML/SaxParseHandler.java,f/1/f18dc3b8d0f50f73d47bae52e2bf9aa55a295bbd
-l
-<src/main/java/com/motrechko/taxservice/XML/XMLException.java,e/b/eb7ff9a61a9a617d5a3d8f3b7f02931668273606
-h
-8src/main/java/com/motrechko/taxservice/model/Report.java,e/c/ec1e36c3e1086b8c9b9f19719c931786fd952b3b
 h
 8src/main/java/com/motrechko/taxservice/model/Entity.java,8/1/81d3f3d3c0b6f67caf391fc0136daa0e58182155

@@ -225,7 +225,7 @@ public class JdbcReportDAO implements ReportDAO {
         statement.setInt(++i, report.getIdInspector());
         statement.setInt(++i,report.getReportType().getReportTypeId());
         statement.setString(++i, String.valueOf(report.getStatus()));
-        statement.setDate(++i, Date.valueOf(report.getUtilDate()));
+        statement.setDate(++i, Date.valueOf(report.getCreated()));
         statement.setDouble(++i,report.getTotalIncome());
         statement.setDouble(++i,report.getTotalDeductions());
         statement.setDouble(++i,report.getTaxableIncome());
@@ -253,7 +253,7 @@ public class JdbcReportDAO implements ReportDAO {
             ReportType reportType = DAOFactory.getInstance().getReportTypeDAO().getReportTypeById(idType);
             report.setReportType(reportType);
             report.setStatus(Status.valueOf(set.getString("status")));
-            report.setUtilDate(LocalDate.parse(set.getString("created")));
+            report.setCreated(LocalDate.parse(set.getString("created")));
             report.setTotalIncome(set.getDouble("total_income"));
             report.setTotalDeductions(set.getDouble("total_deductions"));
             report.setTaxableIncome(set.getDouble("taxable_income"));

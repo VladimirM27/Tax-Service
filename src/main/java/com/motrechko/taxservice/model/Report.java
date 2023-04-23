@@ -1,7 +1,6 @@
 package com.motrechko.taxservice.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class Report {
@@ -20,14 +19,12 @@ public class Report {
     private String commentInspector;
 
 
-    public void setUtilDate(LocalDate utilDate) {
-        this.created = utilDate;
+    public void setCreated(LocalDate created) {
+        this.created = created;
     }
-
-    public LocalDate getUtilDate() {
+    public LocalDate getCreated() {
         return created;
     }
-
     public double getTotalIncome() {
         return totalIncome;
     }

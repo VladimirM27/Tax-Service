@@ -8,43 +8,72 @@
       "description": "The unique identifier for user",
       "type": "integer"
     },
-    "idType": {
-      "description": "The unique identifier for type of report",
-      "type": "integer"
+    "reportType": {
+      "$ref": "#/definitions/ReportType"
     },
-    "date": {
+    "created": {
       "description": "Date of completion of the report",
-      "type": "string"
+      "type": "string",
+      "format": "date"
     },
-    "incomeSum": {
-      "description": "income amount",
+    "totalIncome": {
+      "description": "Total income amount",
       "type": "number"
     },
-    "taxSum": {
-      "description": "income amount",
+    "totalDeductions": {
+      "description": "Total deduction amount",
       "type": "number"
     },
-    "fine": {
-      "description": "income amount",
+    "taxableIncome": {
+      "description": "Taxable income amount",
       "type": "number"
     },
-    "penny": {
-      "description": "income amount",
+    "totalTaxOwned": {
+      "description": "Total tax owned amount",
+      "type": "number"
+    },
+    "totalPaid": {
+      "description": "Total paid amount",
       "type": "number"
     },
     "commentUser": {
-      "description": "Date of completion of the report",
+      "description": "Comment made by user",
       "type": "string"
     }
   },
   "required": [
     "idUser",
-    "idType",
-    "date",
-    "incomeSum",
-    "taxSum",
-    "fine",
-    "penny",
+    "reportType",
+    "created",
+    "totalIncome",
+    "totalDeductions",
+    "taxableIncome",
+    "totalTaxOwned",
+    "totalPaid",
     "commentUser"
-  ]
+  ],
+  "definitions": {
+    "ReportType": {
+      "type": "object",
+      "properties": {
+        "reportTypeId": {
+          "description": "The unique identifier for type of report",
+          "type": "integer"
+        },
+        "type": {
+          "description": "The type of the report",
+          "type": "string"
+        },
+        "entity": {
+          "description": "The entity of the report",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reportTypeId",
+        "type",
+        "entity"
+      ]
+    }
+  }
 }

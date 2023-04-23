@@ -1,98 +1,81 @@
 package com.motrechko.taxservice.XML;
 
+import com.motrechko.taxservice.exception.ReportException;
 import com.motrechko.taxservice.model.Report;
+import com.motrechko.taxservice.model.Status;
+import com.motrechko.taxservice.service.ReportTypeService;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
+/**
+ * This class represents a SAX parser handler for parsing a report XML file.
+ */
 public class SaxParseHandler extends DefaultHandler {
 
+    private static final String ID_USER = "idUser";
+    private static final String ID_TYPE = "reportType";
+    private static final String CREATED = "created";
+    private static final String TOTAL_INCOME = "totalIncome";
+    private static final String TOTAL_DEDUCTIONS = "totalDeductions";
+    private static final String TAXABLE_INCOME = "taxableIncome";
+    private static final String TOTAL_TAX_OWNED = "totalTaxOwned";
+    private static final String TOTAL_PAID = "totalPaid";
+    private static final String USER_COMMENT = "commentUser";
 
-    private static final java.lang.String ID_USER = "idUser";
-    private static final java.lang.String ID_TYPE = "idType";
-
-    private static final java.lang.String DATE = "date";
-    private static final java.lang.String INCOME_SUM = "incomeSum";
-    private static final java.lang.String TAX_SUM = "taxSum";
-    private static final java.lang.String FINE = "fine";
-    private static final java.lang.String PENNY = "penny";
-    private static final java.lang.String USER_COMMENT = "commentUser";
-
-
-    
-    private StringBuilder currentValue = new StringBuilder();
+    private ReportTypeService reportTypeService;
+    private final StringBuilder currentValue = new StringBuilder();
     private Report report;
 
-    public Report getResult(){return  report;}
+    /**
+     * Returns the report object parsed by this handler.
+     *
+     * @return the parsed report object
+     */
+    public Report getResult() {
+        return report;
+    }
 
     @Override
-    public void startDocument() throws SAXException {
+    public void startDocument() {
         report = new Report();
+        reportTypeService = new ReportTypeService();
     }
 
     @Override
-    public void endDocument() throws SAXException {
-        super.endDocument();
-      //  report.setStatus(Status.SUBMITTED);
+    public void endDocument() {
+        report.setStatus(Status.SUBMITTED);
     }
 
     @Override
-    public void startElement(java.lang.String uri, java.lang.String localName, java.lang.String qName, Attributes attributes) throws SAXException {
-        super.startElement(uri, localName, qName, attributes);
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentValue.setLength(0);
-
     }
 
     @Override
-    public void endElement(java.lang.String uri, java.lang.String localName, java.lang.String qName) throws SAXException {
-        super.endElement(uri, localName, qName);
-        switch (qName){
-            case ID_USER:
-                report.setIdUser(Integer.parseInt(currentValue.toString()));
-                break;
-            case ID_TYPE:
-                //report.setReportType(Integer.parseInt(currentValue.toString()));
-                break;
-            case DATE:
-                setDate();
-                break;
-            case INCOME_SUM:
-                report.setTotalIncome(Double.parseDouble(currentValue.toString()));
-                break;
-            case TAX_SUM:
-                report.setTotalDeductions(Double.parseDouble(currentValue.toString()));
-                break;
-            case FINE:
-                report.setTaxableIncome(Double.parseDouble(currentValue.toString()));
-                break;
-            case PENNY:
-                report.setTotalTaxOwned(Double.parseDouble(currentValue.toString()));
-                break;
-            case USER_COMMENT:
-                report.setCommentUser(currentValue.toString());
-                break;
-
-        }
-    }
-
-    @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        currentValue.append(ch,start,length);
-    }
-
-    private void setDate() throws SAXException {
+    public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
-            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(currentValue.toString());
-            Timestamp timestamp = getTimestamp(date1);
-            //report.setCreated(timestamp);
-        } catch (ParseException e) {
-            throw new SAXException("cannot set date", e);
+            switch (qName) {
+                case ID_USER -> report.setIdUser(Integer.parseInt(currentValue.toString()));
+                case ID_TYPE -> report.setReportType(reportTypeService.getReportTypeById(Integer.parseInt(currentValue.toString())));
+                case CREATED -> report.setCreated(LocalDate.parse(currentValue.toString()));
+                case TOTAL_INCOME -> report.setTotalIncome(Double.parseDouble(currentValue.toString()));
+                case TOTAL_DEDUCTIONS -> report.setTotalDeductions(Double.parseDouble(currentValue.toString()));
+                case TAXABLE_INCOME -> report.setTaxableIncome(Double.parseDouble(currentValue.toString()));
+                case TOTAL_PAID -> report.setTotalPaid(Double.parseDouble(currentValue.toString()));
+                case USER_COMMENT -> report.setCommentUser(currentValue.toString());
+                case TOTAL_TAX_OWNED -> report.setTotalTaxOwned(Double.parseDouble(currentValue.toString()));
+            }
+        } catch (NumberFormatException | ReportException e) {
+            throw new SAXException("Failed to parse report", e);
         }
     }
-    private static Timestamp getTimestamp(Date date) { return date == null ? null : new java.sql.Timestamp(date.getTime()); }
+
+    @Override
+    public void characters(char[] ch, int start, int length) {
+        currentValue.append(ch, start, length);
+    }
+
 }

@@ -54,7 +54,7 @@
 
           <div class="col"></div>
           <div class="col">
-            <form  method="post" action="/Tax-service/controller" enctype="multipart/form-data">
+            <form  method="post" action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
             <div class="card">
               <div class="card-body p-4" style="padding-bottom: 11px;margin-bottom: 44px;">
                 <h4 class="card-title"><span style="color: rgb(33, 37, 41);">XML or JSON Format</span><br></h4>

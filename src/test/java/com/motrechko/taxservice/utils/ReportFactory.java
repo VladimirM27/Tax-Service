@@ -28,7 +28,7 @@ public class ReportFactory {
         report.setIdReport(random.nextInt(MAX_ID));
         report.setReportType(getRandomReportType());
         report.setStatus(Status.values()[random.nextInt(Status.values().length)]);
-        report.setUtilDate(LocalDate.now());
+        report.setCreated(LocalDate.now());
         report.setTotalIncome(random.nextDouble() * MAX_SUM);
         report.setTotalDeductions(random.nextDouble() * MAX_SUM);
         report.setTaxableIncome(random.nextDouble() * MAX_FINE);

@@ -1,20 +1,18 @@
 package com.motrechko.taxservice.model;
 
-import java.util.Date;
+
+import java.time.LocalDate;
+
 
 public class AdminReportView {
     private int idReport;
 
-    private String type;
+    private ReportType type;
+    private String entity;
     private Status status;
-    private Date date;
+    private LocalDate date;
     private String firstName;
     private String lastName;
-
-
-
-    public AdminReportView() {
-    }
 
     public int getIdReport() {
         return idReport;
@@ -24,11 +22,11 @@ public class AdminReportView {
         this.idReport = idReport;
     }
 
-    public String getType() {
+    public ReportType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ReportType type) {
         this.type = type;
     }
 
@@ -40,11 +38,11 @@ public class AdminReportView {
         this.status = status;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -62,5 +60,13 @@ public class AdminReportView {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEntity() {
+        return entity;
+    }
+
+    public void setEntity(String entity) {
+        this.entity = entity;
     }
 }

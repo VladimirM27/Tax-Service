@@ -42,13 +42,15 @@ public class FrontControllerServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + path);
     }
 
+
     private String getPath(String path, Target target) {
-        if(target == Target.COMMAND)
-            return getCommandPath(path);
-        else if(target == Target.JSP)
-            return getJSPPath(path);
-        else return getJSPPath(FrontConstant.ERROR);
+        return switch (target) {
+            case JSP -> getJSPPath(path);
+            case COMMAND -> getCommandPath(path);
+            default -> getJSPPath(FrontConstant.ERROR);
+        };
     }
+
 
     private String getJSPPath(String target)  {
         return String.format("/jsp/%s.jsp",target);
@@ -57,15 +59,15 @@ public class FrontControllerServlet extends HttpServlet {
         return String.format("/controller?command=%s",target);
     }
 
-    private FrontCommand getCommand(HttpServletRequest request){
+    private FrontCommand getCommand(HttpServletRequest request) {
+        String commandName = request.getParameter("command");
+        if (commandName == null) {
+            return new UnknownCommand();
+        }
         try {
-            Class<?> type = Class.forName(String.format(
-                    "com.motrechko.taxservice.commands.%sCommand",
-                    request.getParameter("command")));
-            return type
-                    .asSubclass(FrontCommand.class)
-                    .newInstance();
-        } catch (Exception e){
+            Class<?> type = Class.forName(String.format("com.motrechko.taxservice.commands.%sCommand", commandName));
+            return type.asSubclass(FrontCommand.class).newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             return new UnknownCommand();
         }
     }

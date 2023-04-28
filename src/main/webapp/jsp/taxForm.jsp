@@ -76,6 +76,7 @@
                         <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input id="POST-command" type="hidden" name="command" value="FormReport">
                             <input id="userID" type="hidden" name="userId" value="${sessionScope.currentUser.id}">
+                            <input id="idReport" type="hidden" name="idReport" value="">
                             <div class="mb-3"></div>
                             <div class="mb-3">
                                 <div class="row">

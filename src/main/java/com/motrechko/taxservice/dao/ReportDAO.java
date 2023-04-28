@@ -1,10 +1,7 @@
 package com.motrechko.taxservice.dao;
 
-import com.motrechko.taxservice.model.AdminReportView;
-import com.motrechko.taxservice.model.Report;
+import com.motrechko.taxservice.model.*;
 import com.motrechko.taxservice.exception.MySQLException;
-import com.motrechko.taxservice.model.ReportView;
-import com.motrechko.taxservice.model.UnverifiedReportsView;
 
 import java.util.List;
 
@@ -20,6 +17,7 @@ public interface ReportDAO {
      @throws MySQLException if a SQL exception occurs during the creation process
      */
     boolean create(Report report) throws MySQLException;
+
 
     /**
      Updates the user  report associated with an existing report in the database.
@@ -48,7 +46,7 @@ public interface ReportDAO {
      @return a list of reports view belonging to the specified user
      @throws MySQLException if a SQL exception occurs during the retrieval process
      */
-    List<ReportView> getReportViewByUserId(int userId) throws MySQLException;
+    List<ReportView> getReportViewByUserId(int userId, int startIndex, int endIndex) throws MySQLException;
     /**
      Deletes a report from the database.
      @throws MySQLException if a SQL exception occurs during the deletion process
@@ -57,11 +55,11 @@ public interface ReportDAO {
 
     /**
      Retrieves all unverified reports for a given inspector.
-     @param inspectorId the id of the inspector whose reports to retrieve
+     @param status the status of the reports
      @return a list of AdminReportView objects representing the unverified reports
      @throws MySQLException if a database access error occurs
      */
-    List<AdminReportView> getAllUnverifiedReports(int inspectorId) throws MySQLException;
+    List<AdminReportView> getAllUnverifiedReports(int idInspector, Status status, int page,int recordsPerPage) throws MySQLException;
     /**
      Gets an unverified report for this user.
      @param idUser the id of the user whose unverified report to retrieve
@@ -69,5 +67,10 @@ public interface ReportDAO {
      @throws MySQLException if a database access error occurs
      */
     UnverifiedReportsView getUnverifiedReports(int idUser) throws MySQLException;
+
+    int countReportsByUser(int idUser) throws MySQLException;
+    int countReportsByStatus(Status status) throws MySQLException;
+    int countUnverifiedReportByInspectorAndStatus(int idInspector, Status status) throws MySQLException;
+
 
 }

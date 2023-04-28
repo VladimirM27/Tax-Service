@@ -1,6 +1,7 @@
 package com.motrechko.taxservice.dao;
 
 import com.motrechko.taxservice.dao.impl.*;
+import com.motrechko.taxservice.service.ReportTypeService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,7 +42,8 @@ public  class DAOFactory implements IDAOFactory{
      */
     public ReportDAO getReportDAO() {
         logger.debug("Getting ReportDAO instance");
-        return new JdbcReportDAO();
+        ReportTypeService reportTypeService = new ReportTypeService();
+        return new JdbcReportDAO(reportTypeService);
     }
 
     @Override

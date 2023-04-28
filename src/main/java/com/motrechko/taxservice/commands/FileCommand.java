@@ -37,6 +37,7 @@ public class FileCommand extends FrontCommand {
         try {
             Part filePart = request.getPart("file");
             FileValidator fileValidator = new FileValidator(filePart);
+
             if (!fileValidator.validate()) {
                 SessionUtils.setError(request,"Wrong file format, make sure it is JSON or XML");
                 return new CommandResponse(Target.JSP, FrontConstant.ERROR);
@@ -44,14 +45,17 @@ public class FileCommand extends FrontCommand {
 
             String uploadPath = FIleUtils.saveFile(filePart,
                     servletContext.getRealPath(UPLOAD_PATH));
+
             Report report = null;
             if (fileValidator.getFileType() == FileType.XML) {
                 SAXController saxController = new SAXController(uploadPath);
+
                 if (!saxController.validateXMLSchema(servletContext)) {
                     SessionUtils.setError(request,"file is not valid XML schema");
                     return new CommandResponse(Target.JSP, FrontConstant.ERROR);
                 }
                 report = saxController.parse();
+
             } else if (fileValidator.getFileType() == FileType.JSON && JSONController.validateJSONSchema(servletContext, uploadPath)) {
                 report = JSONController.parseJSON(uploadPath);
             }

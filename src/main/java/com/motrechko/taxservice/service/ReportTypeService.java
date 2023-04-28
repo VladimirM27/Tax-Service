@@ -18,4 +18,16 @@ public class ReportTypeService {
             throw new ReportException("Error retrieving report type: {}" + e.getMessage(), e);
         }
     }
+
+    public ReportType getReportTypeByName(String name) throws ReportException, IllegalArgumentException {
+        if (name.isEmpty() || name.isBlank()) {
+            throw new IllegalArgumentException("Invalid name");
+        }
+        ReportTypeDAO reportTypeDAO = DAOFactory.getInstance().getReportTypeDAO();
+        try {
+            return reportTypeDAO.getReportTypeByName(name);
+        } catch (MySQLException e) {
+            throw new ReportException("Error retrieving report type: {}" + e.getMessage(), e);
+        }
+    }
 }
